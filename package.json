@@ -1,0 +1,16 @@
+{
+  "name": "nasa-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/AburizalAN/NASA-fullstack.git",
+  "author": "AburizalAN <56324469+AburizalAN@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "watch-client": "yarn --cwd client dev",
+    "watch-server": "yarn --cwd server start",
+    "watch": "run-p watch-client watch-server"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
