@@ -1,0 +1,79 @@
+open mysql on terminal
+mysql -u root -p
+then enter your password
+
+show engines;		            			=> untuk melihat storage engines yang tersedia di mysql
+show databases; 							=> show database yang tersedia
+use [nama database];          				=> memilih database yang digunakan
+show tables;		            			=> melihat semua daftar table yang tersedia
+
+
+create table [nama table]					=> create table
+(
+	[nama kolom] [tipe data],
+	[nama kolom] [tipe data],
+	[nama kolom] [tipe data]
+) engine = InnoDB;
+
+
+desc [nama table];						=> untuk melihat struktur table
+show create table [nama barang];				=> untuk melihat struktur dalam cara membuat table
+drop table [nama table]						=> menghapus table	
+
+alter table [nama barang]
+	add column [nama column] [tipe data],		=> menambah kolom baru
+	drop column [nama column],				=> menghapus kolom
+	rename column [nama column] to [nama baru]	=> merubah nama kolom
+	modify [nama kolom] [tipe data] after jumlah	=> modify tipe data dan menggeser posisi kolom setelah
+	modify [nama kolom] [tipe data] first;		=> modify tipe data dan menggeser posisi ke posisi pertama
+	
+
+Secara default setiap data dalam kolom dapat bernilai NULL, 
+jika data pada kolom tidak ingin null maka bisa menambahkan NOT NULL 
+ketika menambahkan atau memodify column,
+
+bisa juga menambahkan default value untuk setiap data dalam column
+dengan menambahkan DEFAULT [VALUE] pada saat create / edit table
+untuk timestamp dapat menambahkan value current_timestamp
+
+
+======================================INSERT DATA INTO TABLE=================================================
+=============================================================================================================
+
+======Insert======
+insert into [nama table] ([...column])
+values ([...values])
+
+======Select data from table======
+select * from [nama table];					=> jika ingin mengambil seluruh column dalam table
+select [...column] from [nama table]; 			=> jika ingin mengambil column tertentu saja
+
+=====Primary Key======
+- mysql support multiple column primary key
+
+alter table [nama table]
+	add primary key (column)				=> untuk menambahkan primary key pada table yang sudah dibuat
+
+
+where clause							=> untuk mencari data dengan kondisi tertentu
+
+======update data=======
+update [nama table]						=> untuk update data dengan kondisi tertentu
+set [column] = [value],
+    [column] = [value]
+where [condition];
+
+
+=======delete data======
+delete from [nama table]
+where [condition];
+
+
+
+======Alias===========
+select [nama column] as [nama baru];
+
+
+
+
+
