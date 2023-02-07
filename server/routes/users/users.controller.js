@@ -2,7 +2,7 @@ const formidable = require('formidable');
 const { getAllUsers, setUsers, updateUser, deleteUser } = require('../../models/users.model');
 const uuid = require('uuid');
 
-exports.getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res, next) => {
   try {
     const [data] = await getAllUsers();
     res.status(200).json({
@@ -10,10 +10,7 @@ exports.getAllUsers = async (req, res) => {
       data: data,
     });
   } catch (err) {
-    res.status(400).json({
-      message: "Server error",
-      serverMessage: err,
-    })
+    next(err);
   }
 };
 
@@ -28,7 +25,7 @@ exports.createNewUser = (req, res, next) => {
           address: fields.address,
         };
         await setUsers(data);
-        res.status(200).json({
+        res.status(201).json({
           message: 'success',
           data,
         });
@@ -54,6 +51,7 @@ exports.updateUser = (req, res, next) => {
           id: id,
           name: fields.name,
           email: fields.email,
+          address: fields.address,
         };
         await updateUser(id, data)    
         res.status(200).json({
@@ -69,10 +67,10 @@ exports.updateUser = (req, res, next) => {
   });
 };
 
-exports.deleteUser = (req, res, next) => {
+exports.deleteUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    deleteUser(id);
+    await deleteUser(id);
     res.status(200).json({
       message: "Success deleted user"
     })
