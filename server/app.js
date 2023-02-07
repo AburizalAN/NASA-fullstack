@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -16,7 +17,6 @@ app.use('/planets', planetsRoutes);
 app.use('/users', usersRoutes);
 
 app.use((error, req, res, next) => {
-  console.log('huhuhu', error)
   const status = error.errorStatus || 500;
   const message = error.message;
   const data = error.data;

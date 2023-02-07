@@ -27,10 +27,6 @@ const loadPlanetsData = () => {
       reject(err);
     })
     .on('end', () => {
-      console.log(habitablePlanets.map((planet) => {
-        return planet['kepler_name'];
-      }));
-      console.log(`${habitablePlanets.length} habitable planets found!`);
       resolve();
     });
   });

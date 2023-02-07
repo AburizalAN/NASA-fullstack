@@ -1,24 +1,33 @@
 const formidable = require('formidable');
-const { users, setUsers, updateUser, deleteUser } = require('../../models/users.model');
+const { getAllUsers, setUsers, updateUser, deleteUser } = require('../../models/users.model');
 const uuid = require('uuid');
 
-exports.getAllUsers = (req, res) => {
-  res.status(200).json(users);
-}
+exports.getAllUsers = async (req, res) => {
+  try {
+    const [data] = await getAllUsers();
+    res.status(200).json({
+      message: "berhasil",
+      data: data,
+    });
+  } catch (err) {
+    res.status(400).json({
+      message: "Server error",
+      serverMessage: err,
+    })
+  }
+};
 
 exports.createNewUser = (req, res, next) => {
   const form = formidable({ multiples: true });
-  const id = uuid.v1();
-
-  form.parse(req, (err, fields, files) => {
+  form.parse(req, async (err, fields, files) => {
     if (!err) {
       try {
         const data = {
-          id,
           name: fields.name,
           email: fields.email,
+          address: fields.address,
         };
-        setUsers(data);
+        await setUsers(data);
         res.status(200).json({
           message: 'success',
           data,
@@ -32,7 +41,7 @@ exports.createNewUser = (req, res, next) => {
   })
 
   
-}
+};
 
 exports.updateUser = (req, res, next) => {
   const { id } = req.params;
@@ -58,7 +67,7 @@ exports.updateUser = (req, res, next) => {
       next(err)
     }
   });
-}
+};
 
 exports.deleteUser = (req, res, next) => {
   try {
@@ -71,5 +80,5 @@ exports.deleteUser = (req, res, next) => {
     next(err)
   }
   
-}
+};
 
