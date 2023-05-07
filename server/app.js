@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const multer = require('multer');
+const upload = multer();
 
 const app = express();
 
@@ -13,6 +15,7 @@ const authRoutes = require('./routes/auth/auth.router');
 app.use(cors());
 app.use(morgan('combined'));
 app.use(express.json());
+app.use(upload.none());
 
 app.use('/planets', planetsRoutes);
 app.use('/users', usersRoutes);
