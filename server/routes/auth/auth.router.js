@@ -1,6 +1,6 @@
 const express = require("express");
 const authRouter = express.Router();
-const { register, login, logout } = require("./auth.controller");
+const { register, login, logout, getUserInfo } = require("./auth.controller");
 const { body, validationResult } = require("express-validator");
 
 const handleValidation = (req, res, next) => {
@@ -40,6 +40,7 @@ authRouter.post(
   handleValidation,
   login,
 );
+authRouter.get("/me", getUserInfo);
 authRouter.post("/logout", logout);
 
 module.exports = authRouter;

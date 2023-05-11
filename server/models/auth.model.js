@@ -42,27 +42,40 @@ exports.register = (data) => {
 };
 
 exports.login = (data) => {
-  return dbPool.execute(qCheckUsername, [data.username]).then(async ([result]) => {
-    try {
-      if (!result.length) {
-        const err = new Error("User not found!");
-        err.errorStatus = 404;
+  return dbPool
+    .execute(qCheckUsername, [data.username])
+    .then(async ([result]) => {
+      try {
+        if (!result.length) {
+          const err = new Error("User not found!");
+          err.errorStatus = 404;
+          throw err;
+        }
+        const dataUser = result[0];
+        const hashPass = dataUser.password;
+        const isAuthenticated = await bcrypt.compare(data.password, hashPass);
+        if (!isAuthenticated) {
+          const err = new Error("Hei passwordmu salah");
+          err.errorStatus = 404;
+          throw err;
+        };
+        return {
+          name: dataUser.name,
+          username: dataUser.username,
+          email: dataUser.email,
+        };
+      } catch (err) {
         throw err;
       }
+    });
+};
+
+exports.getUserData = (data) => {
+  return dbPool
+    .execute(qCheckUsername, [data.username])
+    .then(([result]) => {
       const dataUser = result[0];
-      const hashPass = dataUser.password;
-      const isAuthenticated = await bcrypt.compare(data.password, hashPass);
-      console.log("is auth", isAuthenticated);
-      if (!isAuthenticated) {
-        const err = new Error("Hei passwordmu salah");
-        err.errorStatus = 404;
-        throw err;
-      }
       delete dataUser.password;
       return dataUser;
-    } catch (err) {
-      console.log("err", err);
-      throw err;
-    }
-  });
+    });
 }
