@@ -16,7 +16,7 @@ const handleValidation = (req, res, next) => {
 
 authRouter.post(
   "/register",
-  body("name")
+  body("fullname")
     .notEmpty()
     .withMessage("Nama tidak boleh kosong")
     .isLength({ max: 48 })

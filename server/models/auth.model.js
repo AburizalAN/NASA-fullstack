@@ -7,8 +7,8 @@ const sqlQuery = `
   where email = ? or username = ?
 `;
 const q = `
-  insert into users(name, username, email, password, gender, address)
-    values (?, ?, ?, ?, ?, ?)
+  insert into users(fullname, username, email, password, gender, address, description, profile, avatar, role)
+    values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `;
 const qCheckUsername = `
   select * from users
@@ -16,29 +16,34 @@ const qCheckUsername = `
 `;
 
 exports.register = (data) => {
-  const { email, username, password, gender, name, address } = data;
-  return dbPool.execute(sqlQuery, [email, username]).then(async ([result]) => {
-    try {
-      if (result.length) {
-        throw {
-          errorStatus: 409,
-          message: "user already exists!",
-        };
+  return dbPool
+    .execute(sqlQuery, [data.email, data.username])
+    .then(async ([result]) => {
+      try {
+        if (result.length) {
+          throw {
+            errorStatus: 409,
+            message: "user already exists!",
+          };
+        }
+        const hash = await bcrypt.hash(data.password, saltRounds);
+        const res = await dbPool.execute(q, [
+          data.fullname,
+          data.username,
+          data.email,
+          hash,
+          data.gender ?? null,
+          data.address ?? null,
+          data.description ?? null,
+          data.profile ?? null,
+          data.avatar ?? null,
+          data.role ?? null,
+        ]);
+        return res;
+      } catch (err) {
+        throw err;
       }
-      const hash = await bcrypt.hash(password, saltRounds);
-      const res = await dbPool.execute(q, [
-        name,
-        username,
-        email,
-        hash,
-        gender,
-        address,
-      ]);
-      return res;
-    } catch (err) {
-      throw err;
-    }
-  });
+    });
 };
 
 exports.login = (data) => {
@@ -58,7 +63,7 @@ exports.login = (data) => {
           const err = new Error("Hei passwordmu salah");
           err.errorStatus = 404;
           throw err;
-        };
+        }
         return {
           name: dataUser.name,
           username: dataUser.username,
@@ -71,11 +76,9 @@ exports.login = (data) => {
 };
 
 exports.getUserData = (data) => {
-  return dbPool
-    .execute(qCheckUsername, [data.username])
-    .then(([result]) => {
-      const dataUser = result[0];
-      delete dataUser.password;
-      return dataUser;
-    });
-}
+  return dbPool.execute(qCheckUsername, [data.username]).then(([result]) => {
+    const dataUser = result[0];
+    delete dataUser.password;
+    return dataUser;
+  });
+};

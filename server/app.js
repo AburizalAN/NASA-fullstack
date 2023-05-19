@@ -11,6 +11,7 @@ const app = express();
 const planetsRoutes = require('./routes/planets/planets.router');
 const usersRoutes = require('./routes/users/users.router');
 const authRoutes = require('./routes/auth/auth.router');
+const postsRoutes = require('./routes/posts/posts.router');
 
 app.use(cors());
 app.use(morgan('combined'));
@@ -20,6 +21,7 @@ app.use(upload.none());
 app.use('/planets', planetsRoutes);
 app.use('/users', usersRoutes);
 app.use('/auth', authRoutes);
+app.use("/posts", postsRoutes);
 
 app.use((error, req, res, next) => {
   const status = error.errorStatus || 500;

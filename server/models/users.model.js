@@ -4,7 +4,7 @@ const dbPool = require("../config/database");
 
 const setUsers = ({ name, email, address }) => {
   const sqlQuery = `
-    insert into users (name, email, address)
+    insert into users (fullname, username, email, address)
     values (?, ?, ?)
   `;
   return dbPool.execute(sqlQuery, [name, email, address]);

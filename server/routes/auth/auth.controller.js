@@ -1,18 +1,9 @@
-const formidable = require("formidable");
 const { register, login, getUserData } = require("../../models/auth.model");
 const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res, next) => {
   try {
-    const data = {
-      name: req.body?.name,
-      email: req.body?.email,
-      username: req.body?.username,
-      password: req.body?.password,
-      gender: req.body?.gender ?? null,
-      address: req.body?.address ?? null,
-    };
-    const resData = await register(data);
+    const resData = await register(req.body);
     res.status(200).json({
       message: "berhasil",
       data: resData,
@@ -49,7 +40,6 @@ exports.getUserInfo = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
     const privateKey = process.env.JWT_SECRET_KEY;
     const decoded = jwt.verify(token, privateKey, privateKey);
-    console.log("decoded", decoded);
     const data = await getUserData(decoded);
     res.status(200).json({
       message: "success",
