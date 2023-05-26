@@ -1,10 +1,5 @@
 const { getPosts, getPostById } = require("../../models/posts.model");
 
-exports.createPost = (req, res, next) => {
-  const id = req.params.id;
-  return res.status(200).json({ message: `create posts : ${id}` })
-}
-
 exports.getPosts = async (req, res, next) => {
   try {
     const resData = await getPosts();
@@ -28,4 +23,14 @@ exports.getPostById = async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+}
+
+exports.createPost = (req, res, next) => {
+  const id = req.params.id;
+  return res.status(200).json({ message: `create posts : ${id}` });
+}
+
+exports.updatePost = (req, res, next) => {
+  const id = req.params.id;
+  return res.status(200).json({ message: `udpate posts : ${id}` })
 }

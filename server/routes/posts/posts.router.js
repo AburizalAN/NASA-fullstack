@@ -1,11 +1,12 @@
 const express = require("express");
 const postsRouter = express.Router();
-const { createPost, getPosts, getPostById } = require("./posts.controller");
-const jwt = require("jsonwebtoken")
+const { createPost, getPosts, getPostById, updatePost } = require("./posts.controller");
+const jwt = require("jsonwebtoken");
+const handleValidation = require("../../middleware/handleValidation");
+const { body } = require("express-validator");
 
 const requireLogin = async (req, res, next) => {
   try {
-    
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       const err = new Error("Not Autheticated");
@@ -27,16 +28,19 @@ const requireLogin = async (req, res, next) => {
   }
 }
 
-postsRouter.get("/", getPosts)
+postsRouter.get("/", getPosts);
 
-postsRouter.get("/:id", getPostById)
+postsRouter.get("/:id", getPostById);
 
-postsRouter.post("/:id", requireLogin, createPost)
+postsRouter.post(
+  "/:id",
+  requireLogin,
 
-postsRouter.put("/:id", requireLogin, (req, res, next) => {
-  const id = req.params.id;
-  return res.status(200).json({ message: `create posts : ${id}` })
-})
+  handleValidation,
+  createPost,
+);
+
+postsRouter.put("/:id", requireLogin, updatePost);
 
 postsRouter.delete("/:id", requireLogin, (req, res, next) => {
   const id = req.params.id;
