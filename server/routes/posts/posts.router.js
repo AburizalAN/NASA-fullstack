@@ -35,7 +35,7 @@ postsRouter.get("/:id", getPostById);
 postsRouter.post(
   "/:id",
   requireLogin,
-
+  
   handleValidation,
   createPost,
 );
