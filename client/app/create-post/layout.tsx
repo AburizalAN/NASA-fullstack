@@ -6,7 +6,7 @@ const Layout = ({ children }: { children: React.ReactNode } ) => {
       <div>
         <NavbarCreatePost />
       </div>
-      <main className="w-full mx-auto px-4 flex-1">
+      <main className="w-full mx-auto flex-1">
         {children}
       </main>
     </div>
