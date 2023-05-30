@@ -2,23 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-color: 255, 255, 255;
-}
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-color: 0, 0, 0;
-  }
-} */
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-color));
-}
-
 @layer components {
   .btn-editor {
     @apply py-1 px-2 rounded-sm border border-gray-300;
@@ -26,7 +9,31 @@ body {
   .btn-editor-active {
     @apply py-1 px-2 rounded-sm bg-slate-900 text-white;
   }
-  /* ... */
+
+  @mixin btnDefault {
+    @apply text-sm rounded-md transition-all py-2 px-4 shadow-md shadow-stone-100;
+  }
+
+  .btn {
+    @include btnDefault;
+    @apply bg-slate-200 hover:bg-slate-300;
+    &.btn-primary {
+      @apply text-white bg-sky-600 hover:bg-sky-700;
+    }
+  }
+  .btn-outlined {
+    @include btnDefault;
+    @apply bg-transparent border border-slate-200 hover:border-slate-300 hover:bg-gray-50;
+    &.btn-primary {
+      @apply text-sky-600 hover:text-sky-700 border border-sky-600 hover:border-sky-700 bg-transparent hover:bg-slate-100;
+    }
+  }
+  .disclosure {
+    @apply border-y border-b-0 last:border-b;
+    .header {
+      @apply p-3 flex justify-between items-center w-full hover:bg-slate-100 transition-all font-semibold text-gray-500;
+    }
+  }
 }
 
 @layer base {
@@ -51,12 +58,29 @@ body {
   a {
     @apply text-blue-600 underline;
   }
-  ul {
-    @apply list-disc pl-4;
+  input {
+    @apply placeholder:text-gray-400;
+    &[type="checkbox"] {
+      @apply h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500;
+    }
   }
-  ol {
-    @apply list-decimal;
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-color: 255, 255, 255;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-color: 0, 0, 0;
   }
+} */
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-color));
 }
 
 .ProseMirror {
@@ -70,7 +94,7 @@ body {
     pointer-events: none;
   }
   @for $i from 1 through 8 {
-    [data-indent='#{$i}'] {
+    [data-indent="#{$i}"] {
       $val: $i * 1rem;
       padding-left: $val;
     }

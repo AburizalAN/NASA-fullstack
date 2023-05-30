@@ -9,8 +9,8 @@ const NavbarCreatePost = () => {
         </div>
         <div className="">
           <div className="flex gap-x-3">
-            <button className="py-2 px-4 text-sm rounded-md bg-slate-200 hover:bg-slate-300 transition-all">Save draft</button>
-            <button className="py-2 px-4 text-sm text-white rounded-md bg-sky-600 hover:bg-sky-700 transition-all">Publish</button>
+            <button className="btn">Save draft</button>
+            <button className="btn btn-primary">Publish</button>
           </div>
         </div>
       </div>
