@@ -10,7 +10,7 @@ import * as React from "react";
 const CreatePost = () => {
   return (
     <div className="flex h-full">
-      <div className="basis-3/4 w-full max-w-[75%] py-16 px-4">
+      <div className="flex-1 min-w-0 py-16 px-4">
         <div className="pl-9 mb-5">
           <input
             placeholder="Untitled"
@@ -21,7 +21,7 @@ const CreatePost = () => {
         </div>
         <BlockNote />
       </div>
-      <div className="basis-1/4 max-w-[25%] border-x">
+      <div className="w-[350px] border-x">
         <div className="disclosure border-t-0">
           <Disclosure defaultOpen={true}>
             {({ open }) => (

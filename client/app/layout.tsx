@@ -1,7 +1,9 @@
-"use-client";
+"use client";
 
 import './globals.scss'
 import { Inter } from 'next/font/google'
+import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost"
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,9 +17,29 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname();
+
+  const renderNavbar = () => {
+    switch (pathname) {
+      case "/create-post":
+        return <NavbarCreatePost />
+      default:
+        return null
+    }
+  }
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="flex flex-col h-screen">
+          <div>
+            {renderNavbar()}
+          </div>
+          <main className="w-full mx-auto flex-1">
+            {children}
+          </main>
+        </div>
+      </body>
     </html>
   )
 }

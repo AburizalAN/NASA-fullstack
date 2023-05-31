@@ -1,10 +1,10 @@
-import BlockNote from '@/components/BlockNote'
-import Image from 'next/image'
+"use client";
 
-export default function Home() {
+import dynamic from "next/dynamic";
+const Home = dynamic(() => import("@/components/content/Home"), { ssr: false });
+
+export default function Index() {
   return (
-    <main>
-      <BlockNote />
-    </main>
-  )
+    <Home />
+  );
 }

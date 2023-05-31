@@ -8,7 +8,7 @@ interface ButtonProps {
   variant?: string | undefined | null;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, variant, color, block }) => {
+const Button: React.FC<ButtonProps> = ({ children, variant, color = "primary", block }) => {
   const mergedClass = clsx(
     variant === "outlined" ? `btn-outlined` : 'btn',
     color && `btn-${color}`,
@@ -16,12 +16,6 @@ const Button: React.FC<ButtonProps> = ({ children, variant, color, block }) => {
   );
 
   return <button className={mergedClass}>{children}</button>;
-};
-
-Button.defaultProps = {
-  color: "primary",
-  block: false,
-  variant: undefined,
 };
 
 export default Button;
