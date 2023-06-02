@@ -35,7 +35,7 @@
     }
   }
   .post-card-item {
-    @apply border border-slate-50 rounded-xl shadow-lg shadow-indigo-100 min-w-0 m-3 bg-white;
+    @apply rounded-xl shadow-lg shadow-indigo-100 min-w-0 m-3 bg-white;
   }
 }
 
@@ -68,9 +68,9 @@
     }
   }
   .navbar-menu-item {
-    @apply text-slate-400 hover:text-slate-600 transition-all duration-300 font-semibold;
+    @apply text-slate-500 hover:text-indigo-900 transition-all duration-300 font-semibold;
     &.menu-active {
-      @apply text-rose-400;
+      @apply text-indigo-500;
     }
   }
 }
@@ -111,5 +111,5 @@ body {
 }
 
 .navbar-shadow {
-  box-shadow: rgba(30, 27, 75, 0.15) 0px 10px 15px -3px;
+  box-shadow: rgba(30, 27, 75, 0.12) 0px 10px 15px -10px;
 }

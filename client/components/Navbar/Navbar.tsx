@@ -23,23 +23,20 @@ const Navbar = () => {
   }, []);
 
   const mergedClass = clsx(
-    "bg-white text-gray-500 z-50 w-full fixed transition-all",
+    "bg-white text-gray-500 z-50 w-full fixed transition-all duration-300",
     scrollPosition > 0 ? "navbar-shadow" : ""
   );
 
   return (
     <>
       <nav ref={navRef} className={mergedClass}>
-        <div className="flex py-4 px-4 items-center w-full max-w-6xl mx-auto">
-          <div className="text-xl font-bold mr-24">Logo</div>
-          <div className="flex-1 flex gap-x-8 text-sm">
+        <div className="flex py-4 px-4 items-center justify-center w-full max-w-6xl mx-auto">
+          <div className="text-xl font-bold mr-12 flex-1 text-indigo-900">Logo</div>
+          <div className="flex gap-x-8 text-sm">
             <button className="navbar-menu-item">Programming</button>
             <button className="navbar-menu-item">Tech Info</button>
             <button className="navbar-menu-item">News</button>
             <button className="navbar-menu-item menu-active">About me</button>
-          </div>
-          <div className="flex gap-x-3">
-            <Button color={null}>Right Button</Button>
           </div>
         </div>
       </nav>

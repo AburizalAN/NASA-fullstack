@@ -1,10 +1,22 @@
 "use client";
 
+import Spline from '@splinetool/react-spline';
+
 const Header = () => {
   return (
-    <header className="py-24 px-3">
-      <h1>Hello World</h1>
-      <h1>My Name is Aburizal Adi Nugroho</h1>
+    <header className="flex h-[600px] relative">
+      <div className="pl-4 my-auto">
+        <h1 className="font-bold text-[70px] leading-[1.1] text-indigo-900">
+          Hello World
+          <br />
+          My Name is
+          <br />
+          AburizalAN
+        </h1>
+      </div>
+      <div className="flex-1">
+        <Spline scene="https://prod.spline.design/SKsWVJFW-X2v0KdW/scene.splinecode" />
+      </div>
     </header>
   )
 }
