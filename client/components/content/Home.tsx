@@ -15,17 +15,13 @@ export default function Home() {
             <div className="rounded-t-xl flex items-center justify-center overflow-hidden">
               <img
                 src="https://dummyimage.com/600x400/a5f3fc/ffffff.png"
-                className="w-full h-full"
+                className="w-full h-full block"
                 loading="lazy"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                }}
               />
             </div>
             <div className="p-4 sm:p-6">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 mb-4">
-                Lorem Ipsum Dolor sit amet
+                1.Lorem Ipsum Dolor sit amet
               </h1>
               <p className="text-sm text-gray-500">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
@@ -40,17 +36,13 @@ export default function Home() {
             <div className="rounded-t-xl flex items-center justify-center overflow-hidden">
               <img
                 src="https://dummyimage.com/600x600/fed7aa/ffffff.png"
-                className="w-full h-full"
+                className="w-full h-full block"
                 loading="lazy"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                }}
               />
             </div>
             <div className="p-4 sm:p-6">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 mb-4">
-                Lorem Ipsum Dolor sit amet
+                2. Lorem Ipsum Dolor sit amet
               </h1>
               <p className="text-sm text-gray-500">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
@@ -66,17 +58,13 @@ export default function Home() {
             <div className="rounded-t-xl flex items-center justify-center overflow-hidden">
               <img
                 src="https://dummyimage.com/600x450/8b5cf6/ffffff.png"
-                className="w-full h-full"
+                className="w-full h-full block"
                 loading="lazy"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                }}
               />
             </div>
             <div className="p-4 sm:p-6">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 mb-4">
-                Lorem Ipsum Dolor sit amet
+                3. Lorem Ipsum Dolor sit amet
               </h1>
               <p className="text-sm text-gray-500">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
@@ -102,7 +90,7 @@ export default function Home() {
             </div>
             <div className="p-4 sm:p-6">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 mb-4">
-                Lorem Ipsum Dolor sit amet
+                4. Lorem Ipsum Dolor sit amet
               </h1>
               <p className="text-sm text-gray-500">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
@@ -126,7 +114,7 @@ export default function Home() {
             </div>
             <div className="p-4 sm:p-6">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 mb-4">
-                Lorem Ipsum Dolor sit amet
+                5. Lorem Ipsum Dolor sit amet
               </h1>
               <p className="text-sm text-gray-500">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
@@ -142,7 +130,7 @@ export default function Home() {
             </div>
             <div className="p-4 sm:p-6">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 mb-4">
-                Lorem Ipsum Dolor sit amet
+                6. Lorem Ipsum Dolor sit amet
               </h1>
               <p className="text-sm text-gray-500">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla

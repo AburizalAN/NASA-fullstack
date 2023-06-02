@@ -33,8 +33,17 @@ const useWindowWidth = () => {
 const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
   const windowWidth = useWindowWidth();
 
+  const masonryRef = React.useRef<HTMLDivElement>(null);
+  const observer = React.useRef(
+    typeof ResizeObserver === "undefined"
+      ? undefined
+      : new ResizeObserver(() => runMasonryScript())
+  );
+  const colsRef = React.useRef<number>(0);
+
   const runMasonryScript = () => {
     const columns: ColumnsObj = {};
+    const cols = colsRef.current;
 
     for (let i = 0; i < cols; i++) {
       columns[i] = 0;
@@ -58,10 +67,9 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
 
     const container: HTMLElement | null = document.getElementById("masonry");
     if (container) {
-      const padding = gap / 2;
       const width = container?.clientWidth;
       const colWidth = width / cols - gap;
-  
+
       const childs = document.querySelectorAll<HTMLElement>(".masonry-item");
       if (childs) {
         for (let i = 0; i < childs.length; i++) {
@@ -70,17 +78,31 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
           childs[i].style.width = `${colWidth}px`;
           columns[col] = columns[col] + childs[i].clientHeight + gap;
         }
-        container.style.height = `calc(${getMaxHeight() + 30}px)`
+        container.style.height = `calc(${getMaxHeight() + 30}px)`;
       }
-    };
-  }
+    }
+  };
 
   React.useEffect(() => {
-    runMasonryScript();
-  }, [windowWidth, cols]);
+    colsRef.current = cols;
+  }, [cols]);
+
+  React.useEffect((): any => {
+    const resizeObserver = observer.current;
+    if (resizeObserver === undefined) {
+      return undefined;
+    }
+    if (masonryRef.current) {
+      masonryRef.current?.childNodes.forEach((childNode: any) => {
+        resizeObserver?.observe(childNode);
+      });
+    }
+    return () => resizeObserver ? resizeObserver.disconnect() : {};
+  }, [windowWidth]);
 
   return (
     <div
+      ref={masonryRef}
       id="masonry"
       className="relative w-full flex flex-col flex-wrap content-start"
     >
