@@ -3,6 +3,7 @@
 import './globals.scss'
 import { Inter } from 'next/font/google'
 import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost"
+import Navbar from "@/components/Navbar/Navbar";
 import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,7 +25,7 @@ export default function RootLayout({
       case "/create-post":
         return <NavbarCreatePost />
       default:
-        return null
+        return <Navbar />
     }
   }
 
@@ -32,9 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="flex flex-col h-screen">
-          <div>
-            {renderNavbar()}
-          </div>
+          {renderNavbar()}
           <main className="w-full mx-auto flex-1">
             {children}
           </main>

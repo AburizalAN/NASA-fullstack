@@ -35,7 +35,7 @@
     }
   }
   .post-card-item {
-    @apply border border-slate-50 rounded-xl shadow-lg shadow-slate-100 min-w-0 m-3 bg-white;
+    @apply border border-slate-50 rounded-xl shadow-lg shadow-indigo-100 min-w-0 m-3 bg-white;
   }
 }
 
@@ -65,6 +65,12 @@
     @apply placeholder:text-gray-400;
     &[type="checkbox"] {
       @apply h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-500;
+    }
+  }
+  .navbar-menu-item {
+    @apply text-slate-400 hover:text-slate-600 transition-all duration-300 font-semibold;
+    &.menu-active {
+      @apply text-rose-400;
     }
   }
 }
@@ -102,4 +108,8 @@ body {
       padding-left: $val;
     }
   }
+}
+
+.navbar-shadow {
+  box-shadow: rgba(30, 27, 75, 0.15) 0px 10px 15px -3px;
 }

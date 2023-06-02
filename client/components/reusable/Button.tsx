@@ -6,13 +6,15 @@ interface ButtonProps {
   color?: string | undefined | null;
   block?: boolean;
   variant?: string | undefined | null;
+  size?: "sm" | "md" | "lg";
 }
 
-const Button: React.FC<ButtonProps> = ({ children, variant, color = "primary", block }) => {
+const Button: React.FC<ButtonProps> = ({ children, variant, color = "primary", block, size = "md" }) => {
   const mergedClass = clsx(
     variant === "outlined" ? `btn-outlined` : 'btn',
     color && `btn-${color}`,
-    block && "block w-full"
+    block && "block w-full",
+    size && `text-${size},` 
   );
 
   return <button className={mergedClass}>{children}</button>;

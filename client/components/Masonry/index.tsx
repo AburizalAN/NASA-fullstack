@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import clsx from "clsx";
-
+import useWindowWidth from "@/hooks/useWindowWidth";
 interface MasonryProps {
   children: React.ReactNode;
   cols: number;
@@ -18,17 +18,6 @@ interface MasonryItemProps {
   className?: string;
   style?: React.CSSProperties;
 }
-
-const useWindowWidth = () => {
-  const [windowWidth, setWindowWidth] = React.useState<any>(0);
-
-  React.useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
-  }, []);
-
-  return windowWidth;
-};
 
 const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
   const windowWidth = useWindowWidth();
@@ -67,6 +56,7 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
 
     const container: HTMLElement | null = document.getElementById("masonry");
     if (container) {
+      const padding = gap / 2;
       const width = container?.clientWidth;
       const colWidth = width / cols - gap;
 
@@ -74,11 +64,16 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
       if (childs) {
         for (let i = 0; i < childs.length; i++) {
           const col = getCol();
-          childs[i].style.order = `${col + 1}`;
+          // childs[i].style.order = `${col + 1}`;
+          // childs[i].style.width = `${colWidth}px`;
+          // columns[col] = columns[col] + childs[i].clientHeight + gap;
+          childs[i].style.position = "absolute";
+          childs[i].style.top = `${columns[col]}px`;
+          childs[i].style.left = `${padding + col * (colWidth + gap)}px`;
           childs[i].style.width = `${colWidth}px`;
           columns[col] = columns[col] + childs[i].clientHeight + gap;
         }
-        container.style.height = `calc(${getMaxHeight() + 30}px)`;
+        container.style.height = `calc(${getMaxHeight()}px + 16px)`;
       }
     }
   };
@@ -97,14 +92,15 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
         resizeObserver?.observe(childNode);
       });
     }
-    return () => resizeObserver ? resizeObserver.disconnect() : {};
+    return () => (resizeObserver ? resizeObserver.disconnect() : {});
   }, [windowWidth]);
 
   return (
     <div
       ref={masonryRef}
       id="masonry"
-      className="relative w-full flex flex-col flex-wrap content-start"
+      // className="relative w-full flex flex-col flex-wrap content-start"
+      className="relative"
     >
       {children}
     </div>

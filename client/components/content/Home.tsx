@@ -2,13 +2,14 @@
 
 import Masonry, { MasonryItem } from "@/components/Masonry";
 import useWindowWidth from "@/hooks/useWindowWidth";
-import Image from "../Image";
+import Header from "@/components/content/Header";
 
 export default function Home() {
   const windowWidth = useWindowWidth();
   const cols = windowWidth < 641 ? 1 : windowWidth < 993 ? 2  : 3;
   return (
-    <div className="max-w-7xl m-auto">
+    <div className="max-w-6xl m-auto">
+      <Header />
       <Masonry cols={cols}>
         <MasonryItem>
           <div className="post-card-item">
