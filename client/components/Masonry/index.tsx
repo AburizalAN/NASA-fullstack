@@ -34,6 +34,8 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
     const columns: ColumnsObj = {};
     const cols = colsRef.current;
 
+    console.log("run masonry script");
+
     for (let i = 0; i < cols; i++) {
       columns[i] = 0;
     }
@@ -92,8 +94,9 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
         resizeObserver?.observe(childNode);
       });
     }
+    resizeObserver?.observe(document.body);
     return () => (resizeObserver ? resizeObserver.disconnect() : {});
-  }, [windowWidth]);
+  }, []);
 
   return (
     <div

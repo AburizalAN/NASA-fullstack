@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className="flex h-[600px] relative">
       <div className="pl-4 my-auto">
-        <h1 className="font-bold text-[70px] leading-[1.1] text-indigo-900">
+        <h1 className="font-extrabold text-[70px] leading-[1.1] text-indigo-900">
           Hello World
           <br />
           My Name is

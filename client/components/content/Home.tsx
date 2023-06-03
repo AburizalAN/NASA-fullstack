@@ -2,7 +2,8 @@
 
 import Masonry, { MasonryItem } from "@/components/Masonry";
 import useWindowWidth from "@/hooks/useWindowWidth";
-import Header from "@/components/content/Header";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("@/components/content/Header"), { ssr: false });
 
 export default function Home() {
   const windowWidth = useWindowWidth();

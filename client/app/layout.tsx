@@ -1,11 +1,12 @@
 "use client";
 
 import './globals.scss'
-import { Inter } from 'next/font/google'
+import { Inter, Nunito_Sans } from 'next/font/google'
 import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost"
 import Navbar from "@/components/Navbar/Navbar";
 import { usePathname } from 'next/navigation';
 
+const nunito = Nunito_Sans({ subsets: ['latin'] })
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
