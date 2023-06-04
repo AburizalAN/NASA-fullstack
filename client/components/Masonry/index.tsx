@@ -89,12 +89,12 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
     if (resizeObserver === undefined) {
       return undefined;
     }
+    resizeObserver?.observe(document.body);
     if (masonryRef.current) {
       masonryRef.current?.childNodes.forEach((childNode: any) => {
         resizeObserver?.observe(childNode);
       });
     }
-    resizeObserver?.observe(document.body);
     return () => (resizeObserver ? resizeObserver.disconnect() : {});
   }, []);
 
