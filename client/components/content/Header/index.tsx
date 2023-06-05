@@ -15,7 +15,9 @@ const Header = () => {
         </h1>
       </div>
       <div className="flex-1">
-        <Spline scene="https://prod.spline.design/SKsWVJFW-X2v0KdW/scene.splinecode" />
+        <div className="h-full">
+          <Spline scene="https://prod.spline.design/QlVaiYN0MV-wzLAa/scene.splinecode" />
+        </div>
       </div>
     </header>
   )

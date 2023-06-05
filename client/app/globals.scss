@@ -92,24 +92,6 @@ body {
   background: rgb(var(--background-color));
 }
 
-.ProseMirror {
-  outline: none;
-  /* Placeholder (at the top) */
-  .is-empty:first-child::before {
-    color: #adb5bd;
-    content: attr(data-placeholder);
-    float: left;
-    height: 0;
-    pointer-events: none;
-  }
-  @for $i from 1 through 8 {
-    [data-indent="#{$i}"] {
-      $val: $i * 1rem;
-      padding-left: $val;
-    }
-  }
-}
-
 .navbar-shadow {
   box-shadow: rgba(30, 27, 75, 0.12) 0px 10px 15px -10px;
 }

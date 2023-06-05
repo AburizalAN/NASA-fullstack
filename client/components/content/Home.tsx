@@ -9,8 +9,8 @@ export default function Home() {
   const windowWidth = useWindowWidth();
   const cols = windowWidth < 641 ? 1 : windowWidth < 993 ? 2  : 3;
   return (
-    <div className="max-w-6xl m-auto">
-      <Header />
+    <div className="max-w-6xl m-auto pt-5">
+      {/* <Header /> */}
       <Masonry cols={cols}>
         <MasonryItem>
           <div className="post-card-item">
