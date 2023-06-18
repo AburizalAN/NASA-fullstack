@@ -37,6 +37,26 @@
   .post-card-item {
     @apply rounded-xl shadow-lg shadow-indigo-100 min-w-0 m-3 bg-white;
   }
+  .divider {
+    border-block-start: 1px solid rgba(5, 5, 5, 0.06);
+  }
+  .blog-post-content {
+    * {
+      @apply text-gray-600;
+    }
+    > p {
+      @apply mb-6 last:mb-0 leading-relaxed;
+    }
+    > h4 {
+      @apply font-bold mb-2 text-indigo-950;
+    }
+    > ul {
+      @apply list-disc list-inside leading-relaxed mb-6 last:mb-0;
+    }
+    > ol {
+      @apply list-decimal list-inside leading-relaxed mb-6 last:mb-0;
+    }
+  } 
 }
 
 @layer base {

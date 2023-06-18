@@ -1,4 +1,4 @@
-const { getPosts, getPostById } = require("../../models/posts.model");
+const { getPosts, getPostById, createPost, updatePost } = require("../../models/posts.model");
 
 exports.getPosts = async (req, res, next) => {
   try {
@@ -25,12 +25,45 @@ exports.getPostById = async (req, res, next) => {
   }
 }
 
-exports.createPost = (req, res, next) => {
-  const id = req.params.id;
-  return res.status(200).json({ message: `create posts : ${id}` });
+exports.createPost = async (req, res, next) => {
+  const data = {
+    author_id: req.body.author_id ?? null,
+    title: req.body.title ?? null,
+    content: req.body.content ?? null,
+    published: req.body.published ?? null,
+    parent_id: req.body.parent_id ?? null,
+    meta_title: req.body.meta_title ?? null,
+    slug: req.body.slug ?? null,
+    summary: req.body.summary ?? null,
+    created_at: req.body.created_at ?? null,
+    update_at: req.body.update_at ?? null,
+    published_at: req.body.published_at ?? null,
+    category_id: req.body.category_id ?? null,
+  }
+
+  try {
+    const resData = await createPost(data);
+    return res.status(200).json({
+      message: "Success",
+      data: resData,
+    })
+  } catch (err) {
+    next(err)
+  };
 }
 
-exports.updatePost = (req, res, next) => {
+exports.updatePost = async (req, res, next) => {
+  console.log("params", req.params);
   const id = req.params.id;
-  return res.status(200).json({ message: `udpate posts : ${id}` })
+  const data = req.body;
+
+  try {
+    const resData = await updatePost(data, id);
+    return res.status(200).json({
+      message: "Success",
+      data: resData,
+    })
+  } catch (err) {
+    next(err)
+  }
 }
