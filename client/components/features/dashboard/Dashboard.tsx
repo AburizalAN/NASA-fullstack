@@ -1,17 +1,20 @@
 "use client";
 
-import { MdOutlineVisibility } from "react-icons/md";
+import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import * as React from "react";
 
 const Dashboard = () => {
   const passRef = React.useRef<HTMLInputElement>(null);
+  const [passVisible, setPassVisible] = React.useState<boolean>(false);
   const togglePassword = () => {
     const passElement: any = passRef.current;
     const type: string = passElement.type;
     if (type === "password") {
       passElement.type = "text";
+      setPassVisible(true);
     } else {
       passElement.type = "password";
+      setPassVisible(false);
     }
   }
 
@@ -28,10 +31,17 @@ const Dashboard = () => {
             className="outline-none w-full flex-1"
           />
           <button onClick={togglePassword}>
-            <MdOutlineVisibility
-              size={16}
-              className="text-gray-500"
-            />
+            {!passVisible ? (
+              <MdOutlineVisibility
+                size={16}
+                className="text-gray-500"
+              />
+            ) : (
+              <MdOutlineVisibilityOff
+                size={16}
+                className="text-gray-500"
+              />
+            )}
           </button>
         </div>
       </div>
