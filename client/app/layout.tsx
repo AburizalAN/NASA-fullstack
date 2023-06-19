@@ -22,12 +22,13 @@ export default function RootLayout({
   const pathname = usePathname();
 
   const renderNavbar = () => {
-    switch (pathname) {
-      case "/create-post":
-        return <NavbarCreatePost />
-      default:
-        return <Navbar />
+    if (pathname === "/dashboard") {
+      return null
     }
+    if (pathname === "/dashboard/create-post") {
+      return <NavbarCreatePost />
+    }
+    return <Navbar />
   }
 
   return (

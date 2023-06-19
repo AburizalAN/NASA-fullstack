@@ -15,9 +15,9 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms')({
-      strategy: "base"
-    }),
-  ],
+  // plugins: [
+  //   require('@tailwindcss/forms')({
+  //     strategy: "base"
+  //   }),
+  // ],
 }

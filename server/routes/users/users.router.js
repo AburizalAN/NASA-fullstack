@@ -7,10 +7,11 @@ const {
   updateUser,
   deleteUser,
 } = require('./users.controller');
+const requireLogin = require("../../middleware/requireLogin");
 
 usersRouter.get('/', getAllUsers);
 
-usersRouter.get("/:id", getUserById);
+usersRouter.get("/:id", requireLogin, getUserById);
 
 usersRouter.post('/create', createNewUser);
 

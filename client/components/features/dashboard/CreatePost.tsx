@@ -1,6 +1,6 @@
 "use client";
 
-import BlockNote from "../BlockNote";
+import BlockNote from "@/components/BlockNote";
 import { Disclosure, RadioGroup, Transition } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa";
 import { HiPlus } from "react-icons/Hi";
@@ -10,7 +10,7 @@ import * as React from "react";
 const CreatePost = () => {
   return (
     <div className="flex h-full">
-      <div className="flex-1 min-w-0 py-16 px-4">
+      <div className="flex-1 min-w-0 max-w-4xl mx-auto py-16 px-4">
         <div className="pl-9 mb-5">
           <input
             placeholder="Untitled"

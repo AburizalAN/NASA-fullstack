@@ -1,6 +1,6 @@
 "use client";
 
-import CreatePost from "@/components/posts/CreatePost";
+import CreatePost from "@/components/features/dashboard/CreatePost";
 
 const Page = () => {
   return (
