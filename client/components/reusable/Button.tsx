@@ -9,24 +9,29 @@ interface ButtonProps {
   size?: "sm" | "md" | "lg";
   className?: string;
   onClick?: () => void;
-  type?: string,
+  type?: "button" | "reset" | "submit";
 }
 
-const Button = ({ children, variant, color = "primary", block, size = "md", className, onClick, ...rest }: ButtonProps) => {
+const Button = ({
+  children,
+  variant,
+  color = "primary",
+  block,
+  size = "md",
+  className,
+  onClick,
+  ...rest
+}: ButtonProps) => {
   const mergedClass = clsx(
-    variant === "outlined" ? `btn-outlined` : 'btn',
+    variant === "outlined" ? `btn-outlined` : "btn",
     color && `btn-${color}`,
     block && "block w-full",
     size && `text-${size}`,
-    className,
+    className
   );
 
   return (
-    <button
-      onClick={onClick}
-      className={mergedClass}
-      {...rest}
-    >
+    <button onClick={onClick} className={mergedClass} {...rest}>
       {children}
     </button>
   );

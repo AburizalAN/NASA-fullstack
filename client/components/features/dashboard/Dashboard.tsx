@@ -24,7 +24,10 @@ const Dashboard = () => {
     formState: { errors },
   } = useForm<Inputs>({ mode: "onChange" });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    
+
+  };
 
   const togglePassword = () => {
     const passElement: any = passRef.current;
@@ -42,7 +45,7 @@ const Dashboard = () => {
     <div className="h-full grid place-items-center">
       <div className="border rounded-xl p-4 w-[500px] shadow-lg shadow-indigo-50">
         <h4 className="font-semibold text-center mb-3">Login</h4>
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="mb-3">
             <Controller
               name="username"
@@ -73,10 +76,11 @@ const Dashboard = () => {
               render={({ field }) => (
                 <div className="input shadow-none flex items-center">
                   <input
+                    {...field}
                     placeholder="Password"
                     type="password"
                     className="outline-none w-full flex-1"
-                    {...field}
+                    ref={passRef}
                   />
                   <button onClick={togglePassword}>
                     {!passVisible ? (
