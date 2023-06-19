@@ -5,16 +5,29 @@ import * as React from "react";
 import { Button } from "@/components/reusable";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import useSWRHandler from "@/hooks/useSWR";
+import useFetch from "@/hooks/useFetch";
+import useAxios from "@/hooks/useAxios";
 
 type Inputs = {
   username: string
   password: string
 }
 
+const axios = useAxios();
+
 const Dashboard = () => {
   const passRef = React.useRef<HTMLInputElement>(null);
   const [passVisible, setPassVisible] = React.useState<boolean>(false);
   // const { data } = useSWRHandler();
+
+  const { action: login, isLoading: loadingLogin } = useFetch(async (data: Inputs) => {
+    try {
+      const res = await axios.post("/auth/login", data);
+      return res.data
+    } catch (err) {
+      console.log(err);
+    }
+  });
 
   const {
     register,
@@ -24,9 +37,10 @@ const Dashboard = () => {
     formState: { errors },
   } = useForm<Inputs>({ mode: "onChange" });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    
-
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (Object.keys(errors).length === 0) {
+      await login(data);
+    }
   };
 
   const togglePassword = () => {
@@ -96,8 +110,13 @@ const Dashboard = () => {
               <div className="text-xs leading-relaxed text-red-500">{errors.password.message}</div>
             ) : null}
           </div>
-          <Button onClick={handleSubmit(onSubmit)} type="submit" className="mt-5" block>
-            Login
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            type="submit"
+            className="mt-5"
+            block
+          >
+            {loadingLogin ? "loading" : "Login"}
           </Button>
         </form>
       </div>

@@ -1,9 +1,9 @@
 import axios from "axios"
 import Cookies from "js-cookie"
 
-const token = Cookies.get("jwtToken");
+const token = Cookies.get("jwtToken") ?? "";
 
-const useAxios = ({ headers }: any) => {
+const useAxios = ({ headers }: any = {}) => {
   return axios.create({
     baseURL: process.env.apiBaseUrl,
     headers: {
