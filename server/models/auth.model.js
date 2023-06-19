@@ -53,7 +53,7 @@ exports.login = (data) => {
       try {
         if (!result.length) {
           const err = new Error("User not found!");
-          err.errorStatus = 404;
+          err.errorStatus = 400;
           throw err;
         }
         const dataUser = result[0];
@@ -61,7 +61,7 @@ exports.login = (data) => {
         const isAuthenticated = await bcrypt.compare(data.password, hashPass);
         if (!isAuthenticated) {
           const err = new Error("Hei passwordmu salah");
-          err.errorStatus = 404;
+          err.errorStatus = 400;
           throw err;
         }
         return {

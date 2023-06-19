@@ -56,8 +56,8 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="h-full grid place-items-center">
-      <div className="border rounded-xl p-4 w-[500px] shadow-lg shadow-indigo-50">
+    <div className="h-full flex justify-center items-center">
+      <div className="border rounded-xl p-4 min-w-0 max-w-[500px] shadow-lg shadow-indigo-50 mx-4 flex-grow">
         <h4 className="font-semibold text-center mb-3">Login</h4>
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="mb-3">
