@@ -2,13 +2,15 @@ const express = require('express');
 const usersRouter = express.Router();
 const {
   getAllUsers,
+  getUserById,
   createNewUser,
-  parseBody,
   updateUser,
   deleteUser,
 } = require('./users.controller');
 
 usersRouter.get('/', getAllUsers);
+
+usersRouter.get("/:id", getUserById);
 
 usersRouter.post('/create', createNewUser);
 

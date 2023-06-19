@@ -1,5 +1,3 @@
-const users = [];
-
 const dbPool = require("../config/database");
 
 const setUsers = ({ name, email, address }) => {
@@ -28,17 +26,34 @@ const deleteUser = (id) => {
   return dbPool.execute(sqlQuery);
 };
 
-const getAllUsers = (req, res) => {
+const getAllUsers = () => {
   const sqlQuery = `
     select * from users
   `;
   return dbPool.execute(sqlQuery);
 };
 
+const getUserById = (id) => {
+  const columns = [
+    "fullname",
+    "username",
+    "email",
+    "gender",
+    "address",
+    "profile",
+    "register_at",
+    "avatar",
+    "description",
+    "role",
+  ];
+  const query = `select ${columns.join(", ")} from users where id = ?`;
+  return dbPool.execute(query, [id]);
+}
+
 module.exports = {
   setUsers,
   getAllUsers,
+  getUserById,
   updateUser,
   deleteUser,
-  users,
 };

@@ -1,5 +1,5 @@
 const formidable = require('formidable');
-const { getAllUsers, setUsers, updateUser, deleteUser } = require('../../models/users.model');
+const { getAllUsers, setUsers, updateUser, deleteUser, getUserById } = require('../../models/users.model');
 const uuid = require('uuid');
 
 exports.getAllUsers = async (req, res, next) => {
@@ -13,6 +13,20 @@ exports.getAllUsers = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getUserById = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    console.log("params id", id);
+    const [[data]] = await getUserById(id);
+    return res.status(200).json({
+      message: "Success",
+      data: data,
+    })
+  } catch (err) {
+    next(err);
+  }
+}
 
 exports.createNewUser = (req, res, next) => {
   const form = formidable({ multiples: true });
