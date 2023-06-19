@@ -3,21 +3,33 @@ import clsx from "clsx";
 
 interface ButtonProps {
   children: React.ReactNode;
-  color?: string | undefined | null;
+  color?: string | null;
   block?: boolean;
-  variant?: string | undefined | null;
+  variant?: string;
   size?: "sm" | "md" | "lg";
+  className?: string;
+  onClick?: () => void;
+  type?: string,
 }
 
-const Button: React.FC<ButtonProps> = ({ children, variant, color = "primary", block, size = "md" }) => {
+const Button = ({ children, variant, color = "primary", block, size = "md", className, onClick, ...rest }: ButtonProps) => {
   const mergedClass = clsx(
     variant === "outlined" ? `btn-outlined` : 'btn',
     color && `btn-${color}`,
     block && "block w-full",
-    size && `text-${size},` 
+    size && `text-${size}`,
+    className,
   );
 
-  return <button className={mergedClass}>{children}</button>;
+  return (
+    <button
+      onClick={onClick}
+      className={mergedClass}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
 };
 
 export default Button;
