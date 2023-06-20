@@ -16,5 +16,4 @@ const useAxios = ({ headers }: any = {}) => {
   })
 }
 
-
 export default useAxios;
