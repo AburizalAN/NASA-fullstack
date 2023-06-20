@@ -5,7 +5,7 @@ const useFetch = (callback: any) => {
   const [error, setError] = React.useState<{} | undefined>(undefined);
   const [data, setData] = React.useState<{} | undefined>(undefined);
 
-  const action = async (...args: any) => {
+  const action = async (...args: any[]) => {
     try {
       setIsLoading(true);
       const res = await callback(...args)
