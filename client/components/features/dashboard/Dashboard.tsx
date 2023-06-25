@@ -2,7 +2,7 @@
 
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 import * as React from "react";
-import { Button } from "@/components/reusable";
+import { Button, message } from "@/components/reusable";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import useSWRHandler from "@/hooks/useSWR";
 import useFetch from "@/hooks/useFetch";
@@ -20,14 +20,17 @@ const Dashboard = () => {
   const [passVisible, setPassVisible] = React.useState<boolean>(false);
   // const { data } = useSWRHandler();
 
-  const { action: login, isLoading: loadingLogin } = useFetch(async (data: Inputs) => {
-    try {
-      const res = await axios.post("/auth/login", data);
-      return res.data
-    } catch (err) {
-      console.log(err);
+  const { action: login, isLoading: loadingLogin } = useFetch(
+    async (data: Inputs) => {
+      try {
+        const res = await axios.post("/auth/login", data);
+        return res.data;
+      } catch (err) {
+        console.log(err);
+        message({ type: "error", content: "test" });
+      }
     }
-  });
+  );
 
   const {
     register,
