@@ -1,8 +1,8 @@
 "use client";
 
-import './globals.scss'
-import { Inter, Nunito_Sans } from 'next/font/google'
-import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost"
+import '@/styles/globals.scss';
+import { Inter, Nunito_Sans } from 'next/font/google';
+import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost";
 import Navbar from "@/components/Navbar/Navbar";
 import { usePathname } from 'next/navigation';
 
@@ -24,9 +24,6 @@ export default function RootLayout({
   const renderNavbar = () => {
     if (pathname === "/dashboard") {
       return null
-    }
-    if (pathname === "/dashboard/create-post") {
-      return <NavbarCreatePost />
     }
     return <Navbar />
   }
