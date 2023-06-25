@@ -32,14 +32,12 @@ exports.login = async (req, res, next) => {
 exports.getUserInfo = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    console.log("authHeader", authHeader);
     if (!authHeader) {
       const err = new Error("Not Autheticated");
       err.errorStatus = 400;
       throw err;
     }
     const token = authHeader.split(" ")[1];
-    console.log("token", token);
     const privateKey = process.env.JWT_SECRET_KEY;
     const decoded = jwt.verify(token, privateKey, privateKey);
     const data = await getUserData(decoded);
