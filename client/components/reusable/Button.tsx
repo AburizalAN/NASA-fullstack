@@ -25,7 +25,7 @@ const Button = ({
   const mergedClass = clsx(
     variant === "outlined" ? `btn-outlined` : "btn",
     color && `btn-${color}`,
-    block && "block w-full",
+    block && "w-full",
     size && `text-${size}`,
     className
   );

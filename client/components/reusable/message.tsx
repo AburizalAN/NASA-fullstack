@@ -1,6 +1,7 @@
 import * as ReactDOM from "react-dom";
 import * as React from "react";
 import clsx from "clsx";
+import { AiFillCheckCircle, AiFillExclamationCircle } from "react-icons/ai";
 
 type MessageCompProps = {
   children: React.ReactNode;
@@ -22,7 +23,7 @@ const MessageComp = ({
   closed,
 }: MessageCompProps) => {
   const [isClosed, setIsClosed] = React.useState(false);
-  const ref = React.useRef<HTMLDivElement | null>(null);
+  const ref = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     setTimeout(() => {
       setIsClosed(true);
@@ -45,10 +46,12 @@ const MessageComp = ({
     }
   }, [isClosed]);
 
-  const classProp = clsx("message", type);
   return (
-    <div ref={ref} className={classProp}>
-      {children}
+    <div ref={ref} className={clsx("message", type)}>
+      <span className={clsx("message-icon-wrapper", type)}>
+        {type === "success" ? <AiFillCheckCircle /> : type === "error" ? <AiFillExclamationCircle /> : null}
+      </span>
+      <span>{children}</span>
     </div>
   );
 };

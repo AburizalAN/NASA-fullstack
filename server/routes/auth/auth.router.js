@@ -41,6 +41,6 @@ authRouter.post(
   login,
 );
 authRouter.get("/me", getUserInfo);
-authRouter.post("/logout", logout);
+// authRouter.post("/logout", logout);
 
 module.exports = authRouter;

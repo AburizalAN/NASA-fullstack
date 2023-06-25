@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import * as React from "react";
+import { message } from "@/components/reusable";
 
 const useSWRHandler = (
   uri: string,
@@ -15,8 +16,11 @@ const useSWRHandler = (
   React.useEffect(() => {
     if (!error) return;
     const description: string = error?.response?.data.message ?? "Someting went wrong";
-    console.log("error description", description);
-  }, [error])
+    message({
+      type: "error",
+      content: description,
+    });
+  }, [error]);
   return swr;
 }
 
