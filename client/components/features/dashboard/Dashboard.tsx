@@ -10,11 +10,15 @@ const Dashboard = () => {
       <div className="flex-1 flex flex-col">
         <NavbarDashboard />
         <div className="flex-1 p-4 bg-slate-100">
-          <Breadcrumb>
-            <BreadcrumbItem>Test test</BreadcrumbItem>
-            <BreadcrumbItem>Test test</BreadcrumbItem>
-            <BreadcrumbItem active>Test test</BreadcrumbItem>
-          </Breadcrumb>
+          <div className="mb-4 flex justify-between items-center">
+            <h4 className="font-semibold">Test test</h4>
+            <Breadcrumb align="right">
+              <BreadcrumbItem>Test test</BreadcrumbItem>
+              <BreadcrumbItem>Test test</BreadcrumbItem>
+              <BreadcrumbItem active>Test test</BreadcrumbItem>
+            </Breadcrumb>
+          </div>
+
         </div>
       </div>
     </div>

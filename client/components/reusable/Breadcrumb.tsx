@@ -22,8 +22,27 @@ export const BreadcrumbItem = ({
   );
 };
 
-const Breadcrumb = ({ children }: { children: React.ReactNode }) => {
-  return <div className="flex gap-x-[8px]">{children}</div>;
+const Breadcrumb = ({
+  children,
+  align = "left",
+}: {
+  children: React.ReactNode;
+  align?: string;
+}) => {
+  return (
+    <div
+      className={clsx(
+        "flex gap-x-[8px]",
+        align === "left"
+          ? "justify-start"
+          : align === "right"
+          ? "justify-end"
+          : ""
+      )}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Breadcrumb;
