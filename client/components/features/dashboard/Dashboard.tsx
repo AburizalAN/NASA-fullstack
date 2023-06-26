@@ -7,16 +7,27 @@ import Card from "@/components/reusable/Card";
 import { BiTime, BiDotsHorizontalRounded } from "react-icons/bi";
 import clsx from "clsx";
 import Link from "next/link";
+import useAxios from "@/hooks/useAxios";
+import useSWR from "@/hooks/useSWR";
+import moment from "moment";
 
-const PostDropdown = ({ postData }: { postData?: {} }) => {
+const axios = useAxios();
+
+type PostProps = {
+  title: string;
+  published_at?: string;
+  id: number;
+}
+
+const PostDropdown = ({ data }: { data: PostProps }) => {
   return (
     <Dropdown
       list={[
-        { content: <Link href="/dashboard/create-post">Edit post</Link> },
-        { content: "test2" }
+        { content: <Link href={`/dashboard/edit-post?id=${data.id}`}>Edit post</Link> },
+        { content: "test2" },
       ]}
     >
-      {({ openDropdown, toggle }) => (    
+      {({ openDropdown, toggle }) => (
         <button onClick={openDropdown} className="text-gray-400">
           <div className={clsx("transition-all", toggle ? "rotate-90" : "")}>
             <BiDotsHorizontalRounded size={20} />
@@ -24,10 +35,19 @@ const PostDropdown = ({ postData }: { postData?: {} }) => {
         </button>
       )}
     </Dropdown>
-  )
-}
+  );
+};
 
 const Dashboard = () => {
+  const uri = "/posts";
+  const {
+    data: posts,
+    isValidating: loadingPosts,
+  }: { data?: any; isValidating: boolean } = useSWR(uri, async () => {
+    const res = await axios.get(uri);
+    return res.data.data;
+  });
+
   return (
     <div className="flex h-full">
       <SidebarDashboard />
@@ -46,22 +66,30 @@ const Dashboard = () => {
                 <h6 className="text-gray-500">Blog Posts</h6>
                 <div className="border-b border-gray-100 my-4"></div>
                 <ul className="flex flex-col gap-y-4">
-                  {[...Array(4)].map((_, i) => (
-                    <li key={i} className="flex items-center">
-                      <div className="flex-1">
-                        <h4 className="leading-normal font-semibold text-gray-700">
-                          Lorem Ipsum Dolor Sit Amet
-                        </h4>
-                        <div className="text-xs text-gray-400 flex items-center gap-x-1">
-                          <BiTime />
-                          <span>May 30, at 5:28 PM</span>
-                        </div>
-                      </div>
-                      <div className="pl-5">
-                        <PostDropdown />
-                      </div>
-                    </li>
-                  ))}
+                  {posts?.length > 0
+                    ? posts?.map((post: PostProps, i: number) => (
+                        <li key={i} className="flex items-center">
+                          <div className="flex-1 overflow-hidden">
+                            <h4 className="leading-normal font-semibold text-gray-700 line-clamp-2">
+                              {post.title}
+                            </h4>
+                            <div className="text-xs text-gray-400 flex items-center gap-x-1">
+                              <BiTime />
+                              <span>
+                                {post.published_at
+                                  ? moment(post.published_at).format(
+                                      "MMM DD, at hh:mm A"
+                                    )
+                                  : "-"}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="pl-5">
+                            <PostDropdown data={post} />
+                          </div>
+                        </li>
+                      ))
+                    : null}
                 </ul>
               </Card>
             </div>
