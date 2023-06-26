@@ -33,12 +33,10 @@ const Dashboard = () => {
       <SidebarDashboard />
       <div className="flex-1 flex flex-col">
         <NavbarDashboard />
-        <div className="flex-1 p-4 md:p-6 bg-slate-100">
+        <div className="flex-1 p-6 bg-slate-100">
           <div className="mb-6 flex justify-between items-center">
-            <h4 className="font-semibold">Test test</h4>
+            <h4 className="font-semibold">Dashboard</h4>
             <Breadcrumb align="right">
-              <BreadcrumbItem>Test test</BreadcrumbItem>
-              <BreadcrumbItem>Test test</BreadcrumbItem>
               <BreadcrumbItem active>Test test</BreadcrumbItem>
             </Breadcrumb>
           </div>
@@ -49,7 +47,7 @@ const Dashboard = () => {
                 <div className="border-b border-gray-100 my-4"></div>
                 <ul className="flex flex-col gap-y-4">
                   {[...Array(4)].map((_, i) => (
-                    <li className="flex items-center">
+                    <li key={i} className="flex items-center">
                       <div className="flex-1">
                         <h4 className="leading-normal font-semibold text-gray-700">
                           Lorem Ipsum Dolor Sit Amet
