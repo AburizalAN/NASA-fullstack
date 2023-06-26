@@ -93,6 +93,14 @@
       }
     }
   }
+  .dropdown {
+    animation: dropdownIn 200ms forwards;
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+    &.closing {
+      animation: dropdownOut 200ms forwards;
+      animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    }
+  }
 }
 @tailwind utilities;
 
@@ -151,6 +159,32 @@ body {
 
 .navbar-shadow {
   box-shadow: rgba(30, 27, 75, 0.12) 0px 10px 15px -10px;
+}
+
+@keyframes dropdownIn {
+  0% {
+    opacity: 0;
+    transform-origin: 0 0;
+    transform: scaleY(0.8);
+  }
+  to {
+    opacity: 1;
+    transform-origin: 0 0;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes dropdownOut {
+  0% {
+    opacity: 1;
+    transform-origin: 0 0;
+    transform: scaleY(1);
+  }
+  to {
+    opacity: 0;
+    transform-origin: 0 0;
+    transform: scaleY(0.8);
+  }
 }
 
 @keyframes slideUpIn {
