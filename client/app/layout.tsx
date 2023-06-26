@@ -25,6 +25,9 @@ export default function RootLayout({
     if (pathname === "/dashboard") {
       return null
     }
+    if (pathname === "/dashboard/create-post") {
+      return <NavbarCreatePost />
+    }
     return <Navbar />
   }
 
