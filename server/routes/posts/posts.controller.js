@@ -15,7 +15,7 @@ exports.getPosts = async (req, res, next) => {
 exports.getPostById = async (req, res, next) => {
   const id = req.params.id;
   try {
-    const resData = await getPostById({ id });
+    const [[ resData ]] = await getPostById({ id });
     res.status(200).json({
       message: "Success",
       data: resData,

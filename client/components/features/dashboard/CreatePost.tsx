@@ -12,32 +12,38 @@ import useAxios from "@/hooks/useAxios";
 
 const axios = useAxios();
 
+type Post = {
+  title?: string;
+  content?: string;
+}
+
 const CreatePost = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
   const uri = `/posts/${id}`
-  const { data } = useSWR(uri, async () => {
+  const { data: post }: any = useSWR(uri, async () => {
     const res = await axios.get(uri);
     if (res.data.data) {
       return res.data.data;
     }
-  })
+  });
 
-  console.log("data", data);
+  const getHTML = (html: string) => {};
 
   return (
     <div className="flex h-full">
       <div className="flex-1 min-w-0 max-w-4xl mx-auto py-16 px-4">
-        <div className="pl-9 mb-5">
+        <div className="px-12 mb-5">
           <input
             placeholder="Untitled"
-            className="text-5xl font-bold outline-none no-underline border-none focus:ring-transparent"
+            className="text-5xl font-bold outline-none no-underline border-none focus:ring-transparent block w-full"
             type="text"
             name="title"
+            value={post?.title}
           />
         </div>
-        <BlockNote />
+        <BlockNote htmlValue={post?.content} getHTML={getHTML} />
       </div>
       <div className="w-[350px] border-x">
         <div className="disclosure border-t-0">
