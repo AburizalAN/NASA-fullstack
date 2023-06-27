@@ -6,8 +6,26 @@ import { FaChevronDown } from "react-icons/fa";
 import { HiPlus } from "react-icons/Hi";
 import { Button, Combobox } from "@/components/reusable";
 import * as React from "react";
+import { useSearchParams } from 'next/navigation';
+import useSWR from "@/hooks/useSWR";
+import useAxios from "@/hooks/useAxios";
+
+const axios = useAxios();
 
 const CreatePost = () => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+
+  const uri = `/posts/${id}`
+  const { data } = useSWR(uri, async () => {
+    const res = await axios.get(uri);
+    if (res.data.data) {
+      return res.data.data;
+    }
+  })
+
+  console.log("data", data);
+
   return (
     <div className="flex h-full">
       <div className="flex-1 min-w-0 max-w-4xl mx-auto py-16 px-4">
