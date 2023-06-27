@@ -1,7 +1,7 @@
 import withAuth from "@/hocs/withAuth";
 import SidebarDashboard from "@/components/sidebar/SidebarDashboard";
 import NavbarDashboard from "@/components/Navbar/NavbarDashboard";
-import Breadcrumb, { BreadcrumbItem } from "@/components/reusable/Breadcrumb";
+import Breadcrumb from "@/components/reusable/Breadcrumb";
 import Dropdown from "@/components/reusable/Dropdown";
 import Card from "@/components/reusable/Card";
 import { BiTime, BiDotsHorizontalRounded } from "react-icons/bi";
@@ -10,6 +10,8 @@ import Link from "next/link";
 import useAxios from "@/hooks/useAxios";
 import useSWR from "@/hooks/useSWR";
 import moment from "moment";
+
+const { Item: BreadcrumbItem } = Breadcrumb;
 
 const axios = useAxios();
 
@@ -57,6 +59,7 @@ const Dashboard = () => {
           <div className="mb-6 flex justify-between items-center">
             <h4 className="font-semibold">Dashboard</h4>
             <Breadcrumb align="right">
+              <BreadcrumbItem>Test</BreadcrumbItem>
               <BreadcrumbItem active>Test test</BreadcrumbItem>
             </Breadcrumb>
           </div>

@@ -1,13 +1,15 @@
 import { BiChevronsRight } from "react-icons/bi";
 import clsx from "clsx";
+import React from "react";
+
+type BreadcrumbItemProps = {
+  active?: boolean;
+};
 
 export const BreadcrumbItem = ({
   children,
   active,
-}: {
-  children: React.ReactNode;
-  active?: boolean;
-}) => {
+}: React.PropsWithChildren<BreadcrumbItemProps>) => {
   return (
     <div className="flex items-center breadcrumb-item gap-x-[8px] text-xs">
       <div
@@ -22,13 +24,14 @@ export const BreadcrumbItem = ({
   );
 };
 
+type BreadcrumbProps = {
+  align?: string;
+};
+
 const Breadcrumb = ({
   children,
   align = "left",
-}: {
-  children: React.ReactNode;
-  align?: string;
-}) => {
+}: React.PropsWithChildren<BreadcrumbProps>) => {
   return (
     <div
       className={clsx(
@@ -44,5 +47,7 @@ const Breadcrumb = ({
     </div>
   );
 };
+
+Breadcrumb.Item = BreadcrumbItem;
 
 export default Breadcrumb;
