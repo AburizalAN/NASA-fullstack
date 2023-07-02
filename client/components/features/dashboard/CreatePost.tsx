@@ -4,7 +4,7 @@ import BlockNote from "@/components/BlockNote";
 import { Disclosure, RadioGroup, Transition } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa";
 import { HiPlus } from "react-icons/Hi";
-import { Button, Combobox } from "@/components/reusable";
+import { Button, Combobox, ResizableTextArea } from "@/components/reusable";
 import * as React from "react";
 import { useSearchParams } from 'next/navigation';
 import useSWR from "@/hooks/useSWR";
@@ -34,13 +34,13 @@ const CreatePost = () => {
   return (
     <div className="flex h-full">
       <div className="flex-1 min-w-0 max-w-4xl mx-auto py-16 px-4">
-        <div className="px-12 mb-5">
-          <input
+        <div className="px-12 mb-10">
+          <ResizableTextArea
+            // value={post?.title}
             placeholder="Untitled"
-            className="text-5xl font-bold outline-none no-underline border-none focus:ring-transparent block w-full"
-            type="text"
             name="title"
-            value={post?.title}
+            className="text-5xl font-bold outline-none no-underline border-none focus:ring-transparent block w-full overflow-hidden"
+            maxlength={100}
           />
         </div>
         <BlockNote htmlValue={post?.content} getHTML={getHTML} />
