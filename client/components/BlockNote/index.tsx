@@ -39,7 +39,7 @@ const BlockNote: React.FC<RichEditorProps> = ({ getMarkdown = () => {}, getHTML 
   }, [editor, htmlValue])
 
   return (
-    <div>
+    <div className="blocknote-editor">
       <BlockNoteView editor={editor} />
     </div>
   )

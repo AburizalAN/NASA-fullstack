@@ -11,7 +11,9 @@ import useAxios from "@/hooks/useAxios";
 import useFetch from "@/hooks/useFetch";
 import dynamic from "next/dynamic";
 
-const BlockNote = dynamic(() => import("@/components/BlockNote"), { ssr: false });
+const BlockNote = dynamic(() => import("@/components/BlockNote"), {
+  ssr: false,
+});
 
 const axios = useAxios();
 
@@ -30,7 +32,7 @@ const CreatePost = () => {
   });
 
   const { action: postService } = useFetch(
-    async ({ id, data }: { id?: number, data: any }) => {
+    async ({ id, data }: { id?: number; data: any }) => {
       const res = id
         ? await axios.put(`/posts/${id}`, data)
         : await axios.post("/posts", data);
@@ -79,9 +81,9 @@ const CreatePost = () => {
       <nav className="bg-white border-b border-slate-200 text-gray-500">
         <div className="flex py-3 px-4 items-center w-full mx-auto justify-end">
           <div className="flex gap-x-3">
-            {!post?.published ? (
-              <button onClick={saveDraft} className="btn">Save draft</button>
-            ) : null}
+            <button onClick={saveDraft} className="btn">
+              {post?.published ? "Update" : "Save draft"}
+            </button>
             <button onClick={handlePublish} className="btn btn-primary">
               {post?.published ? "Unpublish" : "Publish"}
             </button>

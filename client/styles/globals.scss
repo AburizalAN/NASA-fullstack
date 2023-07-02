@@ -111,6 +111,11 @@
       @apply no-underline text-gray-500 hover:text-white cursor-pointer
     }
   }
+  .blocknote-editor {
+    div[data-content-type="paragraph"] {
+      @apply mb-5;
+    }
+  }
 }
 @tailwind utilities;
 
