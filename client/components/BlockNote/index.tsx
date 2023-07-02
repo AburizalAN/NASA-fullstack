@@ -29,13 +29,13 @@ const BlockNote: React.FC<RichEditorProps> = ({ getMarkdown = () => {}, getHTML 
   });
 
   React.useEffect(() => {
-    if (!htmlValue) return;
-    if (!editor) return;
-    const getBlocks = async () => {
-      const blocks: Block[] = await editor.HTMLToBlocks(htmlValue);
-      editor.replaceBlocks(editor.topLevelBlocks, blocks);
+    if (editor && htmlValue) {
+      const getBlocks = async () => {
+        const blocks: Block[] = await editor.HTMLToBlocks(htmlValue);
+        editor?.replaceBlocks(editor.topLevelBlocks, blocks);
+      };
+      getBlocks();
     };
-    getBlocks();
   }, [editor, htmlValue])
 
   return (

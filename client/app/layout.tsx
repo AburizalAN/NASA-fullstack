@@ -22,11 +22,8 @@ export default function RootLayout({
   const pathname = usePathname();
 
   const renderNavbar = () => {
-    if (pathname === "/dashboard") {
+    if (pathname.includes("/dashboard")) {
       return null
-    }
-    if (pathname === "/dashboard/create-post" || pathname === "/dashboard/edit-post") {
-      return <NavbarCreatePost />
     }
     return <Navbar />
   }
