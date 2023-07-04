@@ -102,6 +102,8 @@ const CreatePost = () => {
               name="title"
               className="text-5xl leading-snug font-bold outline-none no-underline border-none focus:ring-transparent block w-full overflow-auto"
               maxlength={100}
+              disableEnter
+              // maxRows={2}
             />
           </div>
           <BlockNote htmlValue={post?.content} getHTML={getHTML} />
