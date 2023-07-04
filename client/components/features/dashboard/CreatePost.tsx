@@ -100,7 +100,7 @@ const CreatePost = () => {
                 setTitle(e.target.value)
               }
               name="title"
-              className="text-5xl font-bold outline-none no-underline border-none focus:ring-transparent block w-full overflow-hidden"
+              className="text-5xl leading-snug font-bold outline-none no-underline border-none focus:ring-transparent block w-full overflow-auto"
               maxlength={100}
             />
           </div>

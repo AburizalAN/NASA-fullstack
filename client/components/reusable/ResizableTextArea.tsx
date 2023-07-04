@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const ResizableTextArea = ({ resize, value, ...props }: any) => {
+const ResizableTextArea = ({ resize, value, maxRows, ...props }: any) => {
   const ref = React.useRef<HTMLElement>(null);
 
   const adjustHeight = (element?: HTMLElement) => {
@@ -39,11 +39,32 @@ const ResizableTextArea = ({ resize, value, ...props }: any) => {
   React.useEffect(() => {
     const textarea = ref.current;
     if (textarea) {
-      textarea.style.height = `${textarea.scrollHeight}px`;
+      const scrollHeight = textarea.scrollHeight;
+      textarea.style.height = `${scrollHeight}px`;
+      if (maxRows) {
+        const lineHeight = window.getComputedStyle(textarea).lineHeight;
+        const maxHeight = maxRows * parseFloat(lineHeight);
+        textarea.style.maxHeight = `${maxHeight}px`;
+      }
     }
-  }, [ref?.current?.scrollHeight]);
+  }, [ref?.current, maxRows]);
 
-  return <textarea {...props} value={value} ref={ref} rows={1} style={{ resize: !resize ? "none" : "inherit" }} />;
+  const handleKeydown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  }
+
+  return (
+    <textarea
+      {...props}
+      value={value}
+      ref={ref}
+      rows={1}
+      style={{ resize: !resize ? "none" : "inherit" }}
+      onKeyDown={handleKeydown}
+    />
+  );
 };
 
 export default ResizableTextArea;
