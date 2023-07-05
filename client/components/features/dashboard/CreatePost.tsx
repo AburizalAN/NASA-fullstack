@@ -10,6 +10,7 @@ import useSWR from "@/hooks/useSWR";
 import useAxios from "@/hooks/useAxios";
 import useFetch from "@/hooks/useFetch";
 import dynamic from "next/dynamic";
+import ModalAddCategory from "./ModalAddCategory";
 
 const BlockNote = dynamic(() => import("@/components/BlockNote"), {
   ssr: false,
@@ -166,12 +167,16 @@ const CreatePost = () => {
                       </label>
                     </div>
                     <div className="mt-5">
-                      <Button variant="outlined" color={null} block>
-                        <div className="flex items-center justify-center">
-                          <HiPlus />
-                          <span>Tambah Kategori</span>
-                        </div>
-                      </Button>
+                      <ModalAddCategory>
+                        {({ openModal }) => (
+                          <Button onClick={openModal} variant="outlined" color={null} block>
+                            <div className="flex items-center justify-center">
+                              <HiPlus />
+                              <span>Tambah Kategori</span>
+                            </div>
+                          </Button>
+                        )}
+                      </ModalAddCategory>
                     </div>
                   </Disclosure.Panel>
                 </>
