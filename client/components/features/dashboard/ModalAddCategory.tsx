@@ -11,7 +11,6 @@ type ModalProps = {
 }
 
 const ModalAddCategory = ({ children }: Props) => {
-  const btnRef = React.useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = React.useState(false);
   const modalProps: ModalProps = {
     openModal: () => setIsOpen(true),
@@ -23,11 +22,13 @@ const ModalAddCategory = ({ children }: Props) => {
       </div>
       <Modal
         visible={isOpen}
+        onCancel={() => setIsOpen(false)}
       >
-        Test tes
+        <h4 className="font-bold">Tambah Kategori</h4>
         <Button
-          className="btn-primary"
+          variant="primary"
           onClick={() => setIsOpen(false)}
+          block
         >
           close
         </Button>
