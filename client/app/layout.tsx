@@ -33,7 +33,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex flex-col h-screen">
           {renderNavbar()}
-          <main className="w-full mx-auto flex-1 h-full">
+          <main className="w-full mx-auto flex-1">
             {children}
           </main>
         </div>

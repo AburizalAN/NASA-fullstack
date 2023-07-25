@@ -1,4 +1,5 @@
 const { getPosts, getPostById, createPost, updatePost } = require("../../models/posts.model");
+const sanitizeHtml = require('sanitize-html');
 
 exports.getPosts = async (req, res, next) => {
   try {
@@ -53,9 +54,11 @@ exports.createPost = async (req, res, next) => {
 }
 
 exports.updatePost = async (req, res, next) => {
-  console.log("params", req.params);
   const id = req.params.id;
   const data = req.body;
+
+  const sanitized = sanitizeHtml(data.content);
+  data.content = sanitized;
 
   try {
     const resData = await updatePost(data, id);
