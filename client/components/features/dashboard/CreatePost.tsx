@@ -1,5 +1,3 @@
-"use client";
-
 import { Disclosure, RadioGroup, Transition } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa";
 import { HiPlus } from "react-icons/Hi";
@@ -44,6 +42,8 @@ const CreatePost = () => {
   const getHTML = (html: string) => {
     setContent(html);
   };
+
+  console.log("content", content);
 
   const saveDraft = async () => {
     const data = {

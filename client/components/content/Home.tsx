@@ -53,7 +53,11 @@ export default function Home() {
               ))}
             </Masonry>
           </div>
-        ) : null}
+        ) : (
+          <div className="w-full h-full grid place-items-center">
+            No Data
+          </div>
+        )}
       </div>
     </div>
   );
