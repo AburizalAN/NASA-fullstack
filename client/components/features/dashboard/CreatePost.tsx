@@ -14,6 +14,10 @@ const BlockNote = dynamic(() => import("@/components/BlockNote"), {
   ssr: false,
 });
 
+const BlockEditor = dynamic(() => import("@/components/BlockEditor"), {
+  ssr: false,
+})
+
 const axios = useAxios();
 
 const CreatePost = () => {
@@ -108,6 +112,7 @@ const CreatePost = () => {
             />
           </div>
           <BlockNote htmlValue={post?.content} getHTML={getHTML} />
+          {/* <BlockEditor /> */}
         </div>
         <div className="w-[350px] border-x">
           <div className="disclosure border-t-0">

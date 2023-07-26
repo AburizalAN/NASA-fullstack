@@ -13,18 +13,21 @@ type RichEditorProps = {
 }
 
 const BlockNote: React.FC<RichEditorProps> = ({ getMarkdown = () => {}, getHTML = () => {}, htmlValue }) => {
-  
   const ImageBlock = createReactBlockSpec({
     type: "image",
     propSchema: {
-      ...defaultProps,
       src: {
         default: "https://via.placeholder.com/1000",
       },
     },
     containsInlineContent: true,
     render: ({ block }) => (
-      <div id="image-wrapper">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <img
           src={block.props.src}
           alt={"Image"}
@@ -35,7 +38,6 @@ const BlockNote: React.FC<RichEditorProps> = ({ getMarkdown = () => {}, getHTML 
     ),
   });
 
-  // Creates a slash menu item for inserting an image block.
   const insertImage = new ReactSlashMenuItem<
     DefaultBlockSchema & { image: typeof ImageBlock }
   >(
@@ -64,6 +66,7 @@ const BlockNote: React.FC<RichEditorProps> = ({ getMarkdown = () => {}, getHTML 
   const editor = useBlockNote({
     onEditorContentChange: (editor) => {
       const saveBlocksAsMarkdown = async () => {
+        console.log(editor.topLevelBlocks);
         const markdown: string = 
           await editor.blocksToMarkdown(editor.topLevelBlocks);
         getMarkdown(markdown);
@@ -89,7 +92,7 @@ const BlockNote: React.FC<RichEditorProps> = ({ getMarkdown = () => {}, getHTML 
       };
       getBlocks();
     };
-  }, [editor, htmlValue])
+  }, [editor, htmlValue]);
 
   return (
     <div className="blocknote-editor">
