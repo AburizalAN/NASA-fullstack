@@ -16,7 +16,7 @@ const postsRoutes = require('./routes/posts/posts.router');
 app.use(cors());
 app.use(morgan('combined'));
 app.use(express.json());
-app.use(upload.none());
+app.use(upload.fields([{ name: "image", maxCount: 1 }]));
 
 app.use('/planets', planetsRoutes);
 app.use('/users', usersRoutes);

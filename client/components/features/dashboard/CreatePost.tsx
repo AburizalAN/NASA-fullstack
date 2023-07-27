@@ -16,7 +16,7 @@ const BlockNote = dynamic(() => import("@/components/BlockNote"), {
 
 const BlockEditor = dynamic(() => import("@/components/BlockEditor"), {
   ssr: false,
-})
+});
 
 const axios = useAxios();
 
@@ -46,8 +46,6 @@ const CreatePost = () => {
   const getHTML = (html: string) => {
     setContent(html);
   };
-
-  console.log("content", content);
 
   const saveDraft = async () => {
     const data = {
@@ -111,8 +109,8 @@ const CreatePost = () => {
               // maxRows={2}
             />
           </div>
-          <BlockNote htmlValue={post?.content} getHTML={getHTML} />
-          {/* <BlockEditor /> */}
+          {/* <BlockNote htmlValue={post?.content} getHTML={getHTML} /> */}
+          <BlockEditor />
         </div>
         <div className="w-[350px] border-x">
           <div className="disclosure border-t-0">

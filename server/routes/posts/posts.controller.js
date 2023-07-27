@@ -1,5 +1,8 @@
 const { getPosts, getPostById, createPost, updatePost } = require("../../models/posts.model");
 const sanitizeHtml = require('sanitize-html');
+const getMilliseconds = require('date-fns/getMilliseconds');
+const imagekit = require('../../config/imagekit');
+const getTime = require('date-fns/getTime');
 
 exports.getPosts = async (req, res, next) => {
   try {
@@ -67,6 +70,30 @@ exports.updatePost = async (req, res, next) => {
       data: resData,
     })
   } catch (err) {
-    next(err)
+    next(err);
+  }
+}
+
+exports.uploadImage = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const image = req.files.image[0];
+    const milliseconds = getTime(new Date());
+    const filename = `image-${id}-${milliseconds}`;
+    imagekit.upload({
+      file: image.buffer,
+      fileName: filename,
+      folder: 'blog'
+    }, function(err, result) {
+      if (err) throw err;
+      return res.status(200).json({
+        success: 1,
+        file: {
+          url: result.url,
+        }
+      })
+    })
+  } catch (err) {
+    next(err);
   }
 }
