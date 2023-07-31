@@ -110,7 +110,7 @@ const CreatePost = () => {
             />
           </div>
           {/* <BlockNote htmlValue={post?.content} getHTML={getHTML} /> */}
-          <RichTextEditor /> 
+          <RichTextEditor content={post?.content} onChange={getHTML} /> 
         </div>
         <div className="w-[350px] border-x">
           <div className="disclosure border-t-0">

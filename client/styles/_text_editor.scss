@@ -9,7 +9,7 @@
         @apply text-gray-600;
       }
       p {
-        @apply mb-7 last:mb-0 leading-relaxed;
+        @apply mb-6 last:mb-0 leading-relaxed;
       }
       ul {
         @apply list-disc;
@@ -18,9 +18,9 @@
         @apply list-decimal;
       }
       ol, ul {
-        @apply list-outside leading-relaxed mb-6 last:mb-0 pl-6;
+        @apply list-outside mb-6 last:mb-0 pl-6;
         li {
-          @apply pl-3;
+          @apply pl-3 leading-loose;
         }
       }
       h1, h2, h3, h4, h5, h6 {

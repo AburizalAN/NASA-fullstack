@@ -1,5 +1,9 @@
-import clsx from "clsx"
 import * as React from "react"
+import clsx from "clsx"
+import useAxios from "@/hooks/useAxios"
+import { useSearchParams } from "next/navigation"
+
+const axios = useAxios()
 
 interface MenuBarProps {
   editor: any;
@@ -8,13 +12,32 @@ interface MenuBarProps {
 const MenuBar = ({ editor }: MenuBarProps) => {
   if (!editor) return null;
 
-  const addImage = React.useCallback(() => {
-    const url = window.prompt('URL')
+  const search = useSearchParams()
+  const id = search.get("id")
 
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run()
-    }
+  const addImage = React.useCallback(() => {
+    const input = document.createElement("input")
+    input.type = "file"
+    input.addEventListener("change", async (e: any) => {
+      const file = e.target.files[0]
+      const url = await uploadByFile(file);
+      if (url) {
+        editor.chain().focus().setImage({ src: url }).run()
+      }
+    }, { once: true })
+    input.click()
   }, [editor])
+
+  const uploadByFile = async (file: any) => {
+    const data = new FormData();
+    data.append("image", file);
+    const res = await axios.post(`/posts/${id}/upload-image`, data, {
+      headers: {
+        'content-type' : 'multipart/form-data'
+      }
+    }).then((res) => res.data);
+    return res.file.url
+  }
 
   return (
     <div className="richTextEditor__header">
