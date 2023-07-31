@@ -1,0 +1,33 @@
+@layer components {
+  .richTextEditor {
+    &__header {
+      @apply mb-6 flex gap-2;
+    }
+    .ProseMirror {
+      outline: none;
+      * {
+        @apply text-gray-600;
+      }
+      p {
+        @apply mb-7 last:mb-0 leading-relaxed;
+      }
+      ul {
+        @apply list-disc;
+      }
+      ol {
+        @apply list-decimal;
+      }
+      ol, ul {
+        @apply list-outside leading-relaxed mb-6 last:mb-0 pl-6;
+        li {
+          @apply pl-3;
+        }
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: 700;
+        margin-bottom: 0.5em;
+        margin-top: 0.5em;
+      }
+    }
+  }
+}

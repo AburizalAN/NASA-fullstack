@@ -14,9 +14,9 @@ const BlockNote = dynamic(() => import("@/components/BlockNote"), {
   ssr: false,
 });
 
-const BlockEditor = dynamic(() => import("@/components/BlockEditor"), {
+const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"), {
   ssr: false,
-});
+})
 
 const axios = useAxios();
 
@@ -95,7 +95,7 @@ const CreatePost = () => {
       </nav>
       <div className="flex h-full">
         <div className="flex-1 min-w-0 max-w-4xl mx-auto py-16 px-4">
-          <div className="px-12 mb-8">
+          <div className="mb-8">
             <ResizableTextArea
               defaultValue={post?.title}
               placeholder="Untitled"
@@ -110,7 +110,7 @@ const CreatePost = () => {
             />
           </div>
           {/* <BlockNote htmlValue={post?.content} getHTML={getHTML} /> */}
-          <BlockEditor />
+          <RichTextEditor /> 
         </div>
         <div className="w-[350px] border-x">
           <div className="disclosure border-t-0">

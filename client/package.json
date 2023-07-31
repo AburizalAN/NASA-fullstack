@@ -11,15 +11,15 @@
   "dependencies": {
     "@blocknote/core": "^0.8.2",
     "@blocknote/react": "^0.8.2",
-    "@editorjs/editorjs": "^2.27.2",
-    "@editorjs/header": "^2.7.0",
-    "@editorjs/list": "^1.8.0",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.14",
     "@react-three/fiber": "^8.13.0",
     "@splinetool/react-spline": "^2.2.6",
     "@splinetool/runtime": "^0.9.354",
+    "@tiptap/pm": "^2.0.4",
+    "@tiptap/react": "^2.0.4",
+    "@tiptap/starter-kit": "^2.0.4",
     "@types/js-cookie": "^3.0.3",
     "@types/node": "20.2.4",
     "@types/react": "18.2.7",
@@ -44,10 +44,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@editorjs/image": "^2.8.1",
-    "@editorjs/simple-image": "^1.5.1",
     "@tailwindcss/forms": "^0.5.3",
-    "editorjs-drag-drop": "^1.1.13",
     "sass": "^1.62.1"
   }
 }
