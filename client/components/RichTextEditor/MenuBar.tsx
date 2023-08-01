@@ -29,13 +29,13 @@ const MenuBar = ({ editor }: MenuBarProps) => {
   }, [editor])
 
   const uploadByFile = async (file: any) => {
-    const data = new FormData();
-    data.append("image", file);
+    const data = new FormData()
+    data.append("image", file)
     const res = await axios.post(`/posts/${id}/upload-image`, data, {
       headers: {
         'content-type' : 'multipart/form-data'
       }
-    }).then((res) => res.data);
+    }).then((res) => res.data)
     return res.file.url
   }
 
