@@ -2,10 +2,10 @@
 @tailwind components;
 @layer components {
   .btn-editor {
-    @apply py-1 px-2 rounded-sm border border-gray-300;
+    @apply py-1 px-2.5 text-sm rounded-md border border-gray-300;
   }
   .btn-editor-active {
-    @apply py-1 px-2 rounded-sm bg-slate-900 text-white;
+    @apply bg-slate-900 text-white;
   }
 
   @mixin btnDefault {

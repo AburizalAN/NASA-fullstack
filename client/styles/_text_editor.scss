@@ -1,7 +1,7 @@
 @layer components {
   .richTextEditor {
-    &__header {
-      @apply mb-6 flex gap-2;
+    &__bubbleMenu {
+      @apply flex gap-2 flex-nowrap bg-white w-max p-2 shadow border rounded-md;
     }
     .ProseMirror {
       outline: none;

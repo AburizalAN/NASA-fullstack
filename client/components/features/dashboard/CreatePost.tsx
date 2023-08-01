@@ -14,9 +14,7 @@ const BlockNote = dynamic(() => import("@/components/BlockNote"), {
   ssr: false,
 });
 
-const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"), {
-  ssr: false,
-})
+const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"))
 
 const axios = useAxios();
 
@@ -104,7 +102,7 @@ const CreatePost = () => {
               }
               name="title"
               className="text-5xl leading-snug font-bold outline-none no-underline border-none focus:ring-transparent block w-full overflow-auto"
-              maxlength={100}
+              maxLength={100}
               disableEnter
               // maxRows={2}
             />

@@ -1,11 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import Underline from '@tiptap/extension-underline'
-import Image from '@tiptap/extension-image'
-import MenuBar from './MenuBar'
+import * as React from "react";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Underline from "@tiptap/extension-underline";
+import Image from "@tiptap/extension-image";
+import BubbleMenu from "@tiptap/extension-bubble-menu";
+import MenuBar from "./MenuBar";
 
 interface Props {
   content?: string;
@@ -13,25 +14,29 @@ interface Props {
 }
 
 const RichTextEditor = ({ content, onChange = () => {} }: Props) => {
+  const bubbleRef = React.useRef<HTMLDivElement>(null);
   const editor = useEditor({
     extensions: [
       StarterKit,
       Underline,
       Image,
+      BubbleMenu.configure({
+        element: bubbleRef.current,
+      }),
     ],
     content: content,
     onUpdate: ({ editor }) => {
-      const _HTML = editor.getHTML()
-      onChange(_HTML)
+      const _HTML = editor.getHTML();
+      onChange(_HTML);
     },
   });
 
   return (
     <div className="richTextEditor">
-      <MenuBar editor={editor} />
+      <MenuBar editor={editor} ref={bubbleRef} />
       <EditorContent editor={editor} />
     </div>
-  )
-}
+  );
+};
 
-export default RichTextEditor
+export default RichTextEditor;

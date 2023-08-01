@@ -1,9 +1,11 @@
 import * as React from "react";
+import clsx from "clsx";
 
 type DropdownProps = {
   children: (props: ChildProps) => React.ReactNode;
   content?: React.ReactNode;
-  list?: { content: string | React.ReactNode }[]
+  list?: { content: string | React.ReactNode }[];
+  position?: "left" | "right";
 };
 
 type ChildProps = {
@@ -11,9 +13,14 @@ type ChildProps = {
   toggle: boolean;
 };
 
-const Dropdown = ({ children, content, list }: DropdownProps) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+const Dropdown = ({
+  children,
+  content,
+  list,
+  position = "left",
+}: DropdownProps) => {
   const [toggle, setToggle] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
   const wrapperRef = React.useRef<HTMLDivElement>(null);
 
@@ -42,26 +49,34 @@ const Dropdown = ({ children, content, list }: DropdownProps) => {
 
   React.useEffect(() => {
     document.addEventListener("mousedown", (event: any) => {
-      if (
-        !wrapperRef.current?.contains(event.target)
-      ) {
+      if (!wrapperRef.current?.contains(event.target)) {
         setToggle(false);
       }
     });
   }, []);
 
   return (
-    <div ref={wrapperRef} className="relative">
+    <div ref={wrapperRef} className="relative flex">
       {children(childProps)}
       {isOpen ? (
         <div
           ref={ref}
-          className="dropdown z-50 bg-white rounded-md p-1 absolute top-full right-0 shadow-lg ring-1 ring-black ring-opacity-5"
+          className={clsx(
+            "dropdown z-50 bg-white rounded-md p-1 absolute top-full shadow-lg ring-1 ring-black ring-opacity-5",
+            position === "left"
+              ? "left-0"
+              : position === "right"
+              ? "right-0"
+              : ""
+          )}
         >
           {list ? (
             <div className="flex flex-col gap-y-1 w-56">
               {list.map((item, i) => (
-                <div key={i} className="dropdown-item relative p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all">
+                <div
+                  key={i}
+                  className="dropdown-item relative p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all"
+                >
                   {item.content}
                 </div>
               ))}
