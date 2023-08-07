@@ -67,21 +67,27 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
   return (
     <React.Fragment>
       {editor ? (
-        <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
+        <BubbleMenu
+          editor={editor}
+          tippyOptions={{ duration: 100 }}
+        >
           <div className="richTextEditor__bubbleMenu">
             <Dropdown
               toggleOutside={false}
               list={[
                 {
-                  onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(), 
+                  onClick: () =>
+                    editor.chain().focus().toggleHeading({ level: 1 }).run(),
                   content: "Heading 1",
                 },
                 {
-                  onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+                  onClick: () =>
+                    editor.chain().focus().toggleHeading({ level: 2 }).run(),
                   content: "Heading 2",
                 },
                 {
-                  onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+                  onClick: () =>
+                    editor.chain().focus().toggleHeading({ level: 3 }).run(),
                   content: "Heading 3",
                 },
                 {

@@ -21,7 +21,9 @@ const RichTextEditor = ({ content, onChange = () => {} }: Props) => {
       Underline,
       Image,
       BubbleMenu.configure({
-        element: bubbleRef.current,
+        shouldShow: ({ editor, view, state, oldState, from, to }) => {
+          return editor.isActive('image') ? false : true
+        },
       }),
     ],
     content: content,
