@@ -168,20 +168,20 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
   return (
     <React.Fragment>
       {editor ? (
-        <BubbleMenu
-          editor={editor}
-          tippyOptions={{ duration: 100 }}
-        >
-          {menu}
-        </BubbleMenu>
-      ) : null}
-      {editor ? (
-        <FloatingMenu
-          editor={editor}
-          tippyOptions={{ duration: 100 }}
-        >
-          {menu}
-        </FloatingMenu>
+        <>
+          <BubbleMenu
+            editor={editor}
+            tippyOptions={{ duration: 100 }}
+          >
+            {menu}
+          </BubbleMenu>
+          <FloatingMenu
+            editor={editor}
+            tippyOptions={{ duration: 100 }}
+          >
+            {menu}
+          </FloatingMenu>
+        </>
       ) : null}
     </React.Fragment>
   );
