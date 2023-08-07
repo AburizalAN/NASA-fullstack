@@ -94,14 +94,20 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
           <button
             className={clsx(
               "btn-editor",
-              "flex items-center justify-center"
+              "flex items-center justify-center ml-1"
             )}
             onClick={openDropdown}
           >
-            <RiText />
-            <div className="ml-1">
-              <RiArrowDropDownFill />
-            </div>
+            {editor.isActive("paragraph")
+              ? <RiText />
+              : editor.isActive("heading", { level: 1 })
+              ? <div className="text-xs px-2">H1</div>
+              : editor.isActive("heading", { level: 2 })
+              ? <div className="text-xs px-2">H2</div>
+              : editor.isActive("heading", { level: 3 })
+              ? <div className="text-xs px-2">H3</div>
+              : null} 
+            <RiArrowDropDownFill />
           </button>
         )}
       </Dropdown>
