@@ -70,50 +70,23 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
         <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
           <div className="richTextEditor__bubbleMenu">
             <Dropdown
+              toggleOutside={false}
               list={[
                 {
-                  content: (
-                    <div
-                      onClick={() =>
-                        editor.chain().focus().toggleHeading({ level: 1 }).run()
-                      }
-                    >
-                      Heading 1
-                    </div>
-                  ),
+                  onClick: () => editor.chain().focus().toggleHeading({ level: 1 }).run(), 
+                  content: "Heading 1",
                 },
                 {
-                  content: (
-                    <div
-                      onClick={() =>
-                        editor.chain().focus().toggleHeading({ level: 2 }).run()
-                      }
-                    >
-                      Heading 2
-                    </div>
-                  ),
+                  onClick: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+                  content: "Heading 2",
                 },
                 {
-                  content: (
-                    <div
-                      onClick={() =>
-                        editor.chain().focus().toggleHeading({ level: 3 }).run()
-                      }
-                    >
-                      Heading 3
-                    </div>
-                  ),
+                  onClick: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+                  content: "Heading 3",
                 },
                 {
-                  content: (
-                    <div
-                      onClick={() =>
-                        editor.chain().focus().setParagraph().run()
-                      }
-                    >
-                      Paragraph
-                    </div>
-                  ),
+                  onClick: () => editor.chain().focus().setParagraph().run(),
+                  content: "Paragraph",
                 },
               ]}
             >

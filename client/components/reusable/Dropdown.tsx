@@ -4,8 +4,12 @@ import clsx from "clsx";
 type DropdownProps = {
   children: (props: ChildProps) => React.ReactNode;
   content?: React.ReactNode;
-  list?: { content: string | React.ReactNode }[];
+  list?: {
+    content: string | React.ReactNode,
+    onClick?: () => void, 
+  }[];
   position?: "left" | "right";
+  toggleOutside?: boolean;
 };
 
 type ChildProps = {
@@ -18,6 +22,7 @@ const Dropdown = ({
   content,
   list,
   position = "left",
+  toggleOutside = true,
 }: DropdownProps) => {
   const [toggle, setToggle] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -49,7 +54,7 @@ const Dropdown = ({
 
   React.useEffect(() => {
     document.addEventListener("mousedown", (event: any) => {
-      if (!wrapperRef.current?.contains(event.target)) {
+      if (toggleOutside && !wrapperRef.current?.contains(event.target)) {
         setToggle(false);
       }
     });
@@ -58,6 +63,7 @@ const Dropdown = ({
   return (
     <div ref={wrapperRef} className="relative flex">
       {children(childProps)}
+      {/* <div className="fixed bg-[#0000003d] w-screen h-screen top-0 left-0"></div> */}
       {isOpen ? (
         <div
           ref={ref}
@@ -76,6 +82,12 @@ const Dropdown = ({
                 <div
                   key={i}
                   className="dropdown-item relative p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all"
+                  onClick={() => {
+                    setToggle(false)
+                    if (item.onClick) {
+                      item.onClick()
+                    }
+                  }}
                 >
                   {item.content}
                 </div>
