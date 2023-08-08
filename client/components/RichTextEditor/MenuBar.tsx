@@ -67,7 +67,6 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
   const menu = (
     <div className="richTextEditor__bubbleMenu">
       <Dropdown
-        toggleOutside={false}
         list={[
           {
             onClick: () =>
@@ -177,7 +176,7 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
         <>
           <BubbleMenu
             editor={editor}
-            tippyOptions={{ duration: 100 }}
+            tippyOptions={{ duration: 100, hideOnClick: true }}
           >
             {menu}
           </BubbleMenu>

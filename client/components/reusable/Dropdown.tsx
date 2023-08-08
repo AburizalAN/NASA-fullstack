@@ -34,6 +34,11 @@ const Dropdown = ({
     toggle: toggle,
   };
 
+  const close = () => {
+    setToggle(false);
+    setIsOpen(false);
+  }
+
   React.useEffect(() => {
     if (toggle) {
       setIsOpen(true);
@@ -55,7 +60,7 @@ const Dropdown = ({
   React.useEffect(() => {
     document.addEventListener("mousedown", (event: any) => {
       if (toggleOutside && !wrapperRef.current?.contains(event.target)) {
-        setToggle(false);
+        close();
       }
     });
   }, []);
@@ -83,7 +88,7 @@ const Dropdown = ({
                   key={i}
                   className="dropdown-item relative p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all"
                   onClick={() => {
-                    setToggle(false)
+                    close();
                     if (item.onClick) {
                       item.onClick()
                     }
