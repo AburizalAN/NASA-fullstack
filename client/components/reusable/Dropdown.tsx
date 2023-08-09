@@ -68,7 +68,6 @@ const Dropdown = ({
   return (
     <div ref={wrapperRef} className="relative flex">
       {children(childProps)}
-      {/* <div className="fixed bg-[#0000003d] w-screen h-screen top-0 left-0"></div> */}
       {isOpen ? (
         <div
           ref={ref}

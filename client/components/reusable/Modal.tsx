@@ -8,6 +8,7 @@ type ModalProps = {
   visible: boolean;
   onCancel: () => void;
   maskClosable?: boolean;
+  centerPosition?: boolean;
 };
 
 const ModalComp = ({
@@ -16,7 +17,8 @@ const ModalComp = ({
   children,
   visible,
   onCancel,
-  maskClosable,
+  maskClosable = true,
+  centerPosition = false,
 }: React.PropsWithChildren<ModalProps>) => {
   const modalRef = React.useRef<HTMLDivElement>(null);
   const modalWrapperRef = React.useRef<HTMLDivElement>(null);
@@ -64,11 +66,15 @@ const ModalComp = ({
   }, []);
 
   return isOpen ? (
-    <div ref={modalWrapperRef} className="modal-wrapper">
+    <div
+      ref={modalWrapperRef}
+      className="modal-wrapper"
+    >
       <div
         ref={modalRef}
         className={clsx(
-          "p-5 rounded-md border modal bg-white m-auto",
+          !centerPosition ? "mx-auto mb-auto mt-[100px]" : "m-auto",
+          "p-5 rounded-md border modal bg-white",
           className
         )}
         style={{ width }}

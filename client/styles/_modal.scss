@@ -17,8 +17,8 @@ $ease-in: cubic-bezier(0.75, 0, 1, 0.5);
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 99999;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
     animation: opacityIn 200ms forwards $ease-out;
     &.closing {
       animation: opacityOut 200ms forwards $ease-out;

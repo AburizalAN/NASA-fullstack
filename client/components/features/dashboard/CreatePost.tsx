@@ -9,6 +9,7 @@ import useAxios from "@/hooks/useAxios";
 import useFetch from "@/hooks/useFetch";
 import dynamic from "next/dynamic";
 import ModalAddCategory from "./ModalAddCategory";
+import FeaturedImage from "./FeaturedImage";
 
 const BlockNote = dynamic(() => import("@/components/BlockNote"), {
   ssr: false,
@@ -179,6 +180,25 @@ const CreatePost = () => {
                         )}
                       </ModalAddCategory>
                     </div>
+                  </Disclosure.Panel>
+                </>
+              )}
+            </Disclosure>
+          </div>
+          <div className="disclosure">
+            <Disclosure defaultOpen={true}>
+              {({ open }) => (
+                <>
+                  <Disclosure.Button className={`header ${open ? "open" : ""}`}>
+                    <span>Featured Image</span>
+                    <FaChevronDown
+                      className={`transition-all ${
+                        open ? "rotate-180 transform" : ""
+                      }`}
+                    />
+                  </Disclosure.Button>
+                  <Disclosure.Panel className="text-gray-500 p-3">
+                    <FeaturedImage />
                   </Disclosure.Panel>
                 </>
               )}
