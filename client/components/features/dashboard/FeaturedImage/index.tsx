@@ -3,7 +3,7 @@ import ModalGallery from "./ModalGallery";
 import ModalURL from "./ModalURL";
 import clsx from "clsx";
 
-const FeaturedImage = () => {
+const FeaturedImage = ({ mutatePost, post }: { mutatePost: () => void, post: any }) => {
   const dropdownRef = React.useRef<HTMLDivElement>(null);
   const [toggleDropdown, setToggleDropdown] = React.useState(false);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState(false);
@@ -37,12 +37,16 @@ const FeaturedImage = () => {
 
   return (
     <div className="relative">
-      <div
-        onClick={() => setToggleDropdown(true)}
-        className="bg-slate-200 hover:bg-slate-300 transition-colors h-[160px] rounded-md grid place-items-center cursor-pointer"
-      >
-        <div>Add Image</div>
-      </div>
+      {post.featured_image ? (
+        <img src={post.featured_image} className="rounded-md w-full h-[160px] object-cover object-center" />
+      ) : (
+        <div
+          onClick={() => setToggleDropdown(true)}
+          className="bg-slate-200 hover:bg-slate-300 transition-colors h-[160px] rounded-md grid place-items-center cursor-pointer"
+        >
+          <div>Add Image</div>
+        </div>
+      )}
 
       <div
         ref={dropdownRef}
@@ -67,7 +71,7 @@ const FeaturedImage = () => {
             </div>
           )}
         </ModalGallery>
-        <ModalURL>
+        <ModalURL mutatePost={mutatePost}>
           {({ openModal }) => (
             <div
               onClick={() => {

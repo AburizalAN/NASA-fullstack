@@ -60,8 +60,10 @@ exports.updatePost = async (req, res, next) => {
   const id = req.params.id;
   const data = req.body;
 
-  const sanitized = sanitizeHtml(data.content);
-  data.content = sanitized;
+  if (data.content) {
+    const sanitized = sanitizeHtml(data.content);
+    data.content = sanitized;
+  }
 
   try {
     const resData = await updatePost(data, id);

@@ -99,7 +99,7 @@ const Modal = (props: React.PropsWithChildren<ModalProps>) => {
       );
       root.render(renderComponent);
     }
-  }, [root, props.visible]);
+  }, [root, props]);
 
   return <></>;
 }

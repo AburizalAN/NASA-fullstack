@@ -198,7 +198,7 @@ const CreatePost = () => {
                     />
                   </Disclosure.Button>
                   <Disclosure.Panel className="text-gray-500 p-3">
-                    <FeaturedImage />
+                    <FeaturedImage post={post} mutatePost={mutatePost} />
                   </Disclosure.Panel>
                 </>
               )}
