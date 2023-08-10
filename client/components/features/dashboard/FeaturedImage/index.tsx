@@ -4,13 +4,13 @@ import ModalURL from "./ModalURL";
 import clsx from "clsx";
 
 const FeaturedImage = () => {
-  const dropdownRef = React.useRef<HTMLDivElement>(null)
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
   const [toggleDropdown, setToggleDropdown] = React.useState(false);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState(false);
-  
+
   React.useEffect(() => {
     if (toggleDropdown) {
-      setIsOpenDropdown(true)
+      setIsOpenDropdown(true);
     }
 
     if (!toggleDropdown && isOpenDropdown) {
@@ -30,7 +30,7 @@ const FeaturedImage = () => {
   React.useEffect(() => {
     document.addEventListener("mousedown", (event: any) => {
       if (!dropdownRef.current?.contains(event.target)) {
-        setToggleDropdown(false)
+        setToggleDropdown(false);
       }
     });
   }, []);
@@ -44,7 +44,13 @@ const FeaturedImage = () => {
         <div>Add Image</div>
       </div>
 
-      <div ref={dropdownRef} className={clsx(isOpenDropdown ? "block" : "hidden", "dropdown bg-white rounded-md shadow-md shadow-stone-200 absolute p-1 w-full left-0 top-[calc(100%_+_10px)]")}>
+      <div
+        ref={dropdownRef}
+        className={clsx(
+          isOpenDropdown ? "block" : "hidden",
+          "dropdown bg-white rounded-md shadow-md shadow-stone-200 absolute p-1 w-full left-0 top-[calc(100%_+_10px)]"
+        )}
+      >
         <div className="text-center p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all cursor-pointer">
           + Upload
         </div>
@@ -54,7 +60,7 @@ const FeaturedImage = () => {
               onClick={() => {
                 openModal();
                 setToggleDropdown(false);
-              }} 
+              }}
               className="text-center p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all cursor-pointer"
             >
               From Galery
@@ -76,7 +82,7 @@ const FeaturedImage = () => {
         </ModalURL>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default FeaturedImage;

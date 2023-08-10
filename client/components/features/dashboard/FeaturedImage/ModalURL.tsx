@@ -4,8 +4,6 @@ import Modal from "@/components/reusable/Modal";
 const ModalURL = ({ children }: { children: (props: { openModal: () => void }) => React.ReactNode }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
-  console.log("isOpen", isOpen);
-
   const modalProps = {
     openModal: () => setIsOpen(true),
   }
