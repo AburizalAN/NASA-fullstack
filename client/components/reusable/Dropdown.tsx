@@ -10,6 +10,7 @@ type DropdownProps = {
   }[];
   position?: "left" | "right";
   toggleOutside?: boolean;
+  forceClose?: boolean;
 };
 
 type ChildProps = {
@@ -23,6 +24,7 @@ const Dropdown = ({
   list,
   position = "left",
   toggleOutside = true,
+  forceClose = false,
 }: DropdownProps) => {
   const [toggle, setToggle] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -34,9 +36,11 @@ const Dropdown = ({
     toggle: toggle,
   };
 
-  const close = () => {
+  const handleClose = () => {
+    if (forceClose) {
+      setIsOpen(false)
+    };
     setToggle(false);
-    setIsOpen(false);
   }
 
   React.useEffect(() => {
@@ -60,7 +64,7 @@ const Dropdown = ({
   React.useEffect(() => {
     document.addEventListener("mousedown", (event: any) => {
       if (toggleOutside && !wrapperRef.current?.contains(event.target)) {
-        close();
+        handleClose();
       }
     });
   }, []);
@@ -87,7 +91,7 @@ const Dropdown = ({
                   key={i}
                   className="dropdown-item relative p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all"
                   onClick={() => {
-                    close();
+                    handleClose();
                     if (item.onClick) {
                       item.onClick()
                     }

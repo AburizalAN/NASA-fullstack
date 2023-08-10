@@ -67,6 +67,7 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
   const menu = (
     <div className="richTextEditor__bubbleMenu">
       <Dropdown
+        forceClose
         list={[
           {
             onClick: () =>

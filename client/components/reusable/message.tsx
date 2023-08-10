@@ -1,4 +1,4 @@
-import * as ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom/client";
 import * as React from "react";
 import clsx from "clsx";
 import { AiFillCheckCircle, AiFillExclamationCircle } from "react-icons/ai";
@@ -68,7 +68,8 @@ const message = ({ type, content, duration = 4000 }: MessageProps) => {
   );
 
   document.body.appendChild(wrapper);
-  ReactDOM.render(renderComponent, wrapper);
+  const root = ReactDOM.createRoot(wrapper);
+  root.render(renderComponent);
 };
 
 export default message;

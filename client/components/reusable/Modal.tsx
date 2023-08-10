@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom/client";
 import clsx from "clsx";
 
 type ModalProps = {
@@ -48,14 +48,8 @@ const ModalComp = ({
     if (!modal) return;
   }, [modalRef.current]);
 
-  function getClickPosition(e: any) {
-    const xPosition = e.clientX;
-    const yPosition = e.clientY;
-  }
-
   React.useEffect(() => {
-    document.addEventListener("click", getClickPosition, false);
-    document.addEventListener("click", (event: any) => {
+    document.addEventListener("mousedown", (event: any) => {
       if (
         modalWrapperRef.current?.contains(event.target) &&
         !modalRef.current?.contains(event.target) && maskClosable
@@ -86,20 +80,26 @@ const ModalComp = ({
 };
 
 const Modal = (props: React.PropsWithChildren<ModalProps>) => {
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  const [root, setRoot] = React.useState<any>(null);
   React.useEffect(() => {
-    let modalRoot = document.querySelector(".modal-root");
-    if (!modalRoot && props.visible) {
-      modalRoot = document.createElement("div");
+    if (!ref.current && props.visible) {
+      const modalRoot = document.createElement("div");
       modalRoot.setAttribute("class", "modal-root");
-      document.body.appendChild(modalRoot);
-    }
-    const renderComponent = (
-      <ModalComp {...props} />
-    );
-    if (modalRoot) {
-      ReactDOM.render(renderComponent, modalRoot);
+      ref.current = modalRoot
+      document.body.appendChild(ref.current);
+      setRoot(ReactDOM.createRoot(modalRoot));
     }
   }, [props.visible]);
+
+  React.useEffect(() => {
+    if (root) {
+      const renderComponent = (
+        <ModalComp {...props} />
+      );
+      root.render(renderComponent);
+    }
+  }, [root, props.visible]);
 
   return <></>;
 }
