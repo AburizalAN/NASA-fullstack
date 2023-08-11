@@ -2,11 +2,22 @@ import * as React from "react";
 import ModalGallery from "./ModalGallery";
 import ModalURL from "./ModalURL";
 import clsx from "clsx";
+import { RiEditFill, RiDeleteBin2Line } from "react-icons/ri";
+import { useEditPost } from "@/services/postServices";
+import { useSearchParams } from "next/navigation";
+import message from "@/components/reusable/message";
+import { Spinner } from "@/components/reusable";
 
-const FeaturedImage = ({ mutatePost, post }: { mutatePost: () => void, post: any }) => {
+interface FeaturedImageProps { mutatePost: () => void; post: any; loadingPost: boolean }
+
+const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) => {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
   const dropdownRef = React.useRef<HTMLDivElement>(null);
   const [toggleDropdown, setToggleDropdown] = React.useState(false);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState(false);
+
+  const { action: editPost, isLoading: loadingEditPost } = useEditPost();
 
   React.useEffect(() => {
     if (toggleDropdown) {
@@ -35,10 +46,41 @@ const FeaturedImage = ({ mutatePost, post }: { mutatePost: () => void, post: any
     });
   }, []);
 
+  const deleteFeaturedImage = async () => {
+    const res = await editPost({ id, data: { featured_image: null } });
+    if (res) {
+      message({
+        type: "success",
+        content: "Berhasil menambahkan Featured Image",
+      });
+      mutatePost();
+    }
+  }
+
   return (
     <div className="relative">
-      {post.featured_image ? (
-        <img src={post.featured_image} className="rounded-md w-full h-[160px] object-cover object-center" />
+      {loadingPost || loadingEditPost ? (
+        <div className="h-[160px] grid place-items-center">
+          <Spinner width={24} height={24} />
+        </div>
+      ) : post?.featured_image ? (
+        <div className="rounded-md w-full h-[160px] overflow-hidden relative">
+          <img src={post.featured_image} className="w-full h-full object-cover object-center" />
+          <div className="absolute top-0 left-0 inset-0 bg-[#00000030] opacity-0 hover:opacity-100 transition-all duration-[300ms] flex items-center justify-center gap-2">
+            <button
+              onClick={() => setToggleDropdown(true)}
+              className="w-[50px] h-[30px] grid place-items-center rounded-md text-white bg-[#1381ff80] hover:bg-[#1381ff] transition-all"
+            >
+              <RiEditFill />
+            </button>
+            <button
+              onClick={deleteFeaturedImage}
+              className="w-[50px] h-[30px] grid place-items-center rounded-md text-white bg-[#a1070780] hover:bg-[#a10707] transition-all"
+            >
+              <RiDeleteBin2Line />
+            </button>
+          </div>
+        </div>
       ) : (
         <div
           onClick={() => setToggleDropdown(true)}

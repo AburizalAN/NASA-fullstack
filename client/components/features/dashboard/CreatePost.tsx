@@ -26,7 +26,7 @@ const CreatePost = () => {
   const [content, setContent] = React.useState<string | null>(null);
 
   const uri = `/posts/${id}`;
-  const { data: post, mutate: mutatePost }: any = useSWR(uri, async () => {
+  const { data: post, mutate: mutatePost, isValidating: loadingPost }: any = useSWR(uri, async () => {
     const res = await axios.get(uri);
     if (res.data.data) {
       return res.data.data;
@@ -198,7 +198,7 @@ const CreatePost = () => {
                     />
                   </Disclosure.Button>
                   <Disclosure.Panel className="text-gray-500 p-3">
-                    <FeaturedImage post={post} mutatePost={mutatePost} />
+                    <FeaturedImage post={post} mutatePost={mutatePost} loadingPost={loadingPost} />
                   </Disclosure.Panel>
                 </>
               )}
