@@ -1,7 +1,7 @@
 import * as React from "react";
 import Modal from "@/components/reusable/Modal";
 import { Button } from "@/components/reusable";
-import { useEditPost } from "@/services/postServices";
+import { usePostService } from "@/services/postServices";
 import { useSearchParams } from "next/navigation";
 import message from "@/components/reusable/message";
 
@@ -17,7 +17,7 @@ const ModalURL = ({
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
-  const { action: editPost, isLoading: loadingPost } = useEditPost();
+  const { action: editPost, isLoading: loadingPost } = usePostService();
 
   const modalProps = {
     openModal: () => setIsOpen(true),

@@ -6,10 +6,10 @@ import * as React from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import useSWR from "@/hooks/useSWR";
 import useAxios from "@/hooks/useAxios";
-import useFetch from "@/hooks/useFetch";
 import dynamic from "next/dynamic";
 import ModalAddCategory from "./ModalAddCategory";
 import FeaturedImage from "./FeaturedImage";
+import { usePostService } from "@/services/postServices";
 
 const BlockNote = dynamic(() => import("@/components/BlockNote"), {
   ssr: false,
@@ -33,14 +33,7 @@ const CreatePost = () => {
     }
   });
 
-  const { action: postService } = useFetch(
-    async ({ id, data }: { id?: number; data: any }) => {
-      const res = id
-        ? await axios.put(`/posts/${id}`, data)
-        : await axios.post("/posts", data);
-      return res.data.data;
-    }
-  );
+  const { action: postService } = usePostService();
 
   const getHTML = (html: string) => {
     setContent(html);

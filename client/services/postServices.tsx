@@ -2,7 +2,7 @@ import useAxios from "@/hooks/useAxios";
 import useFetch from "@/hooks/useFetch";
 
 
-export const useEditPost = () => {
+export const usePostService = () => {
   const axios = useAxios();
   return useFetch(
     async ({ id, data }: { id?: number; data: any }) => {

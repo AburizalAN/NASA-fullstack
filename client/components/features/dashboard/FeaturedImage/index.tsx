@@ -3,7 +3,7 @@ import ModalGallery from "./ModalGallery";
 import ModalURL from "./ModalURL";
 import clsx from "clsx";
 import { RiEditFill, RiDeleteBin2Line } from "react-icons/ri";
-import { useEditPost } from "@/services/postServices";
+import { usePostService } from "@/services/postServices";
 import { useSearchParams } from "next/navigation";
 import message from "@/components/reusable/message";
 import { Spinner } from "@/components/reusable";
@@ -17,7 +17,7 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
   const [toggleDropdown, setToggleDropdown] = React.useState(false);
   const [isOpenDropdown, setIsOpenDropdown] = React.useState(false);
 
-  const { action: editPost, isLoading: loadingEditPost } = useEditPost();
+  const { action: editPost, isLoading: loadingEditPost } = usePostService();
 
   React.useEffect(() => {
     if (toggleDropdown) {
