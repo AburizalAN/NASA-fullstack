@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom/client";
+import * as ReactDOM from "react-dom";
 import clsx from "clsx";
 
 type ModalProps = {
@@ -80,28 +80,11 @@ const ModalComp = ({
 };
 
 const Modal = (props: React.PropsWithChildren<ModalProps>) => {
-  const ref = React.useRef<HTMLDivElement | null>(null);
-  const [root, setRoot] = React.useState<any>(null);
-  React.useEffect(() => {
-    if (!ref.current && props.visible) {
-      const modalRoot = document.createElement("div");
-      modalRoot.setAttribute("class", "modal-root");
-      ref.current = modalRoot
-      document.body.appendChild(ref.current);
-      setRoot(ReactDOM.createRoot(modalRoot));
-    }
-  }, [props.visible]);
+  const renderComponent = (
+    <ModalComp {...props} />
+  );
 
-  React.useEffect(() => {
-    if (root) {
-      const renderComponent = (
-        <ModalComp {...props} />
-      );
-      root.render(renderComponent);
-    }
-  }, [root, props]);
-
-  return <></>;
+  return ReactDOM.createPortal(renderComponent, document.body);
 }
 
 export default Modal;
