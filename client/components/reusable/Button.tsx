@@ -1,15 +1,17 @@
 "use client";
 import clsx from "clsx";
+import Spinner from "@/components/reusable/Spinner";
 
 interface ButtonProps {
   children: React.ReactNode;
   color?: string | null;
   block?: boolean;
-  variant?: string;
+  variant?: "outlined" | "filled";
   size?: "sm" | "md" | "lg";
   className?: string;
   onClick?: () => void;
   type?: "button" | "reset" | "submit";
+  loading?: boolean;
 }
 
 const Button = ({
@@ -20,6 +22,7 @@ const Button = ({
   size = "md",
   className,
   onClick,
+  loading = false,
   ...rest
 }: ButtonProps) => {
   const mergedClass = clsx(
@@ -32,6 +35,7 @@ const Button = ({
 
   return (
     <button onClick={onClick} className={mergedClass} {...rest}>
+      {loading ? <Spinner /> : null}
       {children}
     </button>
   );

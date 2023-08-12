@@ -4,6 +4,7 @@ import ModalURL from "./ModalURL";
 import clsx from "clsx";
 import { RiEditFill, RiDeleteBin2Line } from "react-icons/ri";
 import { usePostService } from "@/services/postServices";
+import { useUploadImage } from "@/services/imageServices";
 import { useSearchParams } from "next/navigation";
 import message from "@/components/reusable/message";
 import { Spinner } from "@/components/reusable";
@@ -19,6 +20,7 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
   const [isOpenDropdown, setIsOpenDropdown] = React.useState(false);
 
   const { action: editPost, isLoading: loadingEditPost } = usePostService();
+  const { action: uploadImage, isLoading: loadingUploadImage } = useUploadImage();
 
   React.useEffect(() => {
     if (toggleDropdown) {
@@ -49,6 +51,29 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
 
   const deleteFeaturedImage = async () => {
     const res = await editPost({ id, data: { featured_image: null } });
+    if (res) mutatePost();
+  };
+
+  const handleUploadImage = React.useCallback(() => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.addEventListener(
+      "change",
+      async (e: any) => {
+        const file = e.target.files[0];
+        const url = await uploadImage(file);
+        if (url) {
+          await submitFeaturedImage(url);
+        }
+        setToggleDropdown(false);
+      },
+      { once: true }
+    );
+    input.click();
+  }, []);
+
+  const submitFeaturedImage = async (urlImage: string) => {
+    const res = await editPost({ id, data: { featured_image: urlImage } });
     if (res) {
       message({
         type: "success",
@@ -56,11 +81,11 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
       });
       mutatePost();
     }
-  }
+  };
 
   return (
     <div className="relative">
-      {loadingPost || loadingEditPost ? (
+      {loadingPost || loadingEditPost || loadingUploadImage ? (
         <div className="h-[160px] grid place-items-center">
           <Spinner width={24} height={24} />
         </div>
@@ -102,10 +127,10 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
           "dropdown bg-white rounded-md shadow-md shadow-stone-200 absolute p-1 w-full left-0 top-[calc(100%_+_10px)]"
         )}
       >
-        <div className="text-center p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all cursor-pointer">
+        <div onClick={handleUploadImage} className="text-center p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all cursor-pointer">
           + Upload
         </div>
-        <ModalGallery>
+        <ModalGallery mutatePost={mutatePost}>
           {({ openModal }) => (
             <div
               onClick={() => {

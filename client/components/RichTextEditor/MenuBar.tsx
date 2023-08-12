@@ -55,7 +55,7 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
     const data = new FormData();
     data.append("image", file);
     const res = await axios
-      .post(`/posts/${id}/upload-image`, data, {
+      .post(`/posts/upload-image`, data, {
         headers: {
           "content-type": "multipart/form-data",
         },

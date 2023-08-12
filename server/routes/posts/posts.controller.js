@@ -1,4 +1,11 @@
-const { getPosts, getPostById, createPost, updatePost } = require("../../models/posts.model");
+const {
+  getPosts,
+  getPostById,
+  createPost,
+  updatePost,
+  getCategories,
+  createCategory,
+} = require("../../models/posts.model");
 const sanitizeHtml = require('sanitize-html');
 const getMilliseconds = require('date-fns/getMilliseconds');
 const imagekit = require('../../config/imagekit');
@@ -78,10 +85,9 @@ exports.updatePost = async (req, res, next) => {
 
 exports.uploadImage = async (req, res, next) => {
   try {
-    const id = req.params.id;
     const image = req.files.image[0];
     const milliseconds = getTime(new Date());
-    const filename = `image-${id}-${milliseconds}`;
+    const filename = `image-${milliseconds}`;
     imagekit.upload({
       file: image.buffer,
       fileName: filename,
@@ -115,6 +121,35 @@ exports.getImages = async (req, res, next) => {
         data: result,
       })
     })
+  } catch (err) {
+    next(err);
+  }
+}
+
+exports.getCategories = async (req, res, next) => {
+  try {
+    const resJSON = await getCategories();
+    if (res) {
+      return res.status(200).json({
+        message: "Success",
+        data: resJSON,
+      })
+    }
+  } catch (err) {
+    next(err)
+  }
+}
+
+exports.createCategory = async (req, res, next) => {
+  try {
+    const data = req.body;
+    const resJSON = await createCategory(data);
+    if (resJSON) {
+      return res.status(200).json({
+        message: "Success",
+        data: resJSON,
+      })
+    }
   } catch (err) {
     next(err);
   }

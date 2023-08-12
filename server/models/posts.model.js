@@ -20,3 +20,18 @@ exports.updatePost = (queries, id) => {
   const qUpdatePost = `update posts set ${queriesConverted} where id = :id`;
   return dbPool.execute(qUpdatePost, {...queries, id})
 };
+
+exports.getCategories = () => {
+  const query = `select * from categories`;
+  return dbPool.execute(query).then(([result]) => result);
+}
+
+exports.createCategory = (queries) => {
+  const query = `insert into categories (${Object.keys(queries).map((key) => key).join(", ")}) values(${Object.keys(queries).map((key) => `:${key}`).join(", ")})`;
+  return dbPool.execute(query, queries);
+}
+
+exports.updateCategory = (queries) => {
+  const query = `insert into categories (${Object.keys(queries).map((key) => key).join(", ")}) values(${Object.keys(queries).map((key) => `:${key}`).join(", ")})`;
+  return dbPool.execute(query, queries);
+}

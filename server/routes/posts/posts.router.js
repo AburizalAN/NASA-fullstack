@@ -7,6 +7,8 @@ const {
   updatePost,
   uploadImage,
   getImages,
+  getCategories,
+  createCategory,
 } = require("./posts.controller");
 const jwt = require("jsonwebtoken");
 const requireLogin = require("../../middleware/requireLogin");
@@ -17,9 +19,13 @@ const upload = multer();
 
 postsRouter.get("/images", requireLogin, getImages);
 
-postsRouter.get("/", getPosts);
+postsRouter.get("/categories", getCategories);
 
 postsRouter.get("/:id", getPostById);
+
+postsRouter.post("/categories", requireLogin, createCategory);
+
+postsRouter.post("/upload-image", requireLogin, uploadImage);
 
 postsRouter.post("/", requireLogin, handleValidation, createPost);
 
@@ -30,6 +36,6 @@ postsRouter.delete("/:id", requireLogin, (req, res, next) => {
   return res.status(200).json({ message: `create posts : ${id}` });
 });
 
-postsRouter.post("/:id/upload-image", requireLogin, uploadImage);
+postsRouter.get("/", getPosts);
 
 module.exports = postsRouter;

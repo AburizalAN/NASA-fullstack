@@ -3,7 +3,7 @@ import * as React from "react";
 import { message } from "@/components/reusable";
 
 const useSWRHandler = (
-  uri: string,
+  uri: string | null,
   fetcher: () => void,
   options: {} = {},
 ) => {

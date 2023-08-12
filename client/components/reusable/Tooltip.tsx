@@ -28,15 +28,15 @@ const Tooltip = ({ children, content, placement }: TooltipProps) => {
   });
 
   const show = () => {
-    popperElement?.setAttribute("data-show", "");
+    popperElement?.setAttribute("data-show", "test");
     if (update) update()
   };
 
   const hide = () => {
     if (popperElement?.getAttribute("data-show")) {
       popperElement?.removeAttribute("data-show");
-      if (update) update()
     }
+    if (update) update()
   };
 
   return (
