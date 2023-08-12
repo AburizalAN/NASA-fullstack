@@ -89,10 +89,30 @@ exports.uploadImage = async (req, res, next) => {
     }, function(err, result) {
       if (err) throw err;
       return res.status(200).json({
-        success: 1,
+        message: "Success",
         file: {
           url: result.url,
         }
+      })
+    })
+  } catch (err) {
+    next(err);
+  }
+}
+
+exports.getImages = async (req, res, next) => {
+  try {
+    const limit = req.query.limit ?? 10;
+    const page = req.query.page ?? 1;
+    imagekit.listFiles({
+      path: "blog",
+      skip : (page - 1) * limit,
+      limit : limit,
+    }, (err, result) => {
+      if (err) throw err;
+      return res.status(200).json({
+        message: "Success",
+        data: result,
       })
     })
   } catch (err) {

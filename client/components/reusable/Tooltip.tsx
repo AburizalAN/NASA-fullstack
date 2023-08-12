@@ -23,6 +23,7 @@ const Tooltip = ({ children, content, placement }: TooltipProps) => {
           offset: [0, 8],
         },
       },
+      { name: 'eventListeners', enabled: true },
     ],
   });
 
@@ -32,8 +33,10 @@ const Tooltip = ({ children, content, placement }: TooltipProps) => {
   };
 
   const hide = () => {
-    popperElement?.removeAttribute("data-show");
-    if (update) update()
+    if (popperElement?.getAttribute("data-show")) {
+      popperElement?.removeAttribute("data-show");
+      if (update) update()
+    }
   };
 
   return (

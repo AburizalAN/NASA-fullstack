@@ -18,7 +18,6 @@ app.use(morgan('combined'));
 app.use(express.json());
 app.use(upload.fields([{ name: "image", maxCount: 1 }]));
 
-app.use('/planets', planetsRoutes);
 app.use('/users', usersRoutes);
 app.use('/auth', authRoutes);
 app.use("/posts", postsRoutes);

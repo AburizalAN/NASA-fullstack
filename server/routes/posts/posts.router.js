@@ -1,23 +1,27 @@
 const express = require("express");
 const postsRouter = express.Router();
-const { createPost, getPosts, getPostById, updatePost, uploadImage } = require("./posts.controller");
+const {
+  createPost,
+  getPosts,
+  getPostById,
+  updatePost,
+  uploadImage,
+  getImages,
+} = require("./posts.controller");
 const jwt = require("jsonwebtoken");
 const requireLogin = require("../../middleware/requireLogin");
 const handleValidation = require("../../middleware/handleValidation");
 const { body } = require("express-validator");
-const multer = require('multer');
+const multer = require("multer");
 const upload = multer();
+
+postsRouter.get("/images", requireLogin, getImages);
 
 postsRouter.get("/", getPosts);
 
 postsRouter.get("/:id", getPostById);
 
-postsRouter.post(
-  "/",
-  requireLogin,
-  handleValidation,
-  createPost
-);
+postsRouter.post("/", requireLogin, handleValidation, createPost);
 
 postsRouter.put("/:id", requireLogin, updatePost);
 
