@@ -7,6 +7,7 @@ import { usePostService } from "@/services/postServices";
 import { useSearchParams } from "next/navigation";
 import message from "@/components/reusable/message";
 import { Spinner } from "@/components/reusable";
+import Tooltip from "@/components/reusable/Tooltip";
 
 interface FeaturedImageProps { mutatePost: () => void; post: any; loadingPost: boolean }
 
@@ -67,18 +68,22 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
         <div className="rounded-md w-full h-[160px] overflow-hidden relative">
           <img src={post.featured_image} className="w-full h-full object-cover object-center" />
           <div className="absolute top-0 left-0 inset-0 bg-[#00000030] opacity-0 hover:opacity-100 transition-all duration-[300ms] flex items-center justify-center gap-2">
-            <button
-              onClick={() => setToggleDropdown(true)}
-              className="w-[50px] h-[30px] grid place-items-center rounded-md text-white bg-[#1381ff80] hover:bg-[#1381ff] transition-all"
-            >
-              <RiEditFill />
-            </button>
-            <button
-              onClick={deleteFeaturedImage}
-              className="w-[50px] h-[30px] grid place-items-center rounded-md text-white bg-[#a1070780] hover:bg-[#a10707] transition-all"
-            >
-              <RiDeleteBin2Line />
-            </button>
+            <Tooltip placement="top" content="Edit">
+              <button
+                onClick={() => setToggleDropdown(true)}
+                className="w-[50px] h-[30px] grid place-items-center rounded-md text-white bg-[#1381ff80] hover:bg-[#1381ff] transition-all"
+              >
+                <RiEditFill />
+              </button>
+            </Tooltip>
+            <Tooltip placement="top" content="Remove">
+              <button
+                onClick={deleteFeaturedImage}
+                className="w-[50px] h-[30px] grid place-items-center rounded-md text-white bg-[#a1070780] hover:bg-[#a10707] transition-all"
+              >
+                <RiDeleteBin2Line />
+              </button>
+            </Tooltip>
           </div>
         </div>
       ) : (
