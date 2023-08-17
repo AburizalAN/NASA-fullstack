@@ -7,6 +7,7 @@ import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
 import BubbleMenu from "@tiptap/extension-bubble-menu";
 import MenuBar from "./MenuBar";
+import sanitizeHtml from "sanitize-html";
 
 interface Props {
   content?: string;
@@ -28,14 +29,18 @@ const RichTextEditor = ({ content, onChange = () => {} }: Props) => {
     ],
     content: content,
     onUpdate: ({ editor }) => {
-      const _HTML = editor.getHTML();
+      const _HTML = sanitizeHtml(editor.getHTML(), {
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
+      });
       onChange(_HTML);
     },
   });
 
   React.useEffect(() => {
     if (editor) {
-      const _HTML = editor.getHTML();
+      const _HTML = sanitizeHtml(editor.getHTML(), {
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
+      });
       onChange(_HTML);
     }
   }, [editor])

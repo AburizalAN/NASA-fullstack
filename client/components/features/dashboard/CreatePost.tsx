@@ -100,7 +100,7 @@ const CreatePost = () => {
     }
   };
 
-  console.log("postCategories", postCategories);
+  console.log("content", content);
 
   return (
     <div className="flex h-full flex-col">

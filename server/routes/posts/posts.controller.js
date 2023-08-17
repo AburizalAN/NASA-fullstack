@@ -86,7 +86,9 @@ exports.updatePost = async (req, res, next) => {
   const categories = req.body.categories ?? [];
 
   if (data.content) {
-    const sanitized = sanitizeHtml(data.content);
+    const sanitized = sanitizeHtml(data.content, {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
+    });
     data.content = sanitized;
   }
 
