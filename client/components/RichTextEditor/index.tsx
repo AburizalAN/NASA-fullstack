@@ -33,6 +33,13 @@ const RichTextEditor = ({ content, onChange = () => {} }: Props) => {
     },
   });
 
+  React.useEffect(() => {
+    if (editor) {
+      const _HTML = editor.getHTML();
+      onChange(_HTML);
+    }
+  }, [editor])
+
   return (
     <div className="richTextEditor">
       <MenuBar editor={editor} ref={bubbleRef} />
