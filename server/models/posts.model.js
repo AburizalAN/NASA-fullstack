@@ -18,7 +18,7 @@ exports.createPost = (queries) => {
 exports.updatePost = (queries, id) => {
   const queriesConverted = Object.entries(queries).map(([key, value]) => `${key} = :${key}`).join(", ");
   const qUpdatePost = `update posts set ${queriesConverted} where id = :id`;
-  return dbPool.execute(qUpdatePost, {...queries, id})
+  return dbPool.execute(qUpdatePost, { ...queries, id })
 };
 
 exports.getCategories = () => {
@@ -31,7 +31,23 @@ exports.createCategory = (queries) => {
   return dbPool.execute(query, queries);
 }
 
-exports.updateCategory = (queries) => {
-  const query = `insert into categories (${Object.keys(queries).map((key) => key).join(", ")}) values(${Object.keys(queries).map((key) => `:${key}`).join(", ")})`;
-  return dbPool.execute(query, queries);
+exports.updateCategory = (queries, id) => {
+  const queriesConverted = Object.keys(queries).map((key) => `${key} = :${key}`).join(", ");
+  const query = `update categories set (${queriesConverted}) where id = :id`;
+  return dbPool.execute(query, { ...queries, id });
+}
+
+exports.resetPostCategory = (postId) => {
+  const queryReset = `delete from post_category where postId = ?`;
+  return dbPool.execute(queryReset, [postId]);
+}
+
+exports.setPostCategory = (postId, categoryId) => {
+  const query = `insert into post_category (postId, categoryId) values (?, ?)`;
+  return dbPool.execute(query, [postId, categoryId]);
+}
+
+exports.getCategoriesByPostId = (postId) => {
+  const query = `select * from categories inner join post_category on (post_category.categoryId = categories.id) where postId = ?`;
+  return dbPool.execute(query, [postId]).then(([result]) => result);
 }

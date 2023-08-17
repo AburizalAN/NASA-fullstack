@@ -9,7 +9,7 @@ import useAxios from "@/hooks/useAxios";
 import dynamic from "next/dynamic";
 import ModalAddCategory from "./ModalAddCategory";
 import FeaturedImage from "./FeaturedImage";
-import { usePostService } from "@/services/postServices";
+import { usePostService, useGetCategories } from "@/services/postServices";
 
 const BlockNote = dynamic(() => import("@/components/BlockNote"), {
   ssr: false,
@@ -24,6 +24,7 @@ const CreatePost = () => {
   const id = searchParams.get("id");
   const [title, setTitle] = React.useState<string | null>("");
   const [content, setContent] = React.useState<string | null>(null);
+  const [postCategories, setPostCategories] = React.useState<any>(null);
 
   const uri = `/posts/${id}`;
   const { data: post, mutate: mutatePost, isValidating: loadingPost }: any = useSWR(uri, async () => {
@@ -33,7 +34,22 @@ const CreatePost = () => {
     }
   });
 
+  const { data: categories, isValidating: loadingCategories }: any = useGetCategories();
+
   const { action: postService } = usePostService();
+
+  React.useEffect(() => {
+    if (post?.categories) {
+      setPostCategories(post.categories)
+    }
+  }, [post?.categories]);
+
+  React.useEffect(() => {
+    const _title = post?.title ?? undefined;
+    if (_title) {
+      setTitle(_title);
+    }
+  }, [post?.title]);
 
   const getHTML = (html: string) => {
     setContent(html);
@@ -44,6 +60,7 @@ const CreatePost = () => {
       author_id: post.author_id,
       title,
       content,
+      categories: postCategories.map((item: any) => item.id),
     };
     const res = await postService({ id: post?.id, data });
     if (res) {
@@ -64,12 +81,26 @@ const CreatePost = () => {
     }
   };
 
-  React.useEffect(() => {
-    const _title = post?.title ?? undefined;
-    if (_title) {
-      setTitle(_title);
+  const handleChangeCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const categoryId = parseInt(e.target.value);
+    const categoryIndex = postCategories.findIndex((item: any) => item?.id === categoryId);
+    if (categoryIndex !== -1) {
+      setPostCategories((prev: any) => {
+        const newPostCategories = structuredClone(prev);
+        console.log("newPostttt", newPostCategories);
+        newPostCategories.splice(categoryIndex, 1);
+        return newPostCategories;
+      });
+    } else {
+      setPostCategories((prev: any) => {
+        const category = categories.find((item: any) => item?.id === categoryId);
+        const newPostCategories = [ ...prev, category ];
+        return newPostCategories;
+      });
     }
-  }, [post?.title]);
+  };
+
+  console.log("postCategories", postCategories);
 
   return (
     <div className="flex h-full flex-col">
@@ -149,18 +180,14 @@ const CreatePost = () => {
                     />
                   </Disclosure.Button>
                   <Disclosure.Panel className="text-gray-500 p-3">
-                    <div className="flex items-center mb-2">
-                      <input type="checkbox" defaultChecked={true} />
-                      <label className="text-sm ml-3 min-w-0 flex-1 text-gray-500">
-                        test kategori 1
-                      </label>
-                    </div>
-                    <div className="flex items-center">
-                      <input type="checkbox" defaultChecked={true} />
-                      <label className="text-sm ml-3 min-w-0 flex-1 text-gray-500">
-                        test kategori 1
-                      </label>
-                    </div>
+                    {categories?.map((category: any, i: number) => (
+                      <div key={i} className="flex items-center mb-2 last:mb-0">
+                        <input value={category.id} onChange={handleChangeCategory} type="checkbox" checked={postCategories?.find((item: any) => item?.id === category.id) ? true : false} />
+                        <label className="text-sm ml-3 min-w-0 flex-1 text-gray-500">
+                          {category.title}
+                        </label>
+                      </div>
+                    ))}
                     <div className="mt-5">
                       <ModalAddCategory>
                         {({ openModal }) => (

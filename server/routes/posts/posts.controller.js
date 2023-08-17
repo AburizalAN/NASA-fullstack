@@ -5,6 +5,9 @@ const {
   updatePost,
   getCategories,
   createCategory,
+  setPostCategory,
+  getCategoriesByPostId,
+  resetPostCategory,
 } = require("../../models/posts.model");
 const sanitizeHtml = require('sanitize-html');
 const getMilliseconds = require('date-fns/getMilliseconds');
@@ -13,11 +16,16 @@ const getTime = require('date-fns/getTime');
 
 exports.getPosts = async (req, res, next) => {
   try {
-    const resData = await getPosts();
+    const posts = await getPosts();
+    const promises = posts.map(async (post) => {
+      const categories = await getCategoriesByPostId(post.id);
+      return { ...post, categories };
+    });
+    const newPosts = await Promise.all(promises);
     res.status(200).json({
       message: "Success",
-      data: resData,
-    })
+      data: newPosts,
+    });
   } catch (err) {
     next(err)
   }
@@ -26,10 +34,11 @@ exports.getPosts = async (req, res, next) => {
 exports.getPostById = async (req, res, next) => {
   const id = req.params.id;
   try {
-    const [[ resData ]] = await getPostById({ id });
+    const [[ post ]] = await getPostById({ id });
+    const categories = await getCategoriesByPostId(post.id);
     res.status(200).json({
       message: "Success",
-      data: resData,
+      data: { ...post, categories },
     })
   } catch (err) {
     next(err)
@@ -49,15 +58,19 @@ exports.createPost = async (req, res, next) => {
     created_at: req.body.created_at ?? null,
     update_at: req.body.update_at ?? null,
     published_at: req.body.published_at ?? null,
-    category_id: req.body.category_id ?? null,
   }
+
+  const categories = req.body.categories;
 
   try {
     const resData = await createPost(data);
+    const id = resData[0].insertId;
+    const promises = categories.map((categoryId) => setPostCategory(id, categoryId));
+    await Promise.all(promises);
     return res.status(200).json({
       message: "Success",
       data: resData,
-    })
+    });
   } catch (err) {
     next(err)
   };
@@ -65,7 +78,12 @@ exports.createPost = async (req, res, next) => {
 
 exports.updatePost = async (req, res, next) => {
   const id = req.params.id;
-  const data = req.body;
+  const data = structuredClone(req.body);
+  if (data.categories) {
+    delete data.categories
+  }
+
+  const categories = req.body.categories ?? [];
 
   if (data.content) {
     const sanitized = sanitizeHtml(data.content);
@@ -74,6 +92,9 @@ exports.updatePost = async (req, res, next) => {
 
   try {
     const resData = await updatePost(data, id);
+    await resetPostCategory(id);
+    const promises = categories.map((categoryId) => setPostCategory(id, categoryId));
+    await Promise.all(promises);
     return res.status(200).json({
       message: "Success",
       data: resData,

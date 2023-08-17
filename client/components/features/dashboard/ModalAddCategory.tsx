@@ -24,13 +24,15 @@ const ModalAddCategory = ({ children }: Props) => {
         visible={isOpen}
         onCancel={() => setIsOpen(false)}
       >
-        <h4 className="font-bold">Tambah Kategori</h4>
+        <h5 className="font-bold mb-3">Tambah Kategori</h5>
+        <div>
+          
+        </div>
         <Button
-          variant="primary"
           onClick={() => setIsOpen(false)}
           block
         >
-          close
+          Tambah Category
         </Button>
       </Modal>
     </>

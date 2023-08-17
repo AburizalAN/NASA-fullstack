@@ -54,7 +54,7 @@ const ModalGallery = ({ children, mutatePost }: PropTypes) => {
     <>
       {children(modalProps)}
       <Modal width={700} visible={isOpen} onCancel={() => setIsOpen(false)}>
-        <div className="font-bold mb-3">Select Image from Gallery</div>
+        <h5 className="font-bold mb-3">Select Image from Gallery</h5>
         {loadingImages ? (
           <div className="grid place-items-center h-[100px]">
             <Spinner width={30} height={30} />
