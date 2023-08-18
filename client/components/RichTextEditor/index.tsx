@@ -6,8 +6,19 @@ import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
 import BubbleMenu from "@tiptap/extension-bubble-menu";
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import { lowlight } from 'lowlight';
+import css from 'highlight.js/lib/languages/css'
+import js from 'highlight.js/lib/languages/javascript'
+import ts from 'highlight.js/lib/languages/typescript'
+import html from 'highlight.js/lib/languages/xml'
 import MenuBar from "./MenuBar";
 import sanitizeHtml from "sanitize-html";
+
+lowlight.registerLanguage('html', html)
+lowlight.registerLanguage('css', css)
+lowlight.registerLanguage('js', js)
+lowlight.registerLanguage('ts', ts)
 
 interface Props {
   content?: string;
@@ -25,6 +36,9 @@ const RichTextEditor = ({ content, onChange = () => {} }: Props) => {
         shouldShow: ({ editor, view, state, oldState, from, to }) => {
           return editor.isActive('image') ? false : true
         },
+      }),
+      CodeBlockLowlight.configure({
+        lowlight,
       }),
     ],
     content: content,

@@ -15,6 +15,7 @@ import {
   RiImageAddLine,
   RiText,
   RiArrowDropDownFill,
+  RiCodeBoxLine,
 } from "react-icons/ri";
 import Dropdown from "@/components/reusable/Dropdown";
 
@@ -117,6 +118,7 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
           editor.isActive("bold") && "btn-editor-active"
         )}
         onClick={() => editor.chain().focus().toggleBold().run()}
+        title="Bold"
       >
         <RiBold />
       </button>
@@ -126,6 +128,7 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
           editor.isActive("italic") && "btn-editor-active"
         )}
         onClick={() => editor.chain().focus().toggleItalic().run()}
+        title="Italic"
       >
         <RiItalic />
       </button>
@@ -135,6 +138,7 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
           editor.isActive("underline") && "btn-editor-active"
         )}
         onClick={() => editor.chain().focus().toggleUnderline().run()}
+        title="Underline"
       >
         <RiUnderline />
       </button>
@@ -144,8 +148,19 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
           editor.isActive("code") && "btn-editor-active"
         )}
         onClick={() => editor.chain().focus().toggleCode().run()}
+        title="Code"
       >
         <RiCodeFill />
+      </button>
+      <button
+        className={clsx(
+          "btn-editor",
+          editor.isActive("codeBlock") && "btn-editor-active"
+        )}
+        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+        title="Code Block"
+      >
+        <RiCodeBoxLine />
       </button>
       <button
         className={clsx(
@@ -153,6 +168,7 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
           editor.isActive("bulletList") && "btn-editor-active"
         )}
         onClick={() => editor.chain().focus().toggleBulletList().run()}
+        title="Bullet List"
       >
         <RiListUnordered />
       </button>
@@ -162,10 +178,11 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
           editor.isActive("orderedList") && "btn-editor-active"
         )}
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
+        title="Number List"
       >
         <RiListOrdered />
       </button>
-      <button className={clsx("btn-editor")} onClick={addImage}>
+      <button className={clsx("btn-editor")} onClick={addImage} title="Add Image">
         <RiImageAddLine />
       </button>
     </div>
