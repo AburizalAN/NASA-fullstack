@@ -29,8 +29,8 @@ export default function Home() {
         ) : posts?.length > 0 ? (
           <div className="pt-5">
             <Masonry cols={cols}>
-              {posts.map((post: any) => (
-                <MasonryItem>
+              {posts.map((post: any, i: number) => (
+                <MasonryItem key={i}>
                   <Link href={`/blog/${post.slug}`}>
                     <div className="post-card-item">
                       <div className="rounded-t-xl flex items-center justify-center overflow-hidden">
