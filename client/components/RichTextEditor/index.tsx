@@ -62,7 +62,7 @@ const RichTextEditor = ({ content, onChange = () => {} }: Props) => {
   return (
     <div className="richTextEditor">
       <MenuBar editor={editor} ref={bubbleRef} />
-      <EditorContent editor={editor} />
+      <EditorContent editor={editor} spellCheck={false} />
     </div>
   );
 };

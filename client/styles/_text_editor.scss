@@ -29,6 +29,7 @@
         margin-top: 0.5em;
       }
       pre {
+        @apply mb-6 last:mb-0;
         background: #0d0d0d;
         border-radius: 0.5rem;
         color: #fff;
