@@ -1,23 +1,18 @@
-import { Disclosure, RadioGroup, Transition } from "@headlessui/react";
+"use client";
+
+import { Disclosure } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa";
 import { HiPlus } from "react-icons/Hi";
 import { Button, Combobox, ResizableTextArea } from "@/components/reusable";
 import * as React from "react";
-import { useSearchParams, usePathname } from "next/navigation";
-import useSWR from "@/hooks/useSWR";
-import useAxios from "@/hooks/useAxios";
+import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import ModalAddCategory from "./ModalAddCategory";
 import FeaturedImage from "./FeaturedImage";
 import { usePostService, useGetCategories, useGetDetailPost } from "@/services/postServices";
+import { useGetUserInfo } from "@/services/authService";
 
-const BlockNote = dynamic(() => import("@/components/BlockNote"), {
-  ssr: false,
-});
-
-const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"))
-
-const axios = useAxios();
+const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"), { ssr: false })
 
 const CreatePost = () => {
   const searchParams = useSearchParams();
@@ -25,9 +20,10 @@ const CreatePost = () => {
   const [title, setTitle] = React.useState<string | null>("");
   const [content, setContent] = React.useState<string | null>(null);
   const [postCategories, setPostCategories] = React.useState<any>(null);
+  const [slug, setSlug] = React.useState<any>("");
+  const { data: me, isValidating: loadingMe }: any = useGetUserInfo();
   const { data: post, mutate: mutatePost, isValidating: loadingPost }: any = useGetDetailPost({ id })
-
-  const { data: categories, isValidating: loadingCategories }: any = useGetCategories();
+  const { data: categories, isValidating: loadingCategories, mutate: mutateCategories }: any = useGetCategories();
 
   const { action: postService } = usePostService();
 
@@ -44,16 +40,23 @@ const CreatePost = () => {
     }
   }, [post?.title]);
 
+  React.useEffect(() => {
+    if (post?.slug) {
+      setSlug(post?.slug);
+    }
+  }, [post?.slug])
+
   const getHTML = (html: string) => {
     setContent(html);
   };
 
   const saveDraft = async () => {
     const data = {
-      author_id: 13,
+      author_id: me?.id,
       title,
       content,
       categories: postCategories?.map((item: any) => item.id) ?? null,
+      slug: slug?.trim().length === 0 ? null : slug,
     };
     const res = await postService({ id: post?.id, data });
     if (res) {
@@ -67,6 +70,7 @@ const CreatePost = () => {
       title,
       content,
       published: post?.published ? 0 : 1,
+      slug: slug?.trim().length === 0 ? null : slug,
     };
     const res = await postService({ id: post?.id, data });
     if (res) {
@@ -80,7 +84,6 @@ const CreatePost = () => {
     if (categoryIndex !== -1) {
       setPostCategories((prev: any) => {
         const newPostCategories = structuredClone(prev);
-        console.log("newPostttt", newPostCategories);
         newPostCategories.splice(categoryIndex, 1);
         return newPostCategories;
       });
@@ -91,6 +94,11 @@ const CreatePost = () => {
         return newPostCategories;
       });
     }
+  };
+
+  const handleChangeSlug = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSlug(value);
   };
 
   return (
@@ -123,8 +131,9 @@ const CreatePost = () => {
               // maxRows={2}
             />
           </div>
-          {/* <BlockNote htmlValue={post?.content} getHTML={getHTML} /> */}
-          <RichTextEditor content={post?.content} onChange={getHTML} /> 
+          {!loadingPost ? (
+            <RichTextEditor content={post?.content} onChange={getHTML} />
+          ) : null}
         </div>
         <div className="w-[350px] border-x">
           <div className="disclosure border-t-0">
@@ -141,13 +150,15 @@ const CreatePost = () => {
                   </Disclosure.Button>
                   <Disclosure.Panel className="text-gray-500 p-3">
                     <div className="grid grid-cols-[minmax(0,_80px)_auto] gap-y-3 gap-x-5 break-words">
-                      <div className="text-sm">Author</div>
+                      {/* <div className="text-sm">Author</div>
                       <div>
                         <Combobox />
-                      </div>
+                      </div> */}
                       <div className="text-sm">Slug</div>
                       <div>
                         <input
+                          value={slug}
+                          onChange={handleChangeSlug}
                           className="w-full border shadow-md shadow-stone-100 rounded-md outline-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
                           placeholder="Isi Slugz`"
                         />
@@ -173,16 +184,37 @@ const CreatePost = () => {
                   <Disclosure.Panel className="text-gray-500 p-3">
                     {categories?.map((category: any, i: number) => (
                       <div key={i} className="flex items-center mb-2 last:mb-0">
-                        <input value={category.id} onChange={handleChangeCategory} type="checkbox" checked={postCategories?.find((item: any) => item?.id === category.id) ? true : false} />
+                        <input
+                          value={category.id}
+                          onChange={handleChangeCategory}
+                          type="checkbox"
+                          checked={
+                            postCategories?.find(
+                              (item: any) => item?.id === category.id
+                            )
+                              ? true
+                              : false
+                          }
+                        />
                         <label className="text-sm ml-3 min-w-0 flex-1 text-gray-500">
                           {category.title}
                         </label>
                       </div>
                     ))}
                     <div className="mt-5">
-                      <ModalAddCategory>
+                      <ModalAddCategory
+                        callback={() => {
+                          mutatePost();
+                          mutateCategories();
+                        }}
+                      >
                         {({ openModal }) => (
-                          <Button onClick={openModal} variant="outlined" color={null} block>
+                          <Button
+                            onClick={openModal}
+                            variant="outlined"
+                            color={null}
+                            block
+                          >
                             <div className="flex items-center justify-center">
                               <HiPlus />
                               <span>Tambah Kategori</span>
@@ -209,7 +241,11 @@ const CreatePost = () => {
                     />
                   </Disclosure.Button>
                   <Disclosure.Panel className="text-gray-500 p-3">
-                    <FeaturedImage post={post} mutatePost={mutatePost} loadingPost={loadingPost} />
+                    <FeaturedImage
+                      post={post}
+                      mutatePost={mutatePost}
+                      loadingPost={loadingPost}
+                    />
                   </Disclosure.Panel>
                 </>
               )}

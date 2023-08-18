@@ -68,7 +68,7 @@
     @apply w-full border shadow-md shadow-[#00000010] rounded-md outline-none py-2 px-3 text-sm leading-5 text-gray-900 focus:ring-0;
   }
   .message {
-    @apply min-w-[200px] border border-gray-100 p-3 rounded-lg shadow-lg;
+    @apply min-w-[200px] border border-gray-100 p-3 rounded-lg shadow-lg bg-white;
     position: fixed;
     top: 24px;
     left: 50%;
@@ -79,6 +79,7 @@
     display: flex;
     align-items: center;
     column-gap: 8px;
+    z-index: 99999;
     &.closing {
       animation: slideDownOut 200ms forwards;
       animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);

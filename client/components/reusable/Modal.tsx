@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import clsx from "clsx";
+import { RiCloseFill } from "react-icons/ri";
 
 type ModalProps = {
   width?: number | string;
@@ -9,6 +10,8 @@ type ModalProps = {
   onCancel: () => void;
   maskClosable?: boolean;
   centerPosition?: boolean;
+  title?: string;
+  closeIcon?: boolean | null;
 };
 
 const ModalComp = ({
@@ -19,6 +22,8 @@ const ModalComp = ({
   onCancel,
   maskClosable = true,
   centerPosition = false,
+  title,
+  closeIcon = true,
 }: React.PropsWithChildren<ModalProps>) => {
   const modalRef = React.useRef<HTMLDivElement>(null);
   const modalWrapperRef = React.useRef<HTMLDivElement>(null);
@@ -49,15 +54,17 @@ const ModalComp = ({
   }, [modalRef.current]);
 
   React.useEffect(() => {
-    document.addEventListener("mousedown", (event: any) => {
-      if (
-        modalWrapperRef.current?.contains(event.target) &&
-        !modalRef.current?.contains(event.target) && maskClosable
-      ) {
-        onCancel();
-      }
-    });
-  }, []);
+    if (maskClosable) {
+      document.addEventListener("mousedown", (event: any) => {
+        if (
+          modalWrapperRef.current?.contains(event.target) &&
+          !modalRef.current?.contains(event.target)
+        ) {
+          onCancel();
+        }
+      });
+    }
+  }, [maskClosable]);
 
   return isOpen ? (
     <div
@@ -73,7 +80,19 @@ const ModalComp = ({
         )}
         style={{ width }}
       >
-        {children}
+        <div className="relative">
+          <h5 className="font-bold">{title}</h5>
+          {closeIcon ? (
+            <div className="absolute top-[50%] right-0 translate-y-[-50%]">
+              <button onClick={onCancel} className="text-gray-500 k p-1 border rounded-md shadow-sm cursor-pointer flex justify-center items-center">
+                <RiCloseFill />
+              </button>
+            </div>
+          ) : null}
+        </div>
+        <div className="mt-5">
+          {children}
+        </div>
       </div>
     </div>
   ) : null;

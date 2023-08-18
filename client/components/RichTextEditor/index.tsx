@@ -52,6 +52,15 @@ const RichTextEditor = ({ content, onChange = () => {}, isEditable = true }: Pro
     editable: isEditable,
   });
 
+  React.useEffect(() => {
+    if (editor) {
+      const _HTML = sanitizeHtml(editor.getHTML(), {
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
+      });
+      onChange(_HTML);
+    }
+  }, [editor]);
+
   return (
     <div className="richTextEditor">
       <MenuBar editor={editor} ref={bubbleRef} />

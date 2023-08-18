@@ -5,6 +5,7 @@ import { Inter, Nunito_Sans } from 'next/font/google';
 import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost";
 import Navbar from "@/components/Navbar/Navbar";
 import { usePathname } from 'next/navigation';
+import { SWRConfig } from 'swr'
 
 const nunito = Nunito_Sans({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
@@ -29,15 +30,17 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="flex flex-col h-screen">
-          {renderNavbar()}
-          <main className="w-full mx-auto flex-1">
-            {children}
-          </main>
-        </div>
-      </body>
-    </html>
+    <SWRConfig value={{ provider: () => new Map() }}>
+      <html lang="en">
+        <body className={inter.className}>
+          <div className="flex flex-col h-screen">
+            {renderNavbar()}
+            <main className="w-full mx-auto flex-1">
+              {children}
+            </main>
+          </div>
+        </body>
+      </html>
+    </SWRConfig>
   )
 }

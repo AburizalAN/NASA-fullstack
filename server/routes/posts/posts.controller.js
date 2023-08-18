@@ -68,7 +68,7 @@ exports.createPost = async (req, res, next) => {
       published_at: req.body.published_at ?? null,
     };
 
-    if (!data.slug) {
+    if (!data.slug && data.title) {
       const slug = data.title.toLowerCase().split(" ").join("-");
       data.slug = slug;
     }
@@ -78,10 +78,9 @@ exports.createPost = async (req, res, next) => {
     const resTransaction = await transaction(async () => {
       const resData = await createPost(data);
       const id = resData[0].insertId;
-      const promises = categories.map((categoryId) =>
-        setPostCategory(id, categoryId)
-      );
-      await Promise.all(promises);
+      for (const categoryId of categories) {
+        await setPostCategory(id, categoryId);
+      }
       return res.status(200).json({
         message: "Success",
         data: resData,
@@ -101,6 +100,11 @@ exports.updatePost = async (req, res, next) => {
       delete data.categories;
     }
 
+    if (!data.slug && data.title) {
+      const slug = data.title.toLowerCase().split(" ").join("-");
+      data.slug = slug;
+    }
+
     const categories = req.body.categories ?? [];
 
     if (data.content) {
@@ -113,10 +117,9 @@ exports.updatePost = async (req, res, next) => {
     const resTransaction = await transaction(async () => {
       const resData = await updatePost(data, id);
       await resetPostCategory(id);
-      const promises = categories.map((categoryId) =>
-        setPostCategory(id, categoryId)
-      );
-      await Promise.all(promises);
+      for (const categoryId of categories) {
+        await setPostCategory(id, categoryId);
+      }
       return res.status(200).json({
         message: "Success",
         data: resData,

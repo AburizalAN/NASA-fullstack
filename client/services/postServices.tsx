@@ -36,3 +36,10 @@ export const useGetDetailPost = ({ slug, id }: { slug?: string | null, id?: stri
   }
   return useSWR(uri, fetcher);
 }
+
+export const useCreateCategory = () => {
+  return useFetch(async (data: { title: string, slug?: string }) => {
+    const res = await axios.post(`/posts/categories`, data);
+    return res.data.data;
+  })
+}
