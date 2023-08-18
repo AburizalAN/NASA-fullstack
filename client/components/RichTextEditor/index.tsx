@@ -23,9 +23,10 @@ lowlight.registerLanguage('ts', ts)
 interface Props {
   content?: string;
   onChange: (content: string) => void;
+  isEditable?: boolean;
 }
 
-const RichTextEditor = ({ content, onChange = () => {} }: Props) => {
+const RichTextEditor = ({ content, onChange = () => {}, isEditable = true }: Props) => {
   const bubbleRef = React.useRef<HTMLDivElement>(null);
   const editor = useEditor({
     extensions: [
@@ -58,6 +59,8 @@ const RichTextEditor = ({ content, onChange = () => {} }: Props) => {
       onChange(_HTML);
     }
   }, [editor]);
+
+  editor?.setEditable(isEditable);
 
   return (
     <div className="richTextEditor">

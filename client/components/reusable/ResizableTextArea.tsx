@@ -72,6 +72,7 @@ const ResizableTextArea = ({ resize, value, maxRows, disableEnter, ...props }: a
       rows={1}
       style={{ resize: !resize ? "none" : "inherit" }}
       onKeyDown={handleKeydown}
+      spellCheck={false}
     />
   );
 };
