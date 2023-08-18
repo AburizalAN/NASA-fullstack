@@ -7,21 +7,18 @@ import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
 import ts from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/xml';
+import useAxios from "@/hooks/useAxios";
+import 'highlight.js/styles/monokai-sublime.css';
 
 hljs.registerLanguage('html', html);
 hljs.registerLanguage('css', css);
 hljs.registerLanguage('js', js);
 hljs.registerLanguage('ts', ts);
 
-const DetailBlog = ({ params }: { params: { slug: string } }) => {
-  const slug = params.slug;
-  const { data: post, isValidating: loadingPost }: any = useGetDetailPost({ slug });
-
+const DetailBlog = ({ post }: { post: any }) => {
   React.useEffect(() => {
-    if (post?.content) {
-      hljs.highlightAll();
-    }
-  }, [post?.content]);
+    hljs.highlightAll();
+  }, [post?.content])
 
   return (
     <div className="h-ful">

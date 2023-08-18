@@ -3,6 +3,7 @@ import useWindowWidth from "@/hooks/useWindowWidth";
 import useSWR from "@/hooks/useSWR";
 import useAxios from "@/hooks/useAxios";
 import { Spinner } from "@/components/reusable";
+import Link from "next/link";
 
 const axios = useAxios();
 
@@ -30,25 +31,27 @@ export default function Home() {
             <Masonry cols={cols}>
               {posts.map((post: any) => (
                 <MasonryItem>
-                  <div className="post-card-item">
-                    <div className="rounded-t-xl flex items-center justify-center overflow-hidden">
-                      <img
-                        src="https://dummyimage.com/600x400/e3e3e3/fff.png&text=dummy+image"
-                        className="w-full h-full block"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="p-4 sm:p-6">
-                      <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 mb-4 line-clamp-2">
-                        {post.title}
-                      </h1>
-                      <div
-                        className="text-sm text-gray-500 line-clamp-4"
-                        dangerouslySetInnerHTML={{ __html: post.content }}
-                      >  
+                  <Link href={`/blog/${post.slug}`}>
+                    <div className="post-card-item">
+                      <div className="rounded-t-xl flex items-center justify-center overflow-hidden">
+                        <img
+                          src="https://dummyimage.com/600x400/e3e3e3/fff.png&text=dummy+image"
+                          className="w-full h-full block"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="p-4 sm:p-6">
+                        <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 mb-4 line-clamp-2">
+                          {post.title}
+                        </h1>
+                        <div
+                          className="text-sm text-gray-500 line-clamp-4"
+                          dangerouslySetInnerHTML={{ __html: post.content }}
+                        >  
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </MasonryItem>
               ))}
             </Masonry>

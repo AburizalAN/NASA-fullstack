@@ -6,8 +6,6 @@ import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost";
 import Navbar from "@/components/Navbar/Navbar";
 import { usePathname } from 'next/navigation';
 
-import 'highlight.js/styles/monokai-sublime.css';
-
 const nunito = Nunito_Sans({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
 
