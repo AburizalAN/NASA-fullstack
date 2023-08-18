@@ -6,8 +6,10 @@ import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost";
 import Navbar from "@/components/Navbar/Navbar";
 import { usePathname } from 'next/navigation';
 
-const nunito = Nunito_Sans({ subsets: ['latin'] })
-const inter = Inter({ subsets: ['latin'] })
+import 'highlight.js/styles/monokai-sublime.css';
+
+const nunito = Nunito_Sans({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Create Next App',

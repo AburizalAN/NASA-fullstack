@@ -25,3 +25,14 @@ export const useGetCategories = () => {
   };
   return useSWR(uri, fetcher);
 }
+
+export const useGetDetailPost = ({ slug, id }: { slug?: string | null, id?: string | number | null }) => {
+  const uri = id ? `/posts/detail?id=${id}` : slug ? `/posts/detail?slug=${slug}` : null;
+  const fetcher = async () => {
+    const res = await axios.get(uri ?? "");
+    if (res.data.data && res.status === 200) {
+      return res.data.data;
+    }
+  }
+  return useSWR(uri, fetcher);
+}

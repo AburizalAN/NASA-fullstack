@@ -9,7 +9,7 @@ import useAxios from "@/hooks/useAxios";
 import dynamic from "next/dynamic";
 import ModalAddCategory from "./ModalAddCategory";
 import FeaturedImage from "./FeaturedImage";
-import { usePostService, useGetCategories } from "@/services/postServices";
+import { usePostService, useGetCategories, useGetDetailPost } from "@/services/postServices";
 
 const BlockNote = dynamic(() => import("@/components/BlockNote"), {
   ssr: false,
@@ -25,14 +25,7 @@ const CreatePost = () => {
   const [title, setTitle] = React.useState<string | null>("");
   const [content, setContent] = React.useState<string | null>(null);
   const [postCategories, setPostCategories] = React.useState<any>(null);
-
-  const uri: string | null = id ? `/posts/${id}` : null;
-  const { data: post, mutate: mutatePost, isValidating: loadingPost }: any = useSWR(uri, async () => {
-    const res = await axios.get(uri ?? "");
-    if (res.data.data) {
-      return res.data.data;
-    }
-  });
+  const { data: post, mutate: mutatePost, isValidating: loadingPost }: any = useGetDetailPost({ id })
 
   const { data: categories, isValidating: loadingCategories }: any = useGetCategories();
 

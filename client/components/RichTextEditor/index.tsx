@@ -22,7 +22,7 @@ lowlight.registerLanguage('ts', ts)
 
 interface Props {
   content?: string;
-  onChange: (content: string) => void;
+  onChange?: (content: string) => void;
   isEditable?: boolean;
 }
 
@@ -49,18 +49,8 @@ const RichTextEditor = ({ content, onChange = () => {}, isEditable = true }: Pro
       });
       onChange(_HTML);
     },
+    editable: isEditable,
   });
-
-  React.useEffect(() => {
-    if (editor) {
-      const _HTML = sanitizeHtml(editor.getHTML(), {
-        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
-      });
-      onChange(_HTML);
-    }
-  }, [editor]);
-
-  editor?.setEditable(isEditable);
 
   return (
     <div className="richTextEditor">

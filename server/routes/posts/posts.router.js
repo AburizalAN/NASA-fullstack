@@ -3,7 +3,7 @@ const postsRouter = express.Router();
 const {
   createPost,
   getPosts,
-  getPostById,
+  getDetailPost,
   updatePost,
   uploadImage,
   getImages,
@@ -21,7 +21,7 @@ postsRouter.get("/images", requireLogin, getImages);
 
 postsRouter.get("/categories", getCategories);
 
-postsRouter.get("/:id", getPostById);
+postsRouter.get("/detail", getDetailPost);
 
 postsRouter.post("/categories", requireLogin, createCategory);
 

@@ -10,6 +10,11 @@ exports.getPostById = (queries) => {
   return dbPool.execute(qPostById, [queries.id]);
 };
 
+exports.getPostBySlug = (queries) => {
+  const qPostById = `select * from posts where slug = ?`;
+  return dbPool.execute(qPostById, [queries.slug]);
+};
+
 exports.createPost = (queries) => {
   const qCreatePost = `insert into posts(${Object.keys(queries).map((key) => key).join(", ")}) values (${Object.keys(queries).map((key) => `:${key}`).join(", ")})`;
   return dbPool.execute(qCreatePost, queries);

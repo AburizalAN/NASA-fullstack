@@ -1,5 +1,6 @@
 const {
   getPosts,
+  getPostBySlug,
   getPostById,
   createPost,
   updatePost,
@@ -10,10 +11,10 @@ const {
   resetPostCategory,
 } = require("../../models/posts.model");
 const transaction = require("../../utils/transaction");
-const sanitizeHtml = require('sanitize-html');
-const getMilliseconds = require('date-fns/getMilliseconds');
-const imagekit = require('../../config/imagekit');
-const getTime = require('date-fns/getTime');
+const sanitizeHtml = require("sanitize-html");
+const getMilliseconds = require("date-fns/getMilliseconds");
+const imagekit = require("../../config/imagekit");
+const getTime = require("date-fns/getTime");
 
 exports.getPosts = async (req, res, next) => {
   try {
@@ -28,23 +29,28 @@ exports.getPosts = async (req, res, next) => {
       data: newPosts,
     });
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};
 
-exports.getPostById = async (req, res, next) => {
-  const id = req.params.id;
+exports.getDetailPost = async (req, res, next) => {
+  const slug = req.query.slug ?? null;
+  const id = req.query.id ?? null;
   try {
-    const [[ post ]] = await getPostById({ id });
+    const [[post]] = id
+      ? await getPostById({ id })
+      : slug
+      ? await getPostBySlug({ slug })
+      : null;
     const categories = await getCategoriesByPostId(post.id);
     res.status(200).json({
       message: "Success",
       data: { ...post, categories },
-    })
+    });
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};
 
 exports.createPost = async (req, res, next) => {
   try {
@@ -61,18 +67,20 @@ exports.createPost = async (req, res, next) => {
       update_at: req.body.update_at ?? null,
       published_at: req.body.published_at ?? null,
     };
-  
+
     if (!data.slug) {
       const slug = data.title.toLowerCase().split(" ").join("-");
       data.slug = slug;
-    };
-  
+    }
+
     const categories = req.body.categories ?? [];
 
     const resTransaction = await transaction(async () => {
       const resData = await createPost(data);
       const id = resData[0].insertId;
-      const promises = categories.map((categoryId) => setPostCategory(id, categoryId));
+      const promises = categories.map((categoryId) =>
+        setPostCategory(id, categoryId)
+      );
       await Promise.all(promises);
       return res.status(200).json({
         message: "Success",
@@ -81,85 +89,93 @@ exports.createPost = async (req, res, next) => {
     });
     return resTransaction;
   } catch (err) {
-    next(err)
-  };
-}
+    next(err);
+  }
+};
 
 exports.updatePost = async (req, res, next) => {
   try {
     const id = req.params.id;
     const data = structuredClone(req.body);
     if (data.categories) {
-      delete data.categories
-    };
+      delete data.categories;
+    }
 
     const categories = req.body.categories ?? [];
 
     if (data.content) {
       const sanitized = sanitizeHtml(data.content, {
-        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
       });
       data.content = sanitized;
-    };
+    }
 
     const resTransaction = await transaction(async () => {
       const resData = await updatePost(data, id);
       await resetPostCategory(id);
-      const promises = categories.map((categoryId) => setPostCategory(id, categoryId));
+      const promises = categories.map((categoryId) =>
+        setPostCategory(id, categoryId)
+      );
       await Promise.all(promises);
       return res.status(200).json({
         message: "Success",
         data: resData,
-      })
+      });
     });
     return resTransaction;
   } catch (err) {
     next(err);
   }
-}
+};
 
 exports.uploadImage = async (req, res, next) => {
   try {
     const image = req.files.image[0];
     const milliseconds = getTime(new Date());
     const filename = `image-${milliseconds}`;
-    imagekit.upload({
-      file: image.buffer,
-      fileName: filename,
-      folder: 'blog'
-    }, function(err, result) {
-      if (err) throw err;
-      return res.status(200).json({
-        message: "Success",
-        file: {
-          url: result.url,
-        }
-      })
-    })
+    imagekit.upload(
+      {
+        file: image.buffer,
+        fileName: filename,
+        folder: "blog",
+      },
+      function (err, result) {
+        if (err) throw err;
+        return res.status(200).json({
+          message: "Success",
+          file: {
+            url: result.url,
+          },
+        });
+      }
+    );
   } catch (err) {
     next(err);
   }
-}
+};
 
 exports.getImages = async (req, res, next) => {
   try {
     const limit = req.query.limit ?? 10;
     const page = req.query.page ?? 1;
-    imagekit.listFiles({
-      path: "blog",
-      skip : (page - 1) * limit,
-      limit : limit,
-    }, (err, result) => {
-      if (err) throw err;
-      return res.status(200).json({
-        message: "Success",
-        data: result,
-      })
-    })
+    imagekit.listFiles(
+      {
+        path: "blog",
+        skip: (page - 1) * limit,
+        limit: limit,
+      },
+      (err, result) => {
+        if (err) throw err;
+        return res.status(200).json({
+          message: "Success",
+          data: result,
+        });
+      }
+    );
   } catch (err) {
     next(err);
   }
-}
+};
 
 exports.getCategories = async (req, res, next) => {
   try {
@@ -168,12 +184,12 @@ exports.getCategories = async (req, res, next) => {
       return res.status(200).json({
         message: "Success",
         data: resJSON,
-      })
+      });
     }
   } catch (err) {
-    next(err)
+    next(err);
   }
-}
+};
 
 exports.createCategory = async (req, res, next) => {
   try {
@@ -183,9 +199,9 @@ exports.createCategory = async (req, res, next) => {
       return res.status(200).json({
         message: "Success",
         data: resJSON,
-      })
+      });
     }
   } catch (err) {
     next(err);
   }
-}
+};

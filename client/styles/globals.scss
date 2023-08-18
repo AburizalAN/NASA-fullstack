@@ -45,7 +45,7 @@
     * {
       @apply text-gray-600;
     }
-    > p {
+    > p, > img {
       @apply mb-6 last:mb-0 leading-relaxed;
     }
     > h4 {
@@ -56,6 +56,12 @@
     }
     > ol {
       @apply list-decimal list-inside leading-relaxed mb-6 last:mb-0;
+    }
+    pre {
+      @apply mb-6 last:mb-0;
+      code {
+        @apply rounded-md;
+      }
     }
   }
   .input {
