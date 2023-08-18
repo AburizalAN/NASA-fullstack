@@ -57,7 +57,7 @@ const RichTextEditor = ({ content, onChange = () => {} }: Props) => {
       });
       onChange(_HTML);
     }
-  }, [editor])
+  }, [editor]);
 
   return (
     <div className="richTextEditor">
