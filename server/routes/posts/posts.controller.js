@@ -9,6 +9,7 @@ const {
   getCategoriesByPostId,
   resetPostCategory,
 } = require("../../models/posts.model");
+const transaction = require("../../utils/transaction");
 const sanitizeHtml = require('sanitize-html');
 const getMilliseconds = require('date-fns/getMilliseconds');
 const imagekit = require('../../config/imagekit');
@@ -46,61 +47,72 @@ exports.getPostById = async (req, res, next) => {
 }
 
 exports.createPost = async (req, res, next) => {
-  const data = {
-    author_id: req.body.author_id ?? null,
-    title: req.body.title ?? null,
-    content: req.body.content ?? null,
-    published: req.body.published ?? null,
-    parent_id: req.body.parent_id ?? null,
-    meta_title: req.body.meta_title ?? null,
-    slug: req.body.slug ?? null,
-    summary: req.body.summary ?? null,
-    created_at: req.body.created_at ?? null,
-    update_at: req.body.update_at ?? null,
-    published_at: req.body.published_at ?? null,
-  }
-
-  const categories = req.body.categories;
-
   try {
-    const resData = await createPost(data);
-    const id = resData[0].insertId;
-    const promises = categories.map((categoryId) => setPostCategory(id, categoryId));
-    await Promise.all(promises);
-    return res.status(200).json({
-      message: "Success",
-      data: resData,
+    const data = {
+      author_id: req.body.author_id ?? null,
+      title: req.body.title ?? null,
+      content: req.body.content ?? null,
+      published: req.body.published ? 1 : 0,
+      parent_id: req.body.parent_id ?? null,
+      meta_title: req.body.meta_title ?? null,
+      slug: req.body.slug ?? null,
+      summary: req.body.summary ?? null,
+      created_at: req.body.created_at ?? null,
+      update_at: req.body.update_at ?? null,
+      published_at: req.body.published_at ?? null,
+    };
+  
+    if (!data.slug) {
+      const slug = data.title.toLowerCase().split(" ").join("-");
+      data.slug = slug;
+    };
+  
+    const categories = req.body.categories ?? [];
+
+    const resTransaction = await transaction(async () => {
+      const resData = await createPost(data);
+      const id = resData[0].insertId;
+      const promises = categories.map((categoryId) => setPostCategory(id, categoryId));
+      await Promise.all(promises);
+      return res.status(200).json({
+        message: "Success",
+        data: resData,
+      });
     });
+    return resTransaction;
   } catch (err) {
     next(err)
   };
 }
 
 exports.updatePost = async (req, res, next) => {
-  const id = req.params.id;
-  const data = structuredClone(req.body);
-  if (data.categories) {
-    delete data.categories
-  }
-
-  const categories = req.body.categories ?? [];
-
-  if (data.content) {
-    const sanitized = sanitizeHtml(data.content, {
-      allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
-    });
-    data.content = sanitized;
-  }
-
   try {
-    const resData = await updatePost(data, id);
-    await resetPostCategory(id);
-    const promises = categories.map((categoryId) => setPostCategory(id, categoryId));
-    await Promise.all(promises);
-    return res.status(200).json({
-      message: "Success",
-      data: resData,
-    })
+    const id = req.params.id;
+    const data = structuredClone(req.body);
+    if (data.categories) {
+      delete data.categories
+    };
+
+    const categories = req.body.categories ?? [];
+
+    if (data.content) {
+      const sanitized = sanitizeHtml(data.content, {
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
+      });
+      data.content = sanitized;
+    };
+
+    const resTransaction = await transaction(async () => {
+      const resData = await updatePost(data, id);
+      await resetPostCategory(id);
+      const promises = categories.map((categoryId) => setPostCategory(id, categoryId));
+      await Promise.all(promises);
+      return res.status(200).json({
+        message: "Success",
+        data: resData,
+      })
+    });
+    return resTransaction;
   } catch (err) {
     next(err);
   }

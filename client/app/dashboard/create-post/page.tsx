@@ -1,6 +1,7 @@
 "use client";
 
 import CreatePost from "@/components/features/dashboard/CreatePost";
+import withAuth from "@/hocs/withAuth";
 
 const Page = () => {
   return (
@@ -8,4 +9,4 @@ const Page = () => {
   )
 }
 
-export default Page;
+export default withAuth(Page);

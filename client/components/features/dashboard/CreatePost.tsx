@@ -26,9 +26,9 @@ const CreatePost = () => {
   const [content, setContent] = React.useState<string | null>(null);
   const [postCategories, setPostCategories] = React.useState<any>(null);
 
-  const uri = `/posts/${id}`;
+  const uri: string | null = id ? `/posts/${id}` : null;
   const { data: post, mutate: mutatePost, isValidating: loadingPost }: any = useSWR(uri, async () => {
-    const res = await axios.get(uri);
+    const res = await axios.get(uri ?? "");
     if (res.data.data) {
       return res.data.data;
     }
@@ -57,10 +57,10 @@ const CreatePost = () => {
 
   const saveDraft = async () => {
     const data = {
-      author_id: post.author_id,
+      author_id: 13,
       title,
       content,
-      categories: postCategories.map((item: any) => item.id),
+      categories: postCategories?.map((item: any) => item.id) ?? null,
     };
     const res = await postService({ id: post?.id, data });
     if (res) {
@@ -99,8 +99,6 @@ const CreatePost = () => {
       });
     }
   };
-
-  console.log("content", content);
 
   return (
     <div className="flex h-full flex-col">
