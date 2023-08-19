@@ -5,7 +5,9 @@ import { Inter, Nunito_Sans } from 'next/font/google';
 import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost";
 import Navbar from "@/components/Navbar/Navbar";
 import { usePathname } from 'next/navigation';
-import { SWRConfig } from 'swr'
+import { SWRConfig } from 'swr';
+
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const nunito = Nunito_Sans({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });

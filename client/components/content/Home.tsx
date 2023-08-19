@@ -35,7 +35,7 @@ export default function Home() {
                     <div className="post-card-item">
                       <div className="rounded-t-xl flex items-center justify-center overflow-hidden">
                         <img
-                          src="https://dummyimage.com/600x400/e3e3e3/fff.png&text=dummy+image"
+                          src={post.featured_image ?? "https://dummyimage.com/600x400/e3e3e3/fff.png&text=dummy+image"}
                           className="w-full h-full block"
                           loading="lazy"
                         />

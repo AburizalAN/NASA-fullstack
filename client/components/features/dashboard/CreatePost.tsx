@@ -11,8 +11,9 @@ import ModalAddCategory from "./ModalAddCategory";
 import FeaturedImage from "./FeaturedImage";
 import { usePostService, useGetCategories, useGetDetailPost } from "@/services/postServices";
 import { useGetUserInfo } from "@/services/authService";
-
-const RichTextEditor = dynamic(() => import("@/components/RichTextEditor"), { ssr: false })
+import message from "@/components/reusable/message";
+import Skeleton from 'react-loading-skeleton';
+import RichTextEditor from "@/components/RichTextEditor";
 
 const CreatePost = () => {
   const searchParams = useSearchParams();
@@ -51,30 +52,56 @@ const CreatePost = () => {
   };
 
   const saveDraft = async () => {
-    const data = {
-      author_id: me?.id,
-      title,
-      content,
-      categories: postCategories?.map((item: any) => item.id) ?? null,
-      slug: slug?.trim().length === 0 ? null : slug,
-    };
-    const res = await postService({ id: post?.id, data });
-    if (res) {
-      mutatePost();
+    try {
+      const data = {
+        author_id: me?.id,
+        title,
+        content,
+        categories: postCategories?.map((item: any) => item.id) ?? null,
+        slug: slug?.trim().length === 0 ? null : slug,
+      };
+      const res = await postService({ id: post?.id, data });
+      if (res) {
+        mutatePost();
+        message({
+          type: "success",
+          content: "Success",
+          duration: 2000,
+        });
+      }
+    } catch (err: any) {
+      message({
+        type: "error",
+        content: err?.response?.data?.message,
+        duration: 2000,
+      });
     }
   };
 
   const handlePublish = async () => {
-    const data = {
-      author_id: post.author_id,
-      title,
-      content,
-      published: post?.published ? 0 : 1,
-      slug: slug?.trim().length === 0 ? null : slug,
-    };
-    const res = await postService({ id: post?.id, data });
-    if (res) {
-      mutatePost();
+    try {
+      const data = {
+        author_id: post.author_id,
+        title,
+        content,
+        published: post?.published ? 0 : 1,
+        slug: slug?.trim().length === 0 ? null : slug,
+      };
+      const res = await postService({ id: post?.id, data });
+      if (res) {
+        mutatePost();
+        message({
+          type: "success",
+          content: "Success",
+          duration: 2000,
+        });
+      }
+    } catch (err: any) {
+      message({
+        type: "error",
+        content: err?.response?.data?.message,
+        duration: 2000,
+      });
     }
   };
 
@@ -133,7 +160,13 @@ const CreatePost = () => {
           </div>
           {!loadingPost ? (
             <RichTextEditor content={post?.content} onChange={getHTML} />
-          ) : null}
+          ) :(
+            <>
+              <Skeleton count={5} height={30} containerClassName="leading-[3]" />
+              <Skeleton count={1} height={30} width="80%" containerClassName="leading-[3]" />
+              <Skeleton count={1} height={30} width="40%" containerClassName="leading-[3]" />
+            </>
+          )}
         </div>
         <div className="w-[350px] border-x">
           <div className="disclosure border-t-0">
