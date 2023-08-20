@@ -5,7 +5,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { HiPlus } from "react-icons/Hi";
 import { Button, Combobox, ResizableTextArea } from "@/components/reusable";
 import * as React from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import ModalAddCategory from "./ModalAddCategory";
 import FeaturedImage from "./FeaturedImage";
@@ -16,12 +16,14 @@ import Skeleton from 'react-loading-skeleton';
 import RichTextEditor from "@/components/RichTextEditor";
 
 const CreatePost = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [title, setTitle] = React.useState<string | null>("");
   const [content, setContent] = React.useState<string | null>(null);
-  const [postCategories, setPostCategories] = React.useState<any>(null);
+  const [postCategories, setPostCategories] = React.useState<any>([]);
   const [slug, setSlug] = React.useState<any>("");
+  const [url, setUrl] = React.useState<string | null>(null);
   const { data: me, isValidating: loadingMe }: any = useGetUserInfo();
   const { data: post, mutate: mutatePost, isValidating: loadingPost }: any = useGetDetailPost({ id })
   const { data: categories, isValidating: loadingCategories, mutate: mutateCategories }: any = useGetCategories();
@@ -47,6 +49,12 @@ const CreatePost = () => {
     }
   }, [post?.slug])
 
+  React.useEffect(() => {
+    if (post?.featured_image) {
+      setUrl(post?.featured_image)
+    }
+  }, [post?.featured_image])
+
   const getHTML = (html: string) => {
     setContent(html);
   };
@@ -59,6 +67,7 @@ const CreatePost = () => {
         content,
         categories: postCategories?.map((item: any) => item.id) ?? null,
         slug: slug?.trim().length === 0 ? null : slug,
+        featured_image: url,
       };
       const res = await postService({ id: post?.id, data });
       if (res) {
@@ -69,6 +78,7 @@ const CreatePost = () => {
           duration: 2000,
         });
       }
+      if (!id) router.push(`/dashboard/edit-post?id=${res.id}`)
     } catch (err: any) {
       message({
         type: "error",
@@ -107,7 +117,7 @@ const CreatePost = () => {
 
   const handleChangeCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     const categoryId = parseInt(e.target.value);
-    const categoryIndex = postCategories.findIndex((item: any) => item?.id === categoryId);
+    const categoryIndex = postCategories?.findIndex((item: any) => item?.id === categoryId);
     if (categoryIndex !== -1) {
       setPostCategories((prev: any) => {
         const newPostCategories = structuredClone(prev);
@@ -116,7 +126,7 @@ const CreatePost = () => {
       });
     } else {
       setPostCategories((prev: any) => {
-        const category = categories.find((item: any) => item?.id === categoryId);
+        const category = categories?.find((item: any) => item?.id === categoryId);
         const newPostCategories = [ ...prev, category ];
         return newPostCategories;
       });
@@ -245,7 +255,6 @@ const CreatePost = () => {
                           <Button
                             onClick={openModal}
                             variant="outlined"
-                            color={null}
                             block
                           >
                             <div className="flex items-center justify-center">
@@ -278,6 +287,8 @@ const CreatePost = () => {
                       post={post}
                       mutatePost={mutatePost}
                       loadingPost={loadingPost}
+                      url={url}
+                      setUrl={setUrl}
                     />
                   </Disclosure.Panel>
                 </>

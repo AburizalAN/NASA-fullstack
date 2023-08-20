@@ -27,7 +27,19 @@ postsRouter.post("/categories", requireLogin, createCategory);
 
 postsRouter.post("/upload-image", requireLogin, uploadImage);
 
-postsRouter.post("/", requireLogin, handleValidation, createPost);
+postsRouter.post(
+  "/",
+  requireLogin,
+  body("title").custom((value) => {
+    const isEmpty = typeof value !== "string" || value.trim().length === 0;
+    if (isEmpty) {
+      throw new Error("Title tidak boleh kosong");
+    }
+    return true;
+  }),
+  handleValidation,
+  createPost
+);
 
 postsRouter.put("/:id", requireLogin, updatePost);
 

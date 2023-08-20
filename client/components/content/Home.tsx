@@ -30,28 +30,30 @@ export default function Home() {
           <div className="pt-5">
             <Masonry cols={cols}>
               {posts.map((post: any, i: number) => (
-                <MasonryItem key={i}>
-                  <Link href={`/blog/${post.slug}`}>
-                    <div className="post-card-item">
-                      <div className="rounded-t-xl flex items-center justify-center overflow-hidden">
+                <MasonryItem key={i}> 
+                  <div className="post-card-item">
+                    <Link href={`/blog/${post.slug}`} className="no-underline">
+                      <div className="rounded-t-lg flex items-center justify-center overflow-hidden">
                         <img
                           src={post.featured_image ?? "https://dummyimage.com/600x400/e3e3e3/fff.png&text=dummy+image"}
                           className="w-full h-full block"
                           loading="lazy"
                         />
                       </div>
-                      <div className="p-4 sm:p-6">
+                    </Link>
+                    <div className="p-4 sm:p-6">
+                      <Link href={`/blog/${post.slug}`} className="no-underline">
                         <h1 className="text-2xl sm:text-3xl font-bold text-gray-700 mb-4 line-clamp-2">
                           {post.title}
                         </h1>
-                        <div
-                          className="text-sm text-gray-500 line-clamp-4"
-                          dangerouslySetInnerHTML={{ __html: post.content }}
-                        >  
-                        </div>
+                      </Link>
+                      <div
+                        className="text-sm text-gray-500 line-clamp-4"
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                      >  
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </MasonryItem>
               ))}
             </Masonry>

@@ -13,9 +13,10 @@ import { Spinner } from "@/components/reusable";
 interface PropTypes {
   children: (props: { openModal: () => void }) => React.ReactNode;
   mutatePost: () => void;
+  setUrl: (url: string | null) => void;
 }
 
-const ModalGallery = ({ children, mutatePost }: PropTypes) => {
+const ModalGallery = ({ children, mutatePost, setUrl }: PropTypes) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedImage, setSelectedImage] = React.useState<any>(null);
   const searchParams = useSearchParams();
@@ -28,18 +29,20 @@ const ModalGallery = ({ children, mutatePost }: PropTypes) => {
   const { action: editPost, isLoading: loadingEditPost } = usePostService();
 
   const submitFeaturedImage = async () => {
-    const res = await editPost({
-      id,
-      data: { featured_image: selectedImage.url },
-    });
-    if (res) {
-      message({
-        type: "success",
-        content: "Berhasil menambahkan Featured Image",
-      });
-      setIsOpen(false);
-      mutatePost();
-    }
+    setUrl(selectedImage.url);
+    setIsOpen(false);
+    // const res = await editPost({
+    //   id,
+    //   data: { featured_image: selectedImage.url },
+    // });
+    // if (res) {
+    //   message({
+    //     type: "success",
+    //     content: "Berhasil menambahkan Featured Image",
+    //   });
+    //   setIsOpen(false);
+    //   mutatePost();
+    // }
   };
 
   const modalProps = {

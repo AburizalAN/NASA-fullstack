@@ -4,7 +4,7 @@ import Spinner from "@/components/reusable/Spinner";
 
 interface ButtonProps {
   children: React.ReactNode;
-  color?: string | null;
+  color?: "default" | "primary" | "secondary" | "info" | "warning" | "danger";
   block?: boolean;
   variant?: "outlined" | "filled";
   size?: "sm" | "md" | "lg";
@@ -17,7 +17,7 @@ interface ButtonProps {
 const Button = ({
   children,
   variant,
-  color = "primary",
+  color = "default",
   block,
   size = "md",
   className,

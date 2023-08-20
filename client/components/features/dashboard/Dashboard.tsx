@@ -10,6 +10,7 @@ import Link from "next/link";
 import useAxios from "@/hooks/useAxios";
 import useSWR from "@/hooks/useSWR";
 import moment from "moment";
+import { Button } from "@/components/reusable";
 
 const { Item: BreadcrumbItem } = Breadcrumb;
 
@@ -66,7 +67,14 @@ const Dashboard = () => {
           <section className="flex gap-x-6">
             <div className="w-1/2">
               <Card>
-                <h6 className="text-gray-500">Blog Posts</h6>
+                <div className="flex items-center">
+                  <h6 className="text-gray-500">Blog Posts</h6>
+                  <div className="ml-auto">
+                    <Link href="/dashboard/create-post" className="no-underline text-black">
+                      <Button size="sm" variant="outlined">Create New Post</Button>
+                    </Link>
+                  </div>
+                </div>
                 <div className="border-b border-gray-100 my-4"></div>
                 <ul className="flex flex-col gap-y-4">
                   {posts?.length > 0

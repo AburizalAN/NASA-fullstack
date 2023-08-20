@@ -10,9 +10,21 @@ import message from "@/components/reusable/message";
 import { Spinner } from "@/components/reusable";
 import Tooltip from "@/components/reusable/Tooltip";
 
-interface FeaturedImageProps { mutatePost: () => void; post: any; loadingPost: boolean }
+interface FeaturedImageProps {
+  mutatePost: () => void;
+  post: any;
+  loadingPost: boolean;
+  url: string | null;
+  setUrl: (url: string | null) => void;
+}
 
-const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) => {
+const FeaturedImage = ({
+  mutatePost,
+  post,
+  loadingPost,
+  url,
+  setUrl,
+}: FeaturedImageProps) => {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -20,7 +32,8 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
   const [isOpenDropdown, setIsOpenDropdown] = React.useState(false);
 
   const { action: editPost, isLoading: loadingEditPost } = usePostService();
-  const { action: uploadImage, isLoading: loadingUploadImage } = useUploadImage();
+  const { action: uploadImage, isLoading: loadingUploadImage } =
+    useUploadImage();
 
   React.useEffect(() => {
     if (toggleDropdown) {
@@ -62,9 +75,7 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
       async (e: any) => {
         const file = e.target.files[0];
         const url = await uploadImage(file);
-        if (url) {
-          await submitFeaturedImage(url);
-        }
+        setUrl(url);
         setToggleDropdown(false);
       },
       { once: true }
@@ -72,16 +83,16 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
     input.click();
   }, []);
 
-  const submitFeaturedImage = async (urlImage: string) => {
-    const res = await editPost({ id, data: { featured_image: urlImage } });
-    if (res) {
-      message({
-        type: "success",
-        content: "Berhasil menambahkan Featured Image",
-      });
-      mutatePost();
-    }
-  };
+  // const submitFeaturedImage = async (urlImage: string) => {
+  //   const res = await editPost({ id, data: { featured_image: urlImage } });
+  //   if (res) {
+  //     message({
+  //       type: "success",
+  //       content: "Berhasil menambahkan Featured Image",
+  //     });
+  //     mutatePost();
+  //   }
+  // };
 
   return (
     <div className="relative">
@@ -89,9 +100,12 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
         <div className="h-[160px] grid place-items-center">
           <Spinner width={24} height={24} />
         </div>
-      ) : post?.featured_image ? (
+      ) : url && url.trim().length > 0 ? (
         <div className="rounded-md w-full h-[160px] overflow-hidden relative">
-          <img src={post.featured_image} className="w-full h-full object-cover object-center" />
+          <img
+            src={url}
+            className="w-full h-full object-cover object-center"
+          />
           <div className="absolute top-0 left-0 inset-0 bg-[#00000030] opacity-0 hover:opacity-100 transition-all duration-[300ms] flex items-center justify-center gap-2">
             <Tooltip placement="top" content="Edit">
               <button
@@ -127,10 +141,13 @@ const FeaturedImage = ({ mutatePost, post, loadingPost }: FeaturedImageProps) =>
           "dropdown bg-white rounded-md shadow-md shadow-stone-200 absolute p-1 w-full left-0 top-[calc(100%_+_10px)]"
         )}
       >
-        <div onClick={handleUploadImage} className="text-center p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all cursor-pointer">
+        <div
+          onClick={handleUploadImage}
+          className="text-center p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all cursor-pointer"
+        >
           + Upload
         </div>
-        <ModalGallery mutatePost={mutatePost}>
+        <ModalGallery mutatePost={mutatePost} setUrl={setUrl}>
           {({ openModal }) => (
             <div
               onClick={() => {
