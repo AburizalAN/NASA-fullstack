@@ -7,6 +7,7 @@ import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
 import BubbleMenu from "@tiptap/extension-bubble-menu";
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import Placeholder from '@tiptap/extension-placeholder';
 import { lowlight } from 'lowlight';
 import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
@@ -24,9 +25,10 @@ interface Props {
   content?: string;
   onChange?: (content: string) => void;
   isEditable?: boolean;
+  placeholder?: string;
 }
 
-const RichTextEditor = ({ content, onChange = () => {}, isEditable = true }: Props) => {
+const RichTextEditor = ({ content, onChange = () => {}, isEditable = true, placeholder }: Props) => {
   const bubbleRef = React.useRef<HTMLDivElement>(null);
   const editor = useEditor({
     extensions: [
@@ -41,6 +43,9 @@ const RichTextEditor = ({ content, onChange = () => {}, isEditable = true }: Pro
       CodeBlockLowlight.configure({
         lowlight,
       }),
+      Placeholder.configure({
+        placeholder: placeholder ?? "Write something...",
+      })
     ],
     content: content,
     onUpdate: ({ editor }) => {
@@ -50,6 +55,7 @@ const RichTextEditor = ({ content, onChange = () => {}, isEditable = true }: Pro
       onChange(_HTML);
     },
     editable: isEditable,
+    autofocus: false,
   });
 
   React.useEffect(() => {

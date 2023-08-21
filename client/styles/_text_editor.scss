@@ -11,6 +11,13 @@
       p, img {
         @apply mb-6 last:mb-0 leading-relaxed;
       }
+      .is-empty::before {
+        color: #adb5bd;
+        content: attr(data-placeholder);
+        float: left;
+        height: 0;
+        pointer-events: none;
+      }
       ul {
         @apply list-disc;
       }

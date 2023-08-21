@@ -15,6 +15,7 @@ const sanitizeHtml = require("sanitize-html");
 const getMilliseconds = require("date-fns/getMilliseconds");
 const imagekit = require("../../config/imagekit");
 const getTime = require("date-fns/getTime");
+const format = require('date-fns/format');
 
 exports.getPosts = async (req, res, next) => {
   try {
@@ -54,6 +55,7 @@ exports.getDetailPost = async (req, res, next) => {
 
 exports.createPost = async (req, res, next) => {
   try {
+    const dateNow = format(new Date(), "yyyy-MM-dd HH:mm:ss");
     const data = {
       author_id: req.body.author_id ?? null,
       title: req.body.title ?? null,
@@ -63,9 +65,8 @@ exports.createPost = async (req, res, next) => {
       meta_title: req.body.meta_title ?? null,
       slug: req.body.slug ?? null,
       summary: req.body.summary ?? null,
-      created_at: req.body.created_at ?? null,
-      update_at: req.body.update_at ?? null,
-      published_at: req.body.published_at ?? null,
+      update_at: dateNow,
+      published_at: req.body.published ? dateNow : null,
     };
 
     if (!data.slug && data.title) {
@@ -95,9 +96,15 @@ exports.createPost = async (req, res, next) => {
 exports.updatePost = async (req, res, next) => {
   try {
     const id = req.params.id;
+    const dateNow = format(new Date(), "yyyy-MM-dd HH:mm:ss");
     const data = structuredClone(req.body);
+    data.update_at = dateNow;
     if (data.categories) {
       delete data.categories;
+    }
+
+    if (data.published) {
+      data.published_at = dateNow;
     }
 
     if (!data.slug && data.title) {
