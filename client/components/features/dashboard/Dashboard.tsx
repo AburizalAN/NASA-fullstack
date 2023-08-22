@@ -20,6 +20,7 @@ type PostProps = {
   title: string;
   published_at?: string;
   id: number;
+  created_at: string;
 }
 
 const PostDropdown = ({ data }: { data: PostProps }) => {
@@ -70,10 +71,10 @@ const Dashboard = () => {
             </Breadcrumb>
           </div>
           <section className="flex gap-x-6">
-            <div className="w-1/2">
+            <div className="w-2/3">
               <Card>
                 <div className="flex items-center">
-                  <h6 className="text-gray-500">Blog Posts</h6>
+                  <h6 className="text-gray-600 font-semibold">Blog Posts</h6>
                   <div className="ml-auto">
                     <Link href="/dashboard/create-post" className="no-underline text-black">
                       <Button size="sm" variant="outlined">Create New Post</Button>
@@ -86,18 +87,32 @@ const Dashboard = () => {
                     ? posts?.map((post: PostProps, i: number) => (
                         <li key={i} className="flex items-center">
                           <div className="flex-1 overflow-hidden">
-                            <h4 className="leading-normal font-semibold text-gray-700 line-clamp-2">
+                            <h4 className="leading-normal font-semibold text-gray-700 line-clamp-2 mb-1">
                               {post.title}
                             </h4>
-                            <div className="text-xs text-gray-400 flex items-center gap-x-1">
-                              <BiTime />
-                              <span>
-                                {post.published_at
-                                  ? moment(post.published_at).format(
-                                      "MMM DD, at hh:mm A"
-                                    )
-                                  : "-"}
-                              </span>
+                            <div className="flex gap-3">
+                              <div className="text-xs text-gray-400 flex items-center gap-x-1">
+                                <BiTime />
+                                <span>Created: </span>
+                                <span>
+                                  {post.created_at
+                                    ? moment(post.created_at).format(
+                                        "MMM DD, [at] hh:mm A"
+                                      )
+                                    : "-"}
+                                </span>
+                              </div>
+                              <div className="text-xs text-gray-400 flex items-center gap-x-1">
+                                <BiTime />
+                                <span>Published: </span>
+                                <span>
+                                  {post.published_at
+                                    ? moment(post.published_at).format(
+                                        "MMM DD, [at] hh:mm A"
+                                      )
+                                    : "Not published yet"}
+                                </span>
+                              </div>
                             </div>
                           </div>
                           <div className="pl-5">
@@ -109,7 +124,7 @@ const Dashboard = () => {
                 </ul>
               </Card>
             </div>
-            <div className="w-1/2">
+            <div className="w-1/3">
               <Card>Test</Card>
             </div>
           </section>
