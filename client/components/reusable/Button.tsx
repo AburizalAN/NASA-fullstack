@@ -7,7 +7,7 @@ interface ButtonProps {
   color?: "default" | "primary" | "secondary" | "info" | "warning" | "danger";
   block?: boolean;
   variant?: "outlined" | "filled";
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "base" | "lg";
   className?: string;
   onClick?: () => void;
   type?: "button" | "reset" | "submit";
@@ -19,7 +19,7 @@ const Button = ({
   variant,
   color = "default",
   block,
-  size = "md",
+  size = "base",
   className,
   onClick,
   loading = false,

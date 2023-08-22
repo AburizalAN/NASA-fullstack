@@ -72,39 +72,38 @@ const Dropdown = ({
   return (
     <div ref={wrapperRef} className="relative flex">
       {children(childProps)}
-      {isOpen ? (
-        <div
-          ref={ref}
-          className={clsx(
-            "dropdown z-50 bg-white rounded-md p-1 absolute top-full shadow-lg ring-1 ring-black ring-opacity-5",
-            position === "left"
-              ? "left-0"
-              : position === "right"
-              ? "right-0"
-              : ""
-          )}
-        >
-          {list ? (
-            <div className="flex flex-col gap-y-1 w-56">
-              {list.map((item, i) => (
-                <div
-                  key={i}
-                  className="dropdown-item relative p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all"
-                  onClick={() => {
-                    handleClose();
-                    if (item.onClick) {
-                      item.onClick()
-                    }
-                  }}
-                >
-                  {item.content}
-                </div>
-              ))}
-            </div>
-          ) : null}
-          {content}
-        </div>
-      ) : null}
+      <div
+        ref={ref}
+        className={clsx(
+          !isOpen && "hidden", 
+          "dropdown z-50 bg-white rounded-md p-1 absolute top-full shadow-lg ring-1 ring-black ring-opacity-5",
+          position === "left"
+            ? "left-0"
+            : position === "right"
+            ? "right-0"
+            : ""
+        )}
+      >
+        {list ? (
+          <div className="flex flex-col gap-y-1 w-56">
+            {list.map((item, i) => (
+              <div
+                key={i}
+                className="dropdown-item relative p-2 rounded-md text-sm hover:bg-violet-500 hover:text-white transition-all"
+                onClick={() => {
+                  handleClose();
+                  if (item.onClick) {
+                    item.onClick()
+                  }
+                }}
+              >
+                {item.content}
+              </div>
+            ))}
+          </div>
+        ) : null}
+        {content}
+      </div>
     </div>
   );
 };

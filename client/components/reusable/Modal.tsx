@@ -81,16 +81,16 @@ const ModalComp = ({
         style={{ width }}
       >
         <div className="relative">
-          <h5 className="font-bold">{title}</h5>
+          {title ? <h5 className="font-bold mb-5">{title}</h5> : null}
           {closeIcon ? (
-            <div className="absolute top-[50%] right-0 translate-y-[-50%]">
+            <div className="absolute top-0 right-0">
               <button onClick={onCancel} className="text-gray-500 k p-1 border rounded-md shadow-sm cursor-pointer flex justify-center items-center">
                 <RiCloseFill />
               </button>
             </div>
           ) : null}
         </div>
-        <div className="mt-5">
+        <div>
           {children}
         </div>
       </div>

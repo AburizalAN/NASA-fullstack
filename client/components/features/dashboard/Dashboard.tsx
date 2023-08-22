@@ -11,10 +11,10 @@ import useAxios from "@/hooks/useAxios";
 import useSWR from "@/hooks/useSWR";
 import moment from "moment";
 import { Button } from "@/components/reusable";
+import ModalDeletePost from "./ModalDeletePost";
+import { useGetPosts } from "@/services/postServices";
 
 const { Item: BreadcrumbItem } = Breadcrumb;
-
-const axios = useAxios();
 
 type PostProps = {
   title: string;
@@ -23,11 +23,19 @@ type PostProps = {
 }
 
 const PostDropdown = ({ data }: { data: PostProps }) => {
+  const { mutate: mutatePost }: { mutate: () => void } = useGetPosts();
   return (
     <Dropdown
       list={[
         { content: <Link href={`/dashboard/edit-post?id=${data.id}`}>Edit post</Link> },
-        { content: "test2" },
+        { content: (
+            <ModalDeletePost id={data.id} callback={() => mutatePost()}>
+              {({ openModal }) => (
+                <div onClick={openModal}>Delete</div>
+              )}
+            </ModalDeletePost>
+          ),
+        },
       ]}
     >
       {({ openDropdown, toggle }) => (
@@ -42,14 +50,11 @@ const PostDropdown = ({ data }: { data: PostProps }) => {
 };
 
 const Dashboard = () => {
-  const uri = "/posts";
+  
   const {
     data: posts,
     isValidating: loadingPosts,
-  }: { data?: any; isValidating: boolean } = useSWR(uri, async () => {
-    const res = await axios.get(uri);
-    return res.data.data;
-  });
+  }: { data?: any; isValidating: boolean } = useGetPosts()
 
   return (
     <div className="flex h-full">

@@ -9,6 +9,7 @@ const {
   setPostCategory,
   getCategoriesByPostId,
   resetPostCategory,
+  deletePost,
 } = require("../../models/posts.model");
 const transaction = require("../../utils/transaction");
 const sanitizeHtml = require("sanitize-html");
@@ -133,6 +134,20 @@ exports.updatePost = async (req, res, next) => {
       });
     });
     return resTransaction;
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.deletePost = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const resDelete = await deletePost(id);
+    if (resDelete) {
+      return res.status(200).json({
+        message: "Success Deleted post",
+      })
+    }
   } catch (err) {
     next(err);
   }

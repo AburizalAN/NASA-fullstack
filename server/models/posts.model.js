@@ -26,6 +26,11 @@ exports.updatePost = (queries, id) => {
   return dbPool.execute(qUpdatePost, { ...queries, id })
 };
 
+exports.deletePost = (id) => {
+  const query = `delete from posts where id = ?`;
+  return dbPool.execute(query, [id]);
+};
+
 exports.getCategories = () => {
   const query = `select * from categories`;
   return dbPool.execute(query).then(([result]) => result);

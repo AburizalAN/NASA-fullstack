@@ -9,6 +9,7 @@ const {
   getImages,
   getCategories,
   createCategory,
+  deletePost,
 } = require("./posts.controller");
 const jwt = require("jsonwebtoken");
 const requireLogin = require("../../middleware/requireLogin");
@@ -43,10 +44,7 @@ postsRouter.post(
 
 postsRouter.put("/:id", requireLogin, updatePost);
 
-postsRouter.delete("/:id", requireLogin, (req, res, next) => {
-  const id = req.params.id;
-  return res.status(200).json({ message: `create posts : ${id}` });
-});
+postsRouter.delete("/:id", requireLogin, deletePost);
 
 postsRouter.get("/", getPosts);
 

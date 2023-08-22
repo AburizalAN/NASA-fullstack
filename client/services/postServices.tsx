@@ -15,6 +15,14 @@ export const usePostService = () => {
   );
 }
 
+export const useGetPosts = () => {
+  const uri = "/posts";
+  return useSWR(uri, async () => {
+    const res = await axios.get(uri);
+    return res.data.data;
+  })
+}
+
 export const useGetCategories = () => {
   const uri = '/posts/categories';
   const fetcher = async () => {
@@ -41,5 +49,12 @@ export const useCreateCategory = () => {
   return useFetch(async (data: { title: string, slug?: string }) => {
     const res = await axios.post(`/posts/categories`, data);
     return res.data.data;
+  })
+}
+
+export const useDeletePost = () => {
+  return useFetch(async (id: string | number) => {
+    const res = await axios.delete(`/posts/${id}`);
+    return res;
   })
 }
