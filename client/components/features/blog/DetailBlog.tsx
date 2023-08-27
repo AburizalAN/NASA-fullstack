@@ -10,6 +10,7 @@ import Giscus from '@giscus/react';
 import { RiTwitterFill } from "react-icons/ri";
 import 'highlight.js/styles/monokai-sublime.css';
 import { queryString } from "@/utils/helpers";
+import moment from "moment";
 
 hljs.registerLanguage('html', html);
 hljs.registerLanguage('css', css);
@@ -35,7 +36,7 @@ const DetailBlog = ({ post }: { post: any }) => {
           {post?.title}
         </h1>
         <div className="text-gray-500 text-sm">
-          Written by AburizalAN on April 10, 2023
+          Written by AburizalAN on {moment(post?.published_at).format("MMMM DD, YYYY")}
         </div>
         <div className="divider my-5"></div>
         <section className="blog-post-content" dangerouslySetInnerHTML={{ __html: post?.content }}></section>
