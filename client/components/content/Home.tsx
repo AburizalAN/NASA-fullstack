@@ -68,7 +68,10 @@ export default function Home() {
                       >  
                       </div>
                       <div className="mt-5">
-                        <Link className="ml-auto flex w-max items-center gap-1 no-underline text-indigo-300 font-semibold hover:text-indigo-500 transition-all duration-300" href={`/blog/${post.slug}`}>
+                        <Link
+                          className="mr-auto text-sm leading-none flex w-max items-center gap-1 no-underline text-indigo-300 font-semibold hover:text-indigo-500 transition-all duration-300"
+                          href={`/blog/${post.slug}`}
+                        >
                             Continue Reading <RiArrowDropRightLine className="text-[20px]" />
                         </Link>
                       </div>
