@@ -1,6 +1,8 @@
 import * as React from "react";
 import clsx from "clsx";
 import { Button } from "@/components/reusable";
+import Link from "next/link";
+import { RiExternalLinkLine } from "react-icons/ri";
 
 const Navbar = () => {
   const navRef = React.useRef<HTMLDListElement>(null);
@@ -31,12 +33,16 @@ const Navbar = () => {
     <>
       <nav ref={navRef} className={mergedClass}>
         <div className="flex py-4 px-4 items-center justify-center w-full max-w-6xl mx-auto">
-          <div className="text-xl font-bold mr-12 flex-1 text-indigo-900">Logo</div>
           <div className="flex gap-x-8 text-sm">
-            <button className="navbar-menu-item">Programming</button>
-            <button className="navbar-menu-item">Tech Info</button>
-            <button className="navbar-menu-item">News</button>
+            <button className="navbar-menu-item">Blog</button>
             <button className="navbar-menu-item menu-active">About me</button>
+            <button className="navbar-menu-item">Projects</button>
+            <Link href={"https://github.com/AburizalAN"} target="_blank" className="no-underline">
+              <button className="navbar-menu-item flex items-center gap-1">
+                <span>Github</span>
+                <RiExternalLinkLine />
+              </button>
+            </Link>
           </div>
         </div>
       </nav>
