@@ -19,19 +19,17 @@ import {
 } from "react-icons/ri";
 import Dropdown from "@/components/reusable/Dropdown";
 
-const axios = useAxios();
-
 interface MenuBarProps {
   editor: any;
 }
 
-const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
+const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
   props,
   bubbleRef
 ) {
   const { editor, ...rest } = props;
-  if (!editor) return null;
 
+  const axios = useAxios();
   const search = useSearchParams();
   const id = search.get("id");
 
@@ -186,7 +184,9 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function (
         <RiImageAddLine />
       </button>
     </div>
-  )
+  );
+
+  if (!editor) return null;
 
   return (
     <React.Fragment>

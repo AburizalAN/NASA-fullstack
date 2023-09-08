@@ -4,22 +4,18 @@ import Spline from '@splinetool/react-spline';
 
 const Header = () => {
   return (
-    <header className="flex h-[600px] relative">
-      <div className="pl-4 my-auto">
-        <h1 className="font-extrabold text-[70px] leading-[1.1] text-indigo-900">
-          Hello World
+    <section className="max-w-6xl m-auto h-[500px] flex items-center">
+      <div className="w-1/2 p-3">
+        <h1 className="font-bold text-[50px] leading-[1.2] text-gray-800">
+          <span>Hello World</span>
           <br />
-          My Name is
-          <br />
-          AburizalAN
+          <span>My Name is </span><span className="text-indigo-700">Aburizal Adi Nugroho</span>
         </h1>
       </div>
-      <div className="flex-1">
-        <div className="h-full">
-          <Spline scene="https://prod.spline.design/QlVaiYN0MV-wzLAa/scene.splinecode" />
-        </div>
+      <div className="w-1/2">
+        <Spline scene="https://prod.spline.design/WYbqjhvLspBf8CGw/scene.splinecode" />
       </div>
-    </header>
+    </section>
   )
 }
 

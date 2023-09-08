@@ -1,3 +1,5 @@
+"use client";
+
 import Masonry, { MasonryItem } from "@/components/Masonry";
 import useWindowWidth from "@/hooks/useWindowWidth";
 import useSWR from "@/hooks/useSWR";
@@ -5,13 +7,15 @@ import useAxios from "@/hooks/useAxios";
 import { Spinner } from "@/components/reusable";
 import Link from "next/link";
 import moment from "moment";
-import { RiArrowDropRightLine } from "react-icons/ri"
-
-const axios = useAxios();
+import { RiArrowDropRightLine } from "react-icons/ri";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("./Header"), { ssr: false });
 
 export default function Home() {
   const windowWidth = useWindowWidth();
   const cols = windowWidth < 641 ? 1 : windowWidth < 993 ? 2  : 3;
+
+  const axios = useAxios();
 
   const uri = `/posts`;
   const { data: posts, isValidating: loadingPosts }: any = useSWR(uri, async() => {
@@ -23,15 +27,7 @@ export default function Home() {
   
   return (
     <div className="bg-[#F9F9FF] h-full">
-      <section className="max-w-6xl m-auto h-[500px] flex items-center">
-        <div className="w-1/2 p-3">
-          <h1 className="font-bold text-[50px] leading-[1.2] text-gray-800">
-            <span>Hello World</span>
-            <br />
-            <span>My Name is </span><span className="text-indigo-700">Aburizal Adi Nugroho</span>
-          </h1>
-        </div>
-      </section>
+      <Header />
       <div className="max-w-6xl m-auto h-full">
         {loadingPosts ? (
           <div className="w-full h-full grid place-items-center">
@@ -54,8 +50,8 @@ export default function Home() {
                     </Link>
                     <div className="p-4 sm:p-6">
                       <div className="mb-4 flex gap-1">
-                        {post.categories.map((category: any) => (
-                          <span className="text-xs leading-none text-white py-1.5 px-3 font-semibold bg-indigo-400 rounded-full">
+                        {post.categories.map((category: any, i: number) => (
+                          <span key={i} className="text-xs leading-none text-white py-1.5 px-3 font-semibold bg-indigo-400 rounded-full">
                             {category.title}
                           </span>
                         ))}

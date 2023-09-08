@@ -1,6 +1,7 @@
 import DetailBlog from "@/components/features/blog/DetailBlog";
 import useAxios from "@/hooks/useAxios";
 
+// eslint-disable-next-line react-hooks/rules-of-hooks
 const axios = useAxios();
 
 const getDetailPost = async ({ id, slug }: { slug?: string | null, id?: string | number | null }) => {

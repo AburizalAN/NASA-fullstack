@@ -13,11 +13,10 @@ type Inputs = {
   password: string
 }
 
-const axios = useAxios();
-
 const Login = () => {
   const passRef = React.useRef<HTMLInputElement>(null);
   const [passVisible, setPassVisible] = React.useState<boolean>(false);
+  const axios = useAxios();
 
   const { action: login, isLoading: loadingLogin } = useFetch(
     async (data: Inputs) => {
