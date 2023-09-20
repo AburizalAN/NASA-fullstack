@@ -16,6 +16,7 @@
     "@giscus/react": "^2.3.0",
     "@headlessui/react": "^1.7.14",
     "@popperjs/core": "^2.11.8",
+    "@react-spring/web": "^9.7.3",
     "@react-three/fiber": "^8.14.1",
     "@splinetool/react-spline": "^2.2.6",
     "@splinetool/runtime": "^0.9.442",
