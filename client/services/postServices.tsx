@@ -2,6 +2,7 @@ import useAxios from "@/hooks/useAxios";
 import useFetch from "@/hooks/useFetch";
 import useSWR from "@/hooks/useSWR";
 
+// eslint-disable-next-line react-hooks/rules-of-hooks
 const axios = useAxios();
 
 export const usePostService = () => {

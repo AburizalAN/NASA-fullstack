@@ -1,7 +1,7 @@
 "use client";
 
-import Spline from '@splinetool/react-spline';
 import { FadeNimation, TextAnimation } from "@/components/reusable/Animation";
+import Illustration3D from "./Illustration3D";
 
 const Header = () => {
   return (
@@ -27,9 +27,9 @@ const Header = () => {
           <div className="line"></div>
         </FadeNimation>
       </div>
-      {/* <div className="flex-1 h-[500px]">
-        <Spline className="w-full" scene="https://prod.spline.design/d1phPmr0qr33MhqE/scene.splinecode" />
-      </div> */}
+      <div className="w-5/12 h-[500px]">
+        <Illustration3D />
+      </div>
     </section>
   )
 }
