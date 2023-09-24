@@ -97,6 +97,11 @@
       @apply mb-5;
     }
   }
+  .illustration3d-wrapper {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 @tailwind utilities;
 

@@ -26,7 +26,7 @@ export default function Home() {
   });
   
   return (
-    <div className="bg-[#F9F9FF] h-full">
+    <div className="bg-[#F9F9FF] h-full overflow-hidden">
       <Header />
       <div className="max-w-6xl m-auto">
         {loadingPosts ? (
