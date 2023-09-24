@@ -7,12 +7,12 @@ import { OrbitControls, useHelper } from '@react-three/drei'
 
 const Illustration3D = () => {
   return (
-    <Canvas shadows camera={{ position: [3, 1.2, -1.4] }}>
+    <Canvas shadows camera={{ fov: 67, near: 0.1, far: 1000, position: [3, 0.7, -1.4] }}>
       <Lights />
       <pointLight position={[5, 5, 5]} intensity={1} />
-      <Model receiveShadow position={new THREE.Vector3(0, -0.4, 0)} />
-      <axesHelper args={[3]} />
-      <OrbitControls />
+      <Model receiveShadow position={new THREE.Vector3(0, -0.8, 0)} />
+      {/* <axesHelper args={[3]} /> */}
+      <OrbitControls enableZoom={false} />
     </Canvas>
   );
 }
@@ -55,7 +55,7 @@ const Lights = () => {
       />
       <directionalLight
         castShadow
-        ref={directionalLightRef}
+        // ref={directionalLightRef}
         visible={controlDirectional.visible}
         color={controlDirectional.color}
         intensity={controlDirectional.intensity}

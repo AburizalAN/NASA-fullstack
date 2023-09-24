@@ -28,9 +28,9 @@ export default function Home() {
   return (
     <div className="bg-[#F9F9FF] h-full">
       <Header />
-      <div className="max-w-6xl m-auto h-full">
+      <div className="max-w-6xl m-auto">
         {loadingPosts ? (
-          <div className="w-full h-full grid place-items-center">
+          <div className="w-full grid place-items-center">
             <Spinner width={40} height={40} withColor={true}/>
           </div>
         ) : posts?.length > 0 ? (
