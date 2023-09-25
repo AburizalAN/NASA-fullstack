@@ -1,19 +1,43 @@
 import * as React from "react";
 import { Model } from "@/components/Desk";
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { useControls } from "leva";
 import * as THREE from "three";
-import { OrbitControls, useHelper } from '@react-three/drei'
+import { OrbitControls, useHelper } from '@react-three/drei';
+
+const withCanvas = <P extends object>(Component: React.ComponentType<P>) => {
+  const WithCanvas = (props: P) => {
+    return (
+      <Canvas shadows camera={{ fov: 67, near: 0.1, far: 1000, position: [2, 0.5, 3] }}>
+        <Component {...props} />
+      </Canvas>
+    )
+  }
+  return WithCanvas;
+}
 
 const Illustration3D = () => {
+  const orbitControlsRef = React.useRef<any>(null!);
+
   return (
-    <Canvas shadows camera={{ fov: 67, near: 0.1, far: 1000, position: [3, 0.7, -1.4] }}>
+    <>
       <Lights />
       <pointLight position={[5, 5, 5]} intensity={1} />
       <Model receiveShadow position={new THREE.Vector3(0, -0.8, 0)} />
       {/* <axesHelper args={[3]} /> */}
-      <OrbitControls enableZoom={false} />
-    </Canvas>
+      <OrbitControls
+        enableZoom={false}
+        ref={orbitControlsRef}
+        minAzimuthAngle={-0.5}
+        maxAzimuthAngle={0.5}
+        maxPolarAngle={2.25}
+        minPolarAngle={1}
+        enableDamping={true}
+        dampingFactor={0.025}
+        rotateSpeed={0.3}
+        panSpeed={0.1}
+      />
+    </>
   );
 }
 
@@ -27,7 +51,7 @@ const Lights = () => {
     color: {
       value: 'white',
     },
-    intensity: { value: 3, min: 1, max: 5 }
+    intensity: { value: 4, min: 1, max: 5 }
   });
 
   const controlDirectional = useControls('Directional Light', {
@@ -42,7 +66,7 @@ const Lights = () => {
       y: 2.4,
       z: 1,
     },
-    intensity: { value: 3, min: 1, max: 5 },
+    intensity: { value: 4, min: 1, max: 5 },
     scale: { value: 1, min: 1, max: 5 },
   });
 
@@ -72,4 +96,4 @@ const Lights = () => {
   )
 }
 
-export default Illustration3D;
+export default withCanvas(Illustration3D);

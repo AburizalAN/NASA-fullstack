@@ -80,13 +80,15 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Plane.geometry}
         material={materials.wood}
+        rotation={[0, -Math.PI / 2, 0]}
       />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Plane001.geometry}
         material={materials.monitor}
-        position={[-0.523, 0.142, -0.034]}
+        position={[0.034, 0.142, -0.523]}
+        rotation={[0, -Math.PI / 2, 0]}
         scale={1.04}
       >
         <group position={[0.059, 0.816, 0]} rotation={[0, 0, 0.08]}>
@@ -124,7 +126,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Plane017.geometry}
         material={materials["Material.003"]}
-        position={[0.325, 0.086, 0.034]}
+        position={[-0.034, 0.086, 0.325]}
+        rotation={[0, -Math.PI / 2, 0]}
         scale={0.796}
       >
         <group position={[0, 0.07, 0]}>
@@ -159,7 +162,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Cube004.geometry}
         material={materials.monitor}
-        position={[0.364, 0.086, -0.835]}
+        position={[0.835, 0.086, 0.364]}
+        rotation={[0, -Math.PI / 2, 0]}
         scale={0.84}
       />
       <mesh
@@ -167,8 +171,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Plane003.geometry}
         material={materials["monitor 2"]}
-        position={[-0.125, 0.228, -1.414]}
-        rotation={[0, 1.468, -0.038]}
+        position={[1.414, 0.228, -0.125]}
+        rotation={[0, -0.103, -0.038]}
         scale={0.808}
       >
         <mesh
@@ -184,8 +188,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Plane006.geometry}
         material={materials["Material.004"]}
-        position={[-0.125, 0.405, -1.414]}
-        rotation={[Math.PI, 1.084, 3.104]}
+        position={[1.414, 0.405, -0.125]}
+        rotation={[0, 0.487, -0.038]}
         scale={0.808}
       >
         <mesh
@@ -197,8 +201,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         />
       </mesh>
       <group
-        position={[-0.509, 0.162, 1.397]}
-        rotation={[-Math.PI, 1.175, -Math.PI]}
+        position={[-1.397, 0.162, -0.509]}
+        rotation={[0, 0.396, 0]}
         scale={0.923}
       >
         <mesh
@@ -219,7 +223,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Circle001.geometry}
         material={materials["Material.004"]}
-        position={[0.146, 0.142, 1.437]}
+        position={[-1.437, 0.142, 0.146]}
+        rotation={[0, -Math.PI / 2, 0]}
         scale={1.042}
       />
       <mesh
@@ -227,7 +232,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Circle002.geometry}
         material={materials["Material.007"]}
-        position={[0.146, 0.12, 1.437]}
+        position={[-1.437, 0.12, 0.146]}
+        rotation={[0, -Math.PI / 2, 0]}
         scale={1.252}
       />
       <mesh
@@ -235,7 +241,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Cylinder.geometry}
         material={materials["monitor 2"]}
-        position={[0.146, 0.061, 1.437]}
+        position={[-1.437, 0.061, 0.146]}
+        rotation={[0, -Math.PI / 2, 0]}
         scale={1.523}
       >
         <mesh
@@ -270,8 +277,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Plane005.geometry}
         material={materials["Material.001"]}
-        position={[-0.382, 1.696, -1.019]}
-        rotation={[0, 0, -1.491]}
+        position={[1.019, 1.696, -0.382]}
+        rotation={[1.491, -Math.PI / 2, 0]}
         scale={0.913}
       />
       <mesh
@@ -279,8 +286,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Plane008.geometry}
         material={materials["Material.008"]}
-        position={[-0.314, 1.506, -1.58]}
-        rotation={[-0.013, 0.002, 0.083]}
+        position={[1.58, 1.506, -0.314]}
+        rotation={[-1.387, -1.557, -1.304]}
         scale={0.913}
       />
       <mesh
@@ -288,11 +295,15 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Plane009.geometry}
         material={materials.white}
-        position={[-0.382, 1.696, -1.019]}
-        rotation={[0, 0, -1.491]}
+        position={[1.019, 1.696, -0.382]}
+        rotation={[1.491, -Math.PI / 2, 0]}
         scale={0.913}
       />
-      <group position={[-0.397, 2.049, -0.428]} scale={0.039}>
+      <group
+        position={[0.428, 2.049, -0.397]}
+        rotation={[0, -Math.PI / 2, 0]}
+        scale={0.039}
+      >
         <mesh
           castShadow
           receiveShadow
@@ -313,8 +324,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         />
       </group>
       <group
-        position={[-0.407, 1.872, -0.464]}
-        rotation={[0, 0, -1.494]}
+        position={[0.464, 1.872, -0.407]}
+        rotation={[1.494, -Math.PI / 2, 0]}
         scale={0.052}
       >
         <mesh
@@ -337,8 +348,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         />
       </group>
       <group
-        position={[-0.104, 0.603, -1.002]}
-        rotation={[0.81, 0.085, -1.47]}
+        position={[1.002, 0.603, -0.104]}
+        rotation={[1.453, -0.757, 0.02]}
         scale={1.604}
       >
         <mesh
@@ -359,8 +370,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Plane013.geometry}
         material={materials["Material.005"]}
-        position={[0.128, 0.373, -1.529]}
-        rotation={[0, 0.53, -0.489]}
+        position={[1.529, 0.373, 0.128]}
+        rotation={[0, -1.041, -0.489]}
         scale={0.533}
       />
       <mesh
@@ -368,8 +379,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Plane014.geometry}
         material={materials["Material.004"]}
-        position={[0.144, 0.163, -1.43]}
-        rotation={[0, 0.02, -0.489]}
+        position={[1.43, 0.163, 0.144]}
+        rotation={[0, -1.551, -0.489]}
         scale={0.533}
       />
       <mesh
@@ -377,8 +388,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Text.geometry}
         material={materials["Material.008"]}
-        position={[-0.481, 1.852, 1.547]}
-        rotation={[Math.PI / 2, 0, -Math.PI / 2]}
+        position={[-1.547, 1.852, -0.481]}
+        rotation={[Math.PI / 2, 0, 0]}
         scale={0.289}
       />
       <mesh
@@ -386,7 +397,8 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes.Sphere001.geometry}
         material={materials["Material.009"]}
-        position={[0.167, 1.06, 0.876]}
+        position={[-0.876, 1.06, 0.167]}
+        rotation={[0, -Math.PI / 2, 0]}
         scale={0.114}
       />
     </group>

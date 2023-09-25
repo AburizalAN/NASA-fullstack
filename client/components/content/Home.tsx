@@ -8,8 +8,7 @@ import { Spinner } from "@/components/reusable";
 import Link from "next/link";
 import moment from "moment";
 import { RiArrowDropRightLine } from "react-icons/ri";
-import dynamic from "next/dynamic";
-const Header = dynamic(() => import("./Header"), { ssr: false });
+import Header from "./Header";
 
 export default function Home() {
   const windowWidth = useWindowWidth();

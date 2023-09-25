@@ -4,10 +4,8 @@ import Login from "@/components/features/auth/Login";
 import { Spinner } from "@/components/reusable";
 import { useGetUserInfo } from "@/services/authService";
 
-const axios = useAxios();
-
 const withAuth = <P extends object>(Component: React.ComponentType<P>) => {
-  return (props: P) => {
+  const WithAuth = (props: P) => {
     const { data, isValidating: loading } = useGetUserInfo();
     return loading ? (
       <div className="w-full h-full grid place-items-center">
@@ -21,6 +19,7 @@ const withAuth = <P extends object>(Component: React.ComponentType<P>) => {
       <Login {...props} />
     );
   };
+  return WithAuth;
 };
 
 export default withAuth;
