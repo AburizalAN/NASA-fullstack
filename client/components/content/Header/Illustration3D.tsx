@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Model } from "@/components/Desk";
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useControls } from "leva";
+import { useControls, Leva } from "leva";
 import * as THREE from "three";
 import { OrbitControls, useHelper } from '@react-three/drei';
 
@@ -92,6 +92,7 @@ const Lights = () => {
           )
         }
       />
+      <Leva hidden={true} />
     </>
   )
 }
