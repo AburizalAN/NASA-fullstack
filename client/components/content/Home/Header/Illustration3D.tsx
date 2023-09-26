@@ -8,7 +8,7 @@ import { OrbitControls, useHelper } from '@react-three/drei';
 const withCanvas = <P extends object>(Component: React.ComponentType<P>) => {
   const WithCanvas = (props: P) => {
     return (
-      <Canvas shadows camera={{ fov: 67, near: 0.1, far: 1000, position: [2, 0.5, 3] }}>
+      <Canvas shadows camera={{ fov: 75, near: 0.1, far: 1000, position: [1.54, 0.99, 2.83] }}>
         <Component {...props} />
       </Canvas>
     )
@@ -18,6 +18,10 @@ const withCanvas = <P extends object>(Component: React.ComponentType<P>) => {
 
 const Illustration3D = () => {
   const orbitControlsRef = React.useRef<any>(null!);
+
+  useFrame(() => {
+    console.log("orbitControlsRef", orbitControlsRef.current.object.position);
+  })
 
   return (
     <>
