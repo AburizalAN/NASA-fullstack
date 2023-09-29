@@ -24,21 +24,11 @@ const Header = () => {
             <h1 className="bg-indigo-800 py-3 px-5 text-[62px] leading-[0.9] font-bold inline-block text-white">Nugroho</h1>
           </FadeNimation>
           <FadeNimation delay={800}>
-            <h5 className="mt-7 mb-4 font-bold text-[20px]">
+            <h5 className="mt-12 mb-4 font-bold text-[20px]">
               Front End Developer
             </h5>
             <div className="line"></div>
           </FadeNimation>
-          {/* <div className="flex gap-[12px] mt-6">
-            <button className="border border-indigo-800 hover:bg-indigo-800 px-5 py-1.5 text-indigo-800 hover:text-white rounded-[0.25rem] flex justify-center items-center gap-2">
-              <span><RiLinkedinBoxFill /></span>
-              <span>LinkedIn</span>
-            </button>
-            <button className="border border-indigo-800 hover:bg-indigo-800 px-5 py-1.5 text-indigo-800 hover:text-white rounded-[0.25rem] flex justify-center items-center gap-2">
-              <span><RiGithubFill /></span>
-              <span>Github</span>
-            </button>
-          </div> */}
         </div>
         <div className="w-7/12 h-full relative">
           <div className="absolute illustration3d-wrapper h-[860px] w-[960px]">
