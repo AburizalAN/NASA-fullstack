@@ -1,12 +1,30 @@
+import * as React from "react";
 import { RiLinkedinBoxFill, RiGithubFill } from "react-icons/ri";
+import Illustration2 from "./Header/Illustration2";
 
 const About = () => {
-  return (
-    <section className="max-w-6xl m-auto py-[50px]">
-      <div className="flex w-full">
-        <div className="w-1/2 relative h-[500px]">
-          <div className="absolute w-[400px] h-[400px] rounded-[24px] bg-white">
+  // const comp = React.useRef(null);
+  // const boxRef = React.useRef(null);
+  // const box2Ref = React.useRef(null);
 
+  // React.useLayoutEffect(() => {
+  //   let ctx = gsap.context(() => {
+  //     const tl = gsap.timeline();
+  //     tl.to(boxRef.current, {
+  //       x: 200, duration: 1,
+  //     }, 3).to(box2Ref.current, {
+  //       y: 100, duration: 1,
+  //     }, "+=2")
+  //   }, comp);
+  //   return () => ctx.revert();
+  // }, []);
+
+  return (
+    <section className="max-w-6xl m-auto">
+      <div className="flex w-full h-full items-center">
+        <div className="w-1/2 relative h-[500px]">
+          <div className="absolute illustration3d-wrapper h-[500px] w-[500px]">
+            <Illustration2 />
           </div>
         </div>
         <div className="w-1/2">

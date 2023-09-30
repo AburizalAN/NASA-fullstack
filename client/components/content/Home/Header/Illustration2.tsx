@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Model } from "@/components/content/Home/Header/Desk";
+import { Model } from "@/components/content/Home/Header/Program";
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useControls, Leva } from "leva";
 import * as THREE from "three";
@@ -8,7 +8,7 @@ import { OrbitControls, useHelper } from '@react-three/drei';
 const withCanvas = <P extends object>(Component: React.ComponentType<P>) => {
   const WithCanvas = (props: P) => {
     return (
-      <Canvas shadows camera={{ fov: 75, near: 0.1, far: 1000, position: [1.54, 0.99, 2.83] }}>
+      <Canvas camera={{ fov: 75, near: 0.1, far: 1000, position: [-1.13, 0, 3.9] }}>
         <Component {...props} />
       </Canvas>
     )
@@ -19,23 +19,19 @@ const withCanvas = <P extends object>(Component: React.ComponentType<P>) => {
 const Illustration3D = () => {
   const orbitControlsRef = React.useRef<any>(null!);
 
-  // useFrame(() => {
-  //   console.log("orbitControlsRef", orbitControlsRef.current.object.position);
-  // })
+  useFrame(() => {
+    console.log("orbitControlsRef", orbitControlsRef.current.object.position);
+  })
 
   return (
     <>
       <Lights />
       <pointLight position={[5, 5, 5]} intensity={1} />
-      <Model receiveShadow position={new THREE.Vector3(0, -0.8, 0)} />
+      <Model position={new THREE.Vector3(0, -1.8, 0)} />
       {/* <axesHelper args={[3]} /> */}
       <OrbitControls
         enableZoom={false}
         ref={orbitControlsRef}
-        minAzimuthAngle={-0.5}
-        maxAzimuthAngle={0.5}
-        maxPolarAngle={2.25}
-        minPolarAngle={1}
         enableDamping={true}
         dampingFactor={0.025}
         rotateSpeed={0.3}

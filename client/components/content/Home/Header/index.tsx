@@ -4,10 +4,11 @@ import { FadeNimation, TextAnimation } from "@/components/reusable/Animation";
 import { RiArrowDownDoubleFill } from "react-icons/ri";
 
 import Illustration3D from "./Illustration3D";
+import Illustration2 from "./Illustration2";
 
 const Header = () => {
   return (
-    <div className="max-w-6xl min-h-[800px] h-screen m-auto flex items-center mb-[40px] relative">
+    <div className="max-w-6xl min-h-[800px] h-screen m-auto flex items-center mb-[30px] relative">
       <div className="flex items-center w-full h-[600px] relative p-8 bg-white rounded-lg shadow-2xl shadow-[#41346339]">
         <div className="w-5/12 z-50">
           <h1 className="text-[65px] leading-[1.1] font-bold mb-4">
