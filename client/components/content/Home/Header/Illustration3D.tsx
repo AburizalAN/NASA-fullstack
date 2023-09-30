@@ -8,7 +8,7 @@ import { OrbitControls, useHelper } from '@react-three/drei';
 const withCanvas = <P extends object>(Component: React.ComponentType<P>) => {
   const WithCanvas = (props: P) => {
     return (
-      <Canvas shadows camera={{ fov: 75, near: 0.1, far: 1000, position: [1.54, 0.99, 2.83] }}>
+      <Canvas shadows camera={{ fov: 75, near: 0.1, far: 1000, position: [0, 1.35, 3] }}>
         <Component {...props} />
       </Canvas>
     )

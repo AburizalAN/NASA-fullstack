@@ -19,9 +19,9 @@ const withCanvas = <P extends object>(Component: React.ComponentType<P>) => {
 const Illustration3D = () => {
   const orbitControlsRef = React.useRef<any>(null!);
 
-  useFrame(() => {
-    console.log("orbitControlsRef", orbitControlsRef.current.object.position);
-  })
+  // useFrame(() => {
+  //   console.log("orbitControlsRef", orbitControlsRef.current.object.position);
+  // })
 
   return (
     <>
