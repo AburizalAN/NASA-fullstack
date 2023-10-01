@@ -21,7 +21,7 @@ const Articles = () => {
     }
   });
   return (
-    <div className="max-w-6xl m-auto">
+    <div className="max-w-6xl m-auto mt-[120px]">
       <h2 className="font-bold mb-[40px] text-indigo-900">Articles</h2>
       {loadingPosts ? (
         <div className="w-full grid place-items-center">

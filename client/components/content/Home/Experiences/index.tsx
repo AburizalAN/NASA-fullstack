@@ -58,11 +58,11 @@ const Experiences = () => {
               <span>Github</span>
             </a>
           </div>
-          <div className="relative h-[500px]">
+          {/* <div className="relative h-[500px]">
             <div className="absolute illustration3d-wrapper h-[500px] w-[500px]">
               <Illustration2 />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="w-6/12">
           <div className="flex">
