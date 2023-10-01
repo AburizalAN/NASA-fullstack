@@ -8,8 +8,8 @@ import Illustration2 from "./Illustration2";
 
 const Header = () => {
   return (
-    <div className="max-w-6xl min-h-[800px] h-screen m-auto flex items-center mb-[30px] relative">
-      <div className="flex items-center w-full h-[600px] relative p-8 bg-white rounded-lg shadow-2xl shadow-[#41346339]">
+    <div className="max-w-6xl h-[700px] m-auto flex items-center relative">
+      <div className="flex items-center w-full h-[600px] relative rounded-lg">
         <div className="w-5/12 z-50">
           <h1 className="text-[65px] leading-[1.1] font-bold mb-4">
             <TextAnimation text="Hello World" />
@@ -32,14 +32,14 @@ const Header = () => {
           </FadeNimation>
         </div>
         <div className="w-7/12 h-full relative">
-          <div className="absolute illustration3d-wrapper h-[860px] w-[960px]">
+          <div className="absolute illustration3d-wrapper h-[750px] w-[800px]">
             <Illustration3D />
           </div>
         </div>
       </div>
-      <button className="absolute bottom-[50px] right-[50%] translate-x-2/4 text-[50px] text-[#5b4ea1]">
+      {/* <button className="absolute bottom-[50px] right-[50%] translate-x-2/4 text-[50px] text-[#5b4ea1]">
         <RiArrowDownDoubleFill />
-      </button>
+      </button> */}
     </div>
   )
 }

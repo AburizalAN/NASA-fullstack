@@ -1,0 +1,11 @@
+@layer components {
+  .triangle {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 130px;
+      left: 100%;
+      @apply w-0 h-0 border-t-[20px] border-t-transparent border-l-[20px] border-l-indigo-400 border-b-[20px] border-b-transparent;
+    }
+  }
+}
