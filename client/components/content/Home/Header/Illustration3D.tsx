@@ -26,8 +26,7 @@ const Illustration3D = () => {
   return (
     <>
       <Lights />
-      <pointLight position={[5, 5, 5]} intensity={1} />
-      <Model receiveShadow position={new THREE.Vector3(0, -1.2, 0)} />
+      <Model receiveShadow position={new THREE.Vector3(0, -1.25, 0)} />
       {/* <axesHelper args={[3]} /> */}
       <OrbitControls
         enableZoom={false}

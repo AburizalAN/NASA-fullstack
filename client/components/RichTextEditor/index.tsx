@@ -47,7 +47,6 @@ const RichTextEditor = ({ content, onChange = () => {}, isEditable = true, place
         placeholder: placeholder ?? "Write something...",
       })
     ],
-    content: content,
     onUpdate: ({ editor }) => {
       const _HTML = sanitizeHtml(editor.getHTML(), {
         allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])

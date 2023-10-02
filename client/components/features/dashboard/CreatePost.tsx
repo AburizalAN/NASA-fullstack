@@ -15,6 +15,7 @@ import message from "@/components/reusable/message";
 import Skeleton from 'react-loading-skeleton';
 import RichTextEditor from "@/components/RichTextEditor";
 
+
 const CreatePost = () => {
   const router = useRouter();
   const searchParams = useSearchParams();

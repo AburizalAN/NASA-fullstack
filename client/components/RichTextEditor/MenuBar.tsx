@@ -63,7 +63,7 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
     return res.file.url;
   };
 
-  const menu = (
+  const menu = !!editor ? (
     <div className="richTextEditor__bubbleMenu">
       <Dropdown
         forceClose
@@ -184,9 +184,7 @@ const MenuBar = React.forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
         <RiImageAddLine />
       </button>
     </div>
-  );
-
-  if (!editor) return null;
+  ) : null;
 
   return (
     <React.Fragment>
