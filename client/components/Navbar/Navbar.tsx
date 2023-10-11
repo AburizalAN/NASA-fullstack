@@ -1,12 +1,13 @@
 import * as React from "react";
 import clsx from "clsx";
-import { Button } from "@/components/reusable";
 import Link from "next/link";
 import { RiExternalLinkLine } from "react-icons/ri";
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
   const navRef = React.useRef<HTMLDListElement>(null);
   const [scrollPosition, setScrollPosition] = React.useState<number>(0);
+  const pathname = usePathname();
 
   React.useEffect(() => {
     document.addEventListener("scroll", () => {
@@ -29,14 +30,19 @@ const Navbar = () => {
     scrollPosition > 0 ? "navbar-shadow bg-white" : ""
   );
 
+  const btnClass = (curPath: string) => clsx("navbar-menu-item", pathname === curPath && "menu-active");
+
   return (
     <>
       <nav ref={navRef} className={mergedClass}>
         <div className="flex py-5 px-4 items-center justify-center w-full max-w-6xl mx-auto">
           <div className="flex gap-x-8 text-sm">
-            <button className="navbar-menu-item">Blog</button>
-            <button className="navbar-menu-item menu-active">About me</button>
-            <button className="navbar-menu-item">Projects</button>
+            <Link href="/blog">
+              <button className={btnClass("/blog")}>Blog</button>
+            </Link>
+            <Link href="/">
+              <button className={btnClass("/")}>About me</button>
+            </Link>
             <Link href={"https://github.com/AburizalAN"} target="_blank" className="no-underline">
               <button className="navbar-menu-item flex items-center gap-1">
                 <span>Github</span>

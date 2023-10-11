@@ -4,6 +4,7 @@ import Header from "./Header";
 import Articles from "./Articles";
 import Experiences from "./Experiences";
 import Projects from "./Projects";
+import Contact from "./Contact";
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <Header />
       <Experiences />
       <Projects />
-      <Articles /> 
+      {/* <Articles />  */}
+      <Contact />
     </div>
   );
 }
