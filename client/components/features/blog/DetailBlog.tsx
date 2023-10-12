@@ -23,7 +23,6 @@ const DetailBlog = ({ post }: { post: any }) => {
   });
 
   const shareTwitter = () => {
-    console.log("Share Twitter");
     const text = `Saya baru saja membaca artikel berjudul ${post?.title}%0a%0a`
     const search = queryString({ text, url: window.location.href });
     window.open(`https://twitter.com/intent/tweet?${search}`, '_blank');
