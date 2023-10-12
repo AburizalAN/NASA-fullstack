@@ -1,5 +1,3 @@
-"use client";
-
 import '@/styles/globals.scss';
 import { Inter, Nunito_Sans } from 'next/font/google';
 import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost";
@@ -9,7 +7,6 @@ import { SWRConfig } from 'swr';
 
 import 'react-loading-skeleton/dist/skeleton.css';
 
-const nunito = Nunito_Sans({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
