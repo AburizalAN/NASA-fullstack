@@ -23,7 +23,6 @@ const loadPlanetsData = () => {
       }
     })
     .on('error', (err) => {
-      console.log(err);
       reject(err);
     })
     .on('end', () => {
