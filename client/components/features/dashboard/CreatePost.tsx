@@ -2,7 +2,7 @@
 
 import { Disclosure } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa";
-import { HiPlus } from "react-icons/Hi";
+import { HiPlus } from "react-icons/hi";
 import { Button, Combobox, ResizableTextArea } from "@/components/reusable";
 import * as React from "react";
 import { useSearchParams, useRouter } from "next/navigation";

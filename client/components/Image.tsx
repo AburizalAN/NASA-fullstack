@@ -13,8 +13,6 @@ const Image: React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
     console.log("Image loaded");
   };
 
-  console.log("loading", loading);
-
   return (
     <>
       {loading ? <div>Loading...</div> : null}
