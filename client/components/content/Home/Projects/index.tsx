@@ -76,7 +76,7 @@ const Projects = () => {
                 ))}
               </div>
               <div className="flex justify-end mt-auto">
-                <a className="no-underline cursor-pointer font-semibold text-indigo-600 flex items-center gap-x-2">
+                <a href={item.link} className="no-underline cursor-pointer font-semibold text-indigo-600 flex items-center gap-x-2">
                   <span>View Website</span>
                   <span><RiArrowRightDoubleFill /></span>
                 </a>
