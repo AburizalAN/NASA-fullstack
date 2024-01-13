@@ -4,7 +4,7 @@ import Login from "@/components/features/auth/Login";
 import { Spinner } from "@/components/reusable";
 import { useGetUserInfo } from "@/services/authService";
 
-const withAuth = <P extends object>(Component: React.ComponentType<P>) => {
+const withAuth = <P extends object>(Component: (props: P) => React.JSX.Element) => {
   const WithAuth = (props: P) => {
     const { data, isValidating: loading } = useGetUserInfo();
     return loading ? (

@@ -31,11 +31,11 @@ const Header = () => {
             <div className="line"></div>
           </FadeNimation>
         </div>
-        <div className="w-7/12 h-full relative">
+        {/* <div className="w-7/12 h-full relative">
           <div className="absolute illustration3d-wrapper h-[750px] w-[800px]">
             <Illustration3D />
           </div>
-        </div>
+        </div> */}
       </div>
       {/* <button className="absolute bottom-[50px] right-[50%] translate-x-2/4 text-[50px] text-[#5b4ea1]">
         <RiArrowDownDoubleFill />

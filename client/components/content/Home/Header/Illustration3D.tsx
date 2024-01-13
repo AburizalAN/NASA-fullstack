@@ -1,20 +1,22 @@
 import * as React from "react";
 import { Model } from "@/components/content/Home/Header/Desk";
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame } from "@react-three/fiber";
 import { useControls, Leva } from "leva";
 import * as THREE from "three";
-import { OrbitControls, useHelper } from '@react-three/drei';
+import { OrbitControls, useHelper } from "@react-three/drei";
 
-const withCanvas = <P extends object>(Component: React.ComponentType<P>) => {
-  const WithCanvas = (props: P) => {
+const withCanvas = <P extends object>(Component: (props: P) => React.JSX.Element) => {
+  return function WithCanvas(props: P) {
     return (
-      <Canvas shadows camera={{ fov: 75, near: 0.1, far: 1000, position: [0, 0, 3.8] }}>
-        <Component {...props} />
+      <Canvas
+        shadows
+        camera={{ fov: 75, near: 0.1, far: 1000, position: [0, 0, 3.8] }}
+      >
+        <Component {...(props as P)} />
       </Canvas>
-    )
-  }
-  return WithCanvas;
-}
+    );
+  };
+};
 
 const Illustration3D = () => {
   const orbitControlsRef = React.useRef<any>(null!);
@@ -42,27 +44,27 @@ const Illustration3D = () => {
       />
     </>
   );
-}
+};
 
 const Lights = () => {
   const directionalLightRef = React.useRef(null!);
   useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, "red");
-  const controlAmbient = useControls('Ambient Light', {
+  const controlAmbient = useControls("Ambient Light", {
     visible: {
       value: true,
     },
     color: {
-      value: 'white',
+      value: "white",
     },
-    intensity: { value: 4, min: 1, max: 5 }
+    intensity: { value: 4, min: 1, max: 5 },
   });
 
-  const controlDirectional = useControls('Directional Light', {
+  const controlDirectional = useControls("Directional Light", {
     visible: {
       value: true,
     },
     color: {
-      value: 'white',
+      value: "white",
     },
     position: {
       x: 1.2,
@@ -97,7 +99,7 @@ const Lights = () => {
       />
       <Leva hidden={true} />
     </>
-  )
-}
+  );
+};
 
 export default withCanvas(Illustration3D);
