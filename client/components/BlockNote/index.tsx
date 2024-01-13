@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { BlockNoteEditor, defaultProps, DefaultBlockSchema, defaultBlockSchema } from "@blocknote/core";
-import { BlockNoteView, createReactBlockSpec, useBlockNote, InlineContent, ReactSlashMenuItem, defaultReactSlashMenuItems } from "@blocknote/react";
+import { defaultBlockSchema } from "@blocknote/core";
+import { BlockNoteView, createReactBlockSpec, useBlockNote, InlineContent, getDefaultReactSlashMenuItems } from "@blocknote/react";
 import { RiImage2Fill } from "react-icons/ri";
 import "@blocknote/core/style.css";
 
@@ -38,31 +38,6 @@ const BlockNote: React.FC<RichEditorProps> = ({ getMarkdown = () => {}, getHTML 
     ),
   });
 
-  const insertImage = new ReactSlashMenuItem<
-    DefaultBlockSchema & { image: typeof ImageBlock }
-  >(
-    "Insert Image",
-    (editor) => {
-      const src: string | null = prompt("Enter image URL");
-      editor.insertBlocks(
-        [
-          {
-            type: "image",
-            props: {
-              src: src || "https://via.placeholder.com/1000",
-            },
-          },
-        ],
-        editor.getTextCursorPosition().block,
-        "after"
-      );
-    },
-    ["image", "img", "picture", "media"],
-    "Media",
-    <RiImage2Fill />,
-    "Insert an image"
-  );
-
   const editor = useBlockNote({
     onEditorContentChange: (editor) => {
       const saveBlocksAsMarkdown = async () => {
@@ -81,7 +56,7 @@ const BlockNote: React.FC<RichEditorProps> = ({ getMarkdown = () => {}, getHTML 
       ...defaultBlockSchema,
       image: ImageBlock,
     },
-    slashCommands: [ ...defaultReactSlashMenuItems, insertImage ],
+    slashMenuItems: [ ...getDefaultReactSlashMenuItems() ],
   });
 
   React.useEffect(() => {
