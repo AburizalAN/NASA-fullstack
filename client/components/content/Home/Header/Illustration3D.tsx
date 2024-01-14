@@ -5,7 +5,7 @@ import { useControls, Leva } from "leva";
 import * as THREE from "three";
 import { OrbitControls, useHelper } from "@react-three/drei";
 
-const withCanvas = <P extends object>(Component: (props: P) => React.JSX.Element) => {
+const withCanvas = <P extends {}>(Component: (props: P) => React.JSX.Element) => {
   return function WithCanvas(props: P) {
     return (
       <Canvas

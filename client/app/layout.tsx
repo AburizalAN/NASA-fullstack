@@ -1,11 +1,9 @@
 "use client";
 
 import '@/styles/globals.scss';
-import { Inter, Nunito_Sans } from 'next/font/google';
-import NavbarCreatePost from "@/components/Navbar/NavbarCreatePost";
+import { Inter } from 'next/font/google';
 import Navbar from "@/components/Navbar/Navbar";
 import { usePathname } from 'next/navigation';
-import { SWRConfig } from 'swr';
 
 import 'react-loading-skeleton/dist/skeleton.css';
 
@@ -31,17 +29,15 @@ export default function RootLayout({
   }
 
   return (
-    <SWRConfig value={{ provider: () => new Map() }}>
-      <html lang="en">
-        <body className={inter.className}>
-          <div className="flex flex-col h-screen">
-            {renderNavbar()}
-            <main className="w-full mx-auto flex-1">
-              {children}
-            </main>
-          </div>
-        </body>
-      </html>
-    </SWRConfig>
+    <html lang="en">
+      <body className={inter.className}>
+        <div className="flex flex-col h-screen">
+          {renderNavbar()}
+          <main className="w-full mx-auto flex-1">
+            {children}
+          </main>
+        </div>
+      </body>
+    </html>
   )
 }
