@@ -52,41 +52,8 @@ const Experiences = () => {
     },
   ];
   return (
-    <section className="max-w-6xl m-auto my-[80px]">
+    <section className="max-w-7xl m-auto my-[80px]">
       <div className="flex">
-        <div className="flex-1 pr-5">
-          <h1 className="font-bold text-[70px] leading-[1]">I am design <br /> and technology enthusiast.</h1>
-          <p className="mt-[2rem] mb-[1rem]">
-            I like creating cool things on the Computer and Internet, such
-            as design or Application that can run interactively.
-          </p>
-          <p>
-            i’m really interested to work on tech industry as an Software
-            Engineer, and i hope i’ll be able to provide something useful
-            for people around me with technology.
-          </p>
-          <div className="mt-[2.4rem] pt-3 buttons flex gap-5">
-            <a
-              href="https://linkedin.com/in/aburizal-a-n"
-              className="no-underline border border-indigo-800 hover:bg-indigo-800 px-5 py-1.5 text-indigo-800 hover:text-white rounded-[0.25rem] flex justify-center items-center gap-2"
-            >
-              <span><RiLinkedinBoxFill /></span>
-              <span>LinkedIn</span>
-            </a>
-            <a
-              href="https://github.com/AburizalAN"
-              className="no-underline border border-indigo-800 hover:bg-indigo-800 px-5 py-1.5 text-indigo-800 hover:text-white rounded-[0.25rem] flex justify-center items-center gap-2"
-            >
-              <span><RiGithubFill /></span>
-              <span>Github</span>
-            </a>
-          </div>
-          {/* <div className="relative h-[500px]">
-            <div className="absolute illustration3d-wrapper h-[500px] w-[500px]">
-              <Illustration2 />
-            </div>
-          </div> */}
-        </div>
         <div className="w-6/12">
           <div className="flex">
             <div className="bg-indigo-600 w-[8px] mr-11 rounded-full relative triangle"></div>

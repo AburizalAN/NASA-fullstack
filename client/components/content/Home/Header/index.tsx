@@ -26,7 +26,7 @@ const TextAnimation: any = dynamic(
 
 const Header = () => {
   return (
-    <div className="max-w-6xl h-[700px] m-auto flex items-center relative">
+    <div className="max-w-7xl h-[700px] m-auto flex items-center relative">
       <div className="flex items-center w-full h-[600px] relative rounded-lg">
         <div className="w-5/12 z-50">
           <h1 className="text-[65px] leading-[1.1] font-bold mb-4">
