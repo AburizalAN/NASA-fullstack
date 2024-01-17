@@ -63,7 +63,7 @@ const Projects = () => {
       <Masonry cols={3} className="flex-1 -m-3">
         {data.map((item, i) => (
           <MasonryItem key={i} className="px-3 py-3">
-            <div className="rounded-lg overflow-hidden flex flex-col border-indigo-200/30 shadow-2xl shadow-indigo-400/20">
+            <div className="rounded-lg overflow-hidden flex flex-col border-indigo-200/30 shadow-2xl shadow-indigo-500/20">
               <div className="w-full bg-gray-200">
                 <Image src={item.image} alt={item.title} className="w-full h-full object-cover object-center" />
               </div>

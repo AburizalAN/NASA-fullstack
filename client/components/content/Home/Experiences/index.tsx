@@ -57,7 +57,7 @@ const Experiences = () => {
         <Masonry cols={2} className="flex-1 -m-3">
           {experiences.map((item, i) => (
             <MasonryItem key={i} className="px-3 py-3">
-              <div className="bg-white/40 border rounded-md p-6 w-auto border-indigo-200/30 shadow-2xl shadow-indigo-400/20">
+              <div className="bg-white/40 border rounded-md p-6 w-auto border-indigo-200/30 shadow-2xl shadow-indigo-500/20">
                 <h5 className="font-semibold mb-1 mt-2 text-pretty">{item.company}</h5>
                 <h3 className="font-bold mb-1 text-indigo-800 leading-tight">{item.title}</h3>
                 <h5 className="font-semibold mb-5">{item.year}</h5>
