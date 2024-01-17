@@ -9,7 +9,7 @@ import AboutMe from "./AboutMe";
 
 export default function Home() {
   return (
-    <div className="bg-[#F9F9FF] h-full overflow-hidden">
+    <div className="bg-[#f9f9ff] h-full overflow-hidden">
       <Header />
       <AboutMe />
       <Experiences />

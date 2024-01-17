@@ -1,5 +1,7 @@
 import { RiLinkedinBoxFill, RiGithubFill } from "react-icons/ri";
 import Illustration2 from "../Header/Illustration2";
+import clsx from "clsx";
+import Masonry, { MasonryItem } from "@/components/Masonry";
 
 const Experiences = () => {
   const experiences = [
@@ -8,11 +10,9 @@ const Experiences = () => {
       year: "Jul 2022 - Present",
       title: "Frontend Web Developer ",
       desc: `
-        <ul>
-          <li>
-            Develop E-Commerce app using next.js, redux saga, and next-PWA to Create and Maintenance Product Cart, Multiple Shipping, Payment Method, FlashSale Section Product, and Brand Catalogue Feature on AwalMula e-commerce Progressive Web App
-          </li>
-        </ul>
+      <p>
+        Developing E-Commerce app using next.js, redux saga, and next-PWA to Create and Maintenance Product Cart, Multiple Shipping, Payment Method, FlashSale Section Product, and Brand Catalogue Feature on AwalMula e-commerce Progressive Web App.
+      </p>
       `,
     },
     {
@@ -20,11 +20,7 @@ const Experiences = () => {
       year: "Nov 2021 - Jun 2022",
       title: "Frontend Web Developer (Freelance)",
       desc: `
-        <ul>
-          <li>
-            Develop E-Commerce app using next.js, redux saga, and next-PWA to Create and Maintenance Product Cart, Multiple Shipping, Payment Method, FlashSale Section Product, and Brand Catalogue Feature on AwalMula e-commerce Progressive Web App
-          </li>
-        </ul>
+        <p>Developing E-Commerce app using next.js, redux saga, and next-PWA to Create and Maintenance Product Cart, Multiple Shipping, Payment Method, FlashSale Section Product, and Brand Catalogue Feature on AwalMula e-commerce Progressive Web App.</p>
       `,
     },
     {
@@ -32,49 +28,50 @@ const Experiences = () => {
       year: "Aug 2021 - Mei 2022",
       title: "Junior Front-End Engineer",
       desc: `
-              <ul>
-                  <li>Develop and Maintenance Dashboard Web App for 
-                  Company Management using React, Context, Firebase, and 
-                  any other tools</li>
-                  <li>Develop and maintenance main website of our company,
-                  which cover information about our company, products,
-                  and also include booking and transaction feature to our
-                  products</li>
-                  <li>Develop and maintenance supporting and additional web
-                  App</li>
-              </ul>
+        <p>Developing and Maintenance Dashboard Web App for 
+        Company Management using React, Context, Firebase, and 
+        any other tools</p>
+        <p>Develop and maintenance main website of our company,
+        which cover information about our company, products,
+        and also include booking and transaction feature to our
+        products</p>
+        <p>Develop and maintenance supporting and additional web
+        App</p>
           `,
     },
     {
+      company: "PT. Gilland Ganesha",
       year: "Nov 2017 - Aug 2021",
-      title: "Graphic Designer at PT. Gilland Ganesha",
-      desc: `<ul><li>Working in Digital Marketing Division</li></ul>`,
+      title: "Graphic Designer",
+      desc: `<p>Working in Digital Marketing Division</p>`,
     },
   ];
   return (
-    <section className="max-w-7xl m-auto my-[80px]">
-      <div className="flex">
-        <div className="w-6/12">
-          <div className="flex">
-            <div className="bg-indigo-600 w-[8px] mr-11 rounded-full relative triangle"></div>
-            <div className="flex-1">
-              <h2 className="mb-9 font-semibold">Experiences</h2>
-              <div className="flex flex-col gap-y-6">
-                {experiences.map((item, i) => (
-                  <div key={i} className="relative border rounded-md p-6">
-                    <h4 className="font-semibold mb-2">{item.company}</h4>
-                    <h2 className="font-bold mb-2 text-indigo-800">{item.title}</h2>
-                    <h4 className="font-semibold mb-4">{item.year}</h4>
-                    <div className="experience-item-desc" dangerouslySetInnerHTML={{ __html: item.desc }}></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+    <section className="max-w-7xl m-auto my-[180px]">
+      <div className="flex flex-shrink gap-16">
+        <div className="w-4/12 flex-shrink-0">
+          <h3 className="mb-3 font-semibold">Experiences</h3>
+          <h1 className="mb-7 font-bold text-4xl leading-tight text-indigo-800">{"Lorem Ipsum Dolor Sit Amet"}</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elementum ornare dui, eu sollicitudin dolor finibus et. Fusce molestie suscipit arcu, eget ultricies nisi venenatis eu.</p>
         </div>
+        <Masonry cols={2} className="flex-1 -m-3">
+          {experiences.map((item, i) => (
+            <MasonryItem key={i} className="px-3 py-3">
+              <div className="bg-white/40 border rounded-md p-6 w-auto border-indigo-200/30 shadow-2xl shadow-indigo-400/20">
+                <h5 className="font-semibold mb-1 mt-2 text-pretty">{item.company}</h5>
+                <h3 className="font-bold mb-1 text-indigo-800 leading-tight">{item.title}</h3>
+                <h5 className="font-semibold mb-5">{item.year}</h5>
+                <div
+                  className="experience-item-desc"
+                  dangerouslySetInnerHTML={{ __html: item.desc }}
+                ></div>
+              </div>
+            </MasonryItem>
+          ))}
+        </Masonry>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default Experiences;

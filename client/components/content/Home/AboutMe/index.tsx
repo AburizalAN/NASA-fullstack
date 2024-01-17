@@ -51,36 +51,36 @@ const AboutMe = () => {
         <div className="w-6/12 flex items-center justify-center pl-10">
           <div className="flex gap-5 items-center">
             <div className="flex flex-1 flex-col flex-wrap justify-center gap-5">
-              <div className="bg-white rounded-xl p-5 shadow-2xl shadow-indigo-500/20">
+              <div className="bg-white/40 rounded-xl p-5 shadow-2xl shadow-indigo-500/20">
                 <div className="mt-4 inline-flex gap-3">
                   <SiJavascript className="text-indigo-800 text-[30px]" />
                   <SiTypescript className="text-indigo-800 text-[30px]" />
                 </div>
                 <h4 className="font-bold mt-2">Javascript & TypeScript</h4>
-                <p className="mt-1">
+                <p className="mt-2">
                   Strong fundamentals of Programming using JavaScript &
                   TypeScript
                 </p>
               </div>
-              <div className="bg-white rounded-xl p-5 shadow-2xl shadow-indigo-500/20">
+              <div className="bg-white/40 rounded-xl p-5 shadow-2xl shadow-indigo-500/20">
                 <div className="mt-4 inline-flex gap-3">
                   <FaReact className="text-indigo-800 text-[30px]" />
                   <TbBrandNextjs className="text-indigo-800 text-[30px]" />
                 </div>
                 <h4 className="font-bold mt-2">React & Next.js</h4>
-                <p className="mt-1">
+                <p className="mt-2">
                   Have deep understanding to React & Next.js
                 </p>
               </div>
             </div>
             <div className="flex flex-1 flex-col flex-wrap justify-center gap-5">
-              <div className="bg-white rounded-xl p-4 shadow-2xl shadow-indigo-500/20">
+              <div className="bg-white/40 rounded-xl p-4 shadow-2xl shadow-indigo-500/20">
                 <div className="mt-4 inline-flex gap-3">
                   <FaCss3Alt className="text-indigo-800 text-[30px]" />
                   <FaSass className="text-indigo-800 text-[30px]" />
                 </div>
                 <h4 className="font-bold mt-2">CSS Styling</h4>
-                <p className="mt-1">
+                <p className="mt-2">
                   Able to create amazing website design using CSS
                 </p>
               </div>

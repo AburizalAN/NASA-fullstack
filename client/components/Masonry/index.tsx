@@ -7,6 +7,7 @@ interface MasonryProps {
   children: React.ReactNode;
   cols: number;
   gap?: number;
+  className?: string;
 }
 
 interface ColumnsObj {
@@ -19,7 +20,7 @@ interface MasonryItemProps {
   style?: React.CSSProperties;
 }
 
-const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
+const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0, className }) => {
   const windowWidth = useWindowWidth();
 
   const masonryRef = React.useRef<HTMLDivElement>(null);
@@ -54,24 +55,28 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
       return height;
     };
 
-    const container: HTMLElement | null = document.getElementById("masonry");
+    const container: HTMLElement | null = masonryRef.current;
     if (container) {
       const padding = gap / 2;
       const width = container?.clientWidth;
-      const colWidth = width / cols - gap;
+      const colWidth = `calc(${100 / cols}% + ${gap}px)`;
 
-      const childs = document.querySelectorAll<HTMLElement>(".masonry-item");
+      const childs = container.querySelectorAll<HTMLElement>(".masonry-item");
       if (childs) {
-        for (let i = 0; i < childs.length; i++) {
+        for (const child of childs) {
           const col = getCol();
-          // childs[i].style.order = `${col + 1}`;
+
+          // using flex column
+          child.style.order = `${col + 1}`;
+          child.style.width = colWidth;
+          columns[col] = columns[col] + child.clientHeight + gap;
+
+          // // using absolute position
+          // childs[i].style.position = "absolute";
+          // childs[i].style.top = `${columns[col]}px`;
+          // childs[i].style.left = `${padding + col * (colWidth + gap)}px`;
           // childs[i].style.width = `${colWidth}px`;
           // columns[col] = columns[col] + childs[i].clientHeight + gap;
-          childs[i].style.position = "absolute";
-          childs[i].style.top = `${columns[col]}px`;
-          childs[i].style.left = `${padding + col * (colWidth + gap)}px`;
-          childs[i].style.width = `${colWidth}px`;
-          columns[col] = columns[col] + childs[i].clientHeight + gap;
         }
         container.style.height = `calc(${getMaxHeight()}px + 16px)`;
       }
@@ -97,13 +102,15 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0 }) => {
   }, []);
 
   return (
-    <div
-      ref={masonryRef}
-      id="masonry"
-      // className="relative w-full flex flex-col flex-wrap content-start"
-      className="relative"
-    >
-      {children}
+    <div className={className}>
+      <div
+        ref={masonryRef}
+        id="masonry"
+        className={"relative w-full flex flex-col flex-wrap content-start"}
+        // className="relative"
+      >
+        {children}
+      </div>
     </div>
   );
 };

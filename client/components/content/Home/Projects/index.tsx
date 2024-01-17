@@ -3,6 +3,7 @@ import LandingPageImg from "@/public/images/LandingPage.png";
 import FinanceAppImg from "@/public/images/finance-app.png";
 import MakanKuyImg from "@/public/images/makan-kuy.png";
 import Image from 'next/image'
+import Masonry, { MasonryItem } from "@/components/Masonry";
 
 const Projects = () => {
   const data = [
@@ -56,35 +57,37 @@ const Projects = () => {
     },
   ];
   return (
-    <section className="max-w-6xl m-auto">
+    <section className="max-w-7xl m-auto">
       <h2 className="font-semibold mb-3">Projects</h2>
-      <h1 className="mb-9 font-bold">{"Somethings I've Built"}</h1>
-      <div className="grid grid-cols-2 gap-6 justify-end">
+      <h1 className="mb-9 font-bold text-indigo-800">{"Somethings I've Built"}</h1>
+      <Masonry cols={3} className="flex-1 -m-3">
         {data.map((item, i) => (
-          <div key={i} className="border rounded-lg overflow-hidden flex flex-col">
-            <div className="h-[300px] w-full bg-gray-200">
-              <Image src={item.image} alt={item.title} className="w-full h-full object-cover object-center" />
-            </div>
-            <div className="p-6 bg-white flex flex-col flex-1">
-              <h3 className="font-bold mb-4">{item.title}</h3>
-              <p className="text-gray-500" dangerouslySetInnerHTML={{ __html: item.description }}></p>
-              <div className="flex flex-shrink-0 flex-wrap gap-3 mt-5 mb-8">
-                {item.tech.map((tech, i) => (
-                  <div key={i} className="text-indigo-400 text-xs px-3 py-1 bg-indigo-50 rounded-md border-indigo-300 border">
-                    {tech}
-                  </div>
-                ))}
+          <MasonryItem key={i} className="px-3 py-3">
+            <div className="rounded-lg overflow-hidden flex flex-col border-indigo-200/30 shadow-2xl shadow-indigo-400/20">
+              <div className="w-full bg-gray-200">
+                <Image src={item.image} alt={item.title} className="w-full h-full object-cover object-center" />
               </div>
-              <div className="flex justify-end mt-auto">
-                <a href={item.link} className="no-underline cursor-pointer font-semibold text-indigo-600 flex items-center gap-x-2">
-                  <span>View Website</span>
-                  <span><RiArrowRightDoubleFill /></span>
-                </a>
+              <div className="p-6 bg-white flex flex-col flex-1">
+                <h3 className="font-bold mb-4">{item.title}</h3>
+                <p className="text-gray-500" dangerouslySetInnerHTML={{ __html: item.description }}></p>
+                <div className="flex flex-shrink-0 flex-wrap gap-3 mt-5 mb-8">
+                  {item.tech.map((tech, i) => (
+                    <div key={i} className="text-indigo-400 text-xs px-3 py-1 bg-indigo-50 rounded-md border-indigo-300 border">
+                      {tech}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-end">
+                  <a href={item.link} className="no-underline cursor-pointer font-semibold text-indigo-400 hover:text-indigo-600 flex items-center gap-x-2">
+                    <span>View Website</span>
+                    <span><RiArrowRightDoubleFill /></span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
+          </MasonryItem>
         ))}
-      </div>
+      </Masonry>
     </section>
   )
 }

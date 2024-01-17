@@ -22,5 +22,11 @@
         @apply leading-normal mb-3 last:mb-0;
       }
     }
+    p {
+      @apply mb-4;
+      &:nth-last-of-type(1) {
+        @apply mb-0;
+      }
+    }
   }
 }
