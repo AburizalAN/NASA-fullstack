@@ -50,8 +50,8 @@ const Experiences = () => {
     <section className="max-w-7xl m-auto my-[180px]">
       <div className="flex flex-shrink gap-16">
         <div className="w-4/12 flex-shrink-0">
-          <h3 className="mb-3 font-semibold">Experiences</h3>
-          <h1 className="mb-7 font-bold text-4xl leading-tight text-indigo-800">{"Lorem Ipsum Dolor Sit Amet"}</h1>
+          <h3 className="mb-3 font-semibold text-indigo-800">Experiences</h3>
+          <h1 className="mb-7 font-bold text-4xl leading-tight">{"Lorem Ipsum Dolor Sit Amet"}</h1>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elementum ornare dui, eu sollicitudin dolor finibus et. Fusce molestie suscipit arcu, eget ultricies nisi venenatis eu.</p>
         </div>
         <Masonry cols={2} className="flex-1 -m-3">

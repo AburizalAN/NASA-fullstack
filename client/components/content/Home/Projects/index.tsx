@@ -58,8 +58,8 @@ const Projects = () => {
   ];
   return (
     <section className="max-w-7xl m-auto">
-      <h2 className="font-semibold mb-3">Projects</h2>
-      <h1 className="mb-9 font-bold text-indigo-800">{"Somethings I've Built"}</h1>
+      <h3 className="font-semibold mb-3 text-indigo-800">Projects</h3>
+      <h1 className="mb-9 font-bold">{"Somethings I've Built"}</h1>
       <Masonry cols={3} className="flex-1 -m-3">
         {data.map((item, i) => (
           <MasonryItem key={i} className="px-3 py-3">
