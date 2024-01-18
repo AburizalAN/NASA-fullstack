@@ -23,7 +23,7 @@ const Contact = () => {
         </p>
         <div className="flex w-full gap-x-12 flex-wrap">
           <div className="w-4/12 flex flex-col gap-6">
-            <div className="flex items-center gap-4 bg-white/30 p-4 rounded-lg shadow-2xl shadow-indigo-500/20">
+            <div className="flex items-center gap-4 bg-white/30 p-4 rounded-lg shadow-2xl shadow-indigo-400/20">
               <div className="bg-indigo-600 w-[50px] h-[50px] grid place-items-center rounded-lg">
                 <FiPhoneCall className="text-white text-[25px]" />
               </div>
@@ -32,7 +32,7 @@ const Contact = () => {
                 <h6 className="font-semibold text-gray-600">0812-9832-3639</h6>
               </div>
             </div>
-            <div className="flex items-center gap-4 bg-white/30 p-4 rounded-lg shadow-2xl shadow-indigo-500/20">
+            <div className="flex items-center gap-4 bg-white/30 p-4 rounded-lg shadow-2xl shadow-indigo-400/20">
               <div className="bg-indigo-600 w-[50px] h-[50px] grid place-items-center rounded-lg">
                 <FiMail className="text-white text-[25px]" />
               </div>
@@ -41,7 +41,7 @@ const Contact = () => {
                 <h6 className="font-semibold text-gray-600">aburizal853@gmail.com</h6>
               </div>
             </div>
-            <div className="flex items-center gap-4 bg-white/30 p-4 rounded-lg shadow-2xl shadow-indigo-500/20">
+            <div className="flex items-center gap-4 bg-white/30 p-4 rounded-lg shadow-2xl shadow-indigo-400/20">
               <div className="bg-indigo-600 w-[50px] h-[50px] grid place-items-center rounded-lg">
                 <MdOutlineMyLocation className="text-white text-[25px]" />
               </div>
@@ -53,11 +53,11 @@ const Contact = () => {
           </div>
           <div className="flex-1 flex flex-col gap-6">
             <div className="grid grid-cols-2 gap-6">
-              <input placeholder="Name" className="px-5 py-3 rounded-lg bg-transparent border border-indigo-300/50 outline-none" />
-              <input placeholder="Email" className="px-5 py-3 rounded-lg bg-transparent border border-indigo-300/50 outline-none" />
+              <input placeholder="Name" className="px-5 py-3 rounded-lg bg-transparent border border-indigo-300/50 outline-none shadow-xl shadow-indigo-200/20" />
+              <input placeholder="Email" className="px-5 py-3 rounded-lg bg-transparent border border-indigo-300/50 outline-none shadow-xl shadow-indigo-200/20" />
             </div>
             <div className="flex-1">
-              <textarea placeholder="Message" className="w-full h-full px-5 py-3 rounded-lg bg-transparent border border-indigo-300/50 outline-none" />
+              <textarea placeholder="Message" className="w-full h-full px-5 py-3 rounded-lg bg-transparent border border-indigo-300/50 outline-none shadow-xl shadow-indigo-200/20" />
             </div>
           </div>
           <div className="w-full flex justify-end mt-10">
