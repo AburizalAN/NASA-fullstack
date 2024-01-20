@@ -6,28 +6,34 @@ import { TbBrandNextjs } from "react-icons/tb";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-const AboutMe = () => {
-  const container = React.useRef<HTMLDivElement>(null)
+interface PropTypes {
+  isIntersecting: boolean
+}
+
+const AboutMe = ({ isIntersecting = false }: PropTypes) => {
+  const container = React.useRef<HTMLDivElement>(null);
   
   useGSAP(() => {
     // animation for title
-    gsap.from(".big-title-1", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25 });
-    gsap.from(".big-title-2", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25, delay: .2 });
-    gsap.from(".big-title-3", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25, delay: .4 });
+    if (isIntersecting) {
+      gsap.from(".big-title-1", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25 });
+      gsap.from(".big-title-2", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25, delay: .2 });
+      gsap.from(".big-title-3", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25, delay: .4 });
+    
+      // animation for paragraph
+      gsap.from(".paragraph-1", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25, delay: .6 });
+      gsap.from(".paragraph-2", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25, delay: .8 });
+    
+      // animation for button
+      gsap.from(".button-1", { opacity: 0, y: 20, scale: .8, ease: "power4.out", duration: 1.4, delay: 1.2 });
+      gsap.from(".button-2", { opacity: 0, y: 20, scale: .8, ease: "power4.out", duration: 1.4, delay: 1.4 });
   
-    // animation for paragraph
-    gsap.from(".paragraph-1", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25, delay: .6 });
-    gsap.from(".paragraph-2", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25, delay: .8 });
-  
-    // animation for button
-    gsap.from(".button-1", { opacity: 0, y: 20, scale: .8, ease: "power4.out", duration: 1.4, delay: 1.2 });
-    gsap.from(".button-2", { opacity: 0, y: 20, scale: .8, ease: "power4.out", duration: 1.4, delay: 1.4 });
-
-    // box content
-    gsap.from(".box-1", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: .6 })
-    gsap.from(".box-2", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: .9 })
-    gsap.from(".box-3", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: 1.2 })
-  }, { scope: container })
+      // box content
+      gsap.from(".box-1", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: .6 })
+      gsap.from(".box-2", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: .9 })
+      gsap.from(".box-3", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: 1.2 })
+    }
+  }, { scope: container, dependencies: [isIntersecting], revertOnUpdate: true })
   
   return (
     <section ref={container} className="max-w-7xl m-auto my-[80px]">

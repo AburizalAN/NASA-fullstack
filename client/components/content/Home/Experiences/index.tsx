@@ -48,18 +48,25 @@ const experiences = [
     desc: `<p>Working in Digital Marketing Division</p>`,
   },
 ];
-const Experiences = () => {
+
+interface PropTypes {
+  isIntersecting: boolean
+}
+
+const Experiences = ({ isIntersecting }: PropTypes) => {
   const container = React.useRef<HTMLDivElement>(null)
   
   useGSAP(() => {
-    gsap.from(".tiny-title", { opacity: 0, x: -100, ease: "power4.out", duration: 1 });
-    gsap.from(".title", { opacity: 0, x: -100, ease: "power4.out", duration: 1, delay: .2 });
-    gsap.from(".paragraph", { opacity: 0, x: -100, ease: "power4.out", duration: 1, delay: .4 });
-
-    for (let i = 0; i < experiences.length; i++) {
-      gsap.from(`.masonry-item-${i}`, { opacity: 0, y: 100, scale: .95, ease: "power4.out", duration: 1, delay: (i + 1) * 0.2 })
+    if (isIntersecting) {
+      gsap.from(".tiny-title", { opacity: 0, x: -100, ease: "power4.out", duration: 1 });
+      gsap.from(".title", { opacity: 0, x: -100, ease: "power4.out", duration: 1, delay: .2 });
+      gsap.from(".paragraph", { opacity: 0, x: -100, ease: "power4.out", duration: 1, delay: .4 });
+  
+      for (let i = 0; i < experiences.length; i++) {
+        gsap.from(`.masonry-item-${i}`, { opacity: 0, y: 100, scale: .95, ease: "power4.out", duration: 1, delay: (i + 1) * 0.2 })
+      }
     }
-  }, { scope: container })
+  }, { scope: container, dependencies: [isIntersecting], revertOnUpdate: true })
 
   return (
     <section ref={container} className="max-w-7xl m-auto my-[180px]">

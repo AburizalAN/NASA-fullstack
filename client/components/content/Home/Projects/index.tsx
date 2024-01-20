@@ -59,17 +59,19 @@ const data = [
   },
 ];
 
-const Projects = () => {
+const Projects = ({ isIntersecting }: { isIntersecting: boolean }) => {
   const container = React.useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    gsap.from(".tiny-title", { opacity: 0, x: -100, ease: "power4.out", duration: 1 });
-    gsap.from(".title", { opacity: 0, x: -100, ease: "power4.out", duration: 1, delay: .2 });
-
-    for (let i = 0; i < data.length; i++) {
-      gsap.from(`.masonry-item-${i}`, { opacity: 0, y: 100, scale: .95, ease: "power4.out", duration: 1, delay: (i + 1) * 0.2 })
+    if (isIntersecting) {
+      gsap.from(".tiny-title", { opacity: 0, x: -100, ease: "power4.out", duration: 1 });
+      gsap.from(".title", { opacity: 0, x: -100, ease: "power4.out", duration: 1, delay: .2 });
+  
+      for (let i = 0; i < data.length; i++) {
+        gsap.from(`.masonry-item-${i}`, { opacity: 0, y: 100, scale: .95, ease: "power4.out", duration: 1, delay: (i + 1) * 0.2 })
+      }
     }
-  }, { scope: container })
+  }, { scope: container, dependencies: [isIntersecting], revertOnUpdate: true })
 
   return (
     <section ref={container} className="max-w-7xl m-auto">

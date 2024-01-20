@@ -25,16 +25,18 @@ const TextAnimation: any = dynamic(
   { ssr: false }
 );
 
-const Header = () => {
+const Header = ({ isIntersecting = false }: { isIntersecting?: boolean }) => {
   const containerAnim = React.useRef<HTMLDivElement>(null);
   const box1 = React.useRef<HTMLDivElement>(null);
   const box2 = React.useRef<HTMLDivElement>(null);
   const obj3d = React.useRef<HTMLDivElement>(null);
   useGSAP(() => {
-    gsap.from(box1.current, { scale: 0.9, opacity: 0, x: 70, delay: 0.5, ease: "power4.out", duration: 1.5 });
-    gsap.from(box2.current, { scale: 0.9, opacity: 0, x: -70, delay: 0.5, ease: "power4.out", duration: 1.5 });
-    gsap.from(obj3d.current, { opacity: 0, y: 70, delay: 0.7, ease: "power4.out", duration: 1.5 });
-  }, { scope: containerAnim })
+    if (isIntersecting) {
+      gsap.from(box1.current, { scale: 0.9, opacity: 0, x: 70, delay: 0.5, ease: "power4.out", duration: 1.5 });
+      gsap.from(box2.current, { scale: 0.9, opacity: 0, x: -70, delay: 0.5, ease: "power4.out", duration: 1.5 });
+      gsap.from(obj3d.current, { opacity: 0, y: 70, delay: 0.7, ease: "power4.out", duration: 1.5 });
+    }
+  }, { scope: containerAnim, dependencies: [isIntersecting], revertOnUpdate: true })
 
   return (
     <div className="max-w-7xl h-screen min-h-[700px] m-auto flex items-center relative">

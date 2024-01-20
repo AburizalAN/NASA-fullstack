@@ -4,19 +4,21 @@ import { MdOutlineMyLocation } from "react-icons/md";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-const Contact = () => {
+const Contact = ({ isIntersecting }: { isIntersecting: boolean }) => {
   const container = React.useRef<HTMLDivElement>(null)
   useGSAP(() => {
-    gsap.from(".tiny-title", { opacity: 0, y: 30, ease: "power4.out", duration: 1 });
-    gsap.from(".title", { opacity: 0, y: 30, ease: "power4.out", duration: 1, delay: .2 });
-    gsap.from(".paragraph", { opacity: 0, y: 30, ease: "power4.out", duration: 1, delay: .4 });
-    gsap.from(".form", { opacity: 0, x: 100, ease: "power4.out", duration: 1, delay: .6 });
-    gsap.from(".button-submit", { opacity: 0, x: 100, ease: "power4.out", duration: 1, delay: .8 });
-
-    for (let i = 0; i < 3; i++) {
-      gsap.from(`.contact-${i + 1}`, { opacity: 0, x: -100, ease: "power4.out", duration: 1, delay: i * 0.2 })
+    if (isIntersecting) {
+      gsap.from(".tiny-title", { opacity: 0, y: 30, ease: "power4.out", duration: 1 });
+      gsap.from(".title", { opacity: 0, y: 30, ease: "power4.out", duration: 1, delay: .2 });
+      gsap.from(".paragraph", { opacity: 0, y: 30, ease: "power4.out", duration: 1, delay: .4 });
+      gsap.from(".form", { opacity: 0, x: 100, ease: "power4.out", duration: 1, delay: .6 });
+      gsap.from(".button-submit", { opacity: 0, x: 100, ease: "power4.out", duration: 1, delay: .8 });
+  
+      for (let i = 0; i < 3; i++) {
+        gsap.from(`.contact-${i + 1}`, { opacity: 0, x: -100, ease: "power4.out", duration: 1, delay: i * 0.2 })
+      }
     }
-  }, { scope: container })
+  }, { scope: container, dependencies: [isIntersecting], revertOnUpdate: true })
 
   const openGmail = () => {
     const payload = {
