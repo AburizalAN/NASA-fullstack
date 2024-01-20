@@ -5,7 +5,7 @@ import { useControls, Leva } from "leva";
 import * as THREE from "three";
 import { OrbitControls, useHelper } from '@react-three/drei';
 
-const withCanvas = <P extends object>(Component: React.ComponentType<P>) => {
+const withCanvas = <P extends object>(Component: (props: P) => React.JSX.Element) => {
   const WithCanvas = (props: P) => {
     return (
       <Canvas shadows camera={{ fov: 75, near: 0.1, far: 1000, position: [-1.13, 0, 3.9] }}>

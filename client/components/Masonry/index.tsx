@@ -115,19 +115,20 @@ const Masonry: React.FC<MasonryProps> = ({ children, cols, gap = 0, className })
   );
 };
 
-export const MasonryItem: React.FC<MasonryItemProps> = ({
+export const MasonryItem = React.forwardRef<HTMLDivElement, MasonryItemProps>(function MasonryItem({
   children,
   className,
   ...props
-}) => {
+}, ref) {
   return (
     <div
       className={clsx("masonry-item", "transition-all", className)}
+      ref={ref}
       {...props}
     >
       {children}
     </div>
   );
-};
+})
 
 export default Masonry;
