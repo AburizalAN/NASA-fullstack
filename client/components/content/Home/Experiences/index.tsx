@@ -73,8 +73,9 @@ const Experiences = ({ isIntersecting }: PropTypes) => {
       <div className="flex flex-shrink gap-16">
         <div className="w-4/12 flex-shrink-0">
           <h3 className="tiny-title mb-3 font-semibold text-indigo-800">Experiences</h3>
-          <h1 className="title mb-7 font-bold text-4xl leading-tight">{"Lorem Ipsum Dolor Sit Amet"}</h1>
-          <p className="paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur elementum ornare dui, eu sollicitudin dolor finibus et. Fusce molestie suscipit arcu, eget ultricies nisi venenatis eu.</p>
+          <h1 className="title mb-7 font-bold text-4xl leading-tight">Sofware Engineer with <span className="text-indigo-800">2+ Years</span> Experiences in <span className="text-indigo-800">Frontend Development</span></h1>
+          <p className="paragraph mb-[1rem]">More than 2 years of experience in Frontend Development Websites specifically in building Websites using the latest and relevant technologies.</p>
+          <p className="paragraph">Have a deep understanding of javascript fundamentals, React, and Next.js. Also have good knowledges about how to make good performance websites and write clean code.</p>
         </div>
         <Masonry cols={2} className="flex-1 -m-3">
           {experiences.map((item, i) => (
