@@ -54,13 +54,15 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="flex items-center ml-auto">
-              <button className="leading-tight px-4 py-2 border-2 border-indigo-500/25 text-indigo-800/70 font-bold rounded-lg">
-                Download Resume
-              </button>
-              <button className="pl-4 ml-4 inline-block border-l-2 border-gray-300" title="Color Mode">
+              <span className="pr-5 mr-5 border-r-2 border-gray-200">
+                <button className="leading-tight px-4 py-2 border-2 border-indigo-500/25 text-indigo-800/70 font-bold rounded-lg">
+                  Download Resume
+                </button>
+              </span>
+              <button title="Color Mode">
                 <Switch
-                  renderIcon={({ status }: { status: string }) => status == "left" ? <LuSun className="text-xl" /> : <LuMoonStar className="text-xl" />}
-                  content={({ status }: { status: string }) => status = "left" ? "Light Mode" : "Dark Mode"} 
+                  renderIcon={({ status }: { status: string }) => status === "left" ? <LuSun className="text-xl" /> : <LuMoonStar className="text-xl" />}
+                  content={({ status }: { status: string }) => status === "left" ? "Light Mode" : "Dark Mode"} 
                 />
               </button>
             </div>
