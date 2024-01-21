@@ -25,18 +25,18 @@ const AboutMe = ({ isIntersecting = false }: PropTypes) => {
       gsap.from(".paragraph-2", { opacity: 0, x: -100, ease: "power4.out", duration: 1.25, delay: .8 });
     
       // animation for button
-      gsap.from(".button-1", { opacity: 0, y: 20, scale: .8, ease: "power4.out", duration: 1.4, delay: 1.2 });
-      gsap.from(".button-2", { opacity: 0, y: 20, scale: .8, ease: "power4.out", duration: 1.4, delay: 1.4 });
+      gsap.from(".button-1", { opacity: 0, y: 20, scale: .8, ease: "power4.out", duration: 1.4, delay: .8 });
+      gsap.from(".button-2", { opacity: 0, y: 20, scale: .8, ease: "power4.out", duration: 1.4, delay: 1.2 });
   
       // box content
       gsap.from(".box-1", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: .6 })
-      gsap.from(".box-2", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: .9 })
-      gsap.from(".box-3", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: 1.2 })
+      gsap.from(".box-2", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: .8 })
+      gsap.from(".box-3", { opacity: 0, x: 50, y: 20, scale: .8, ease: "power4.out", duration: 1, delay: 1 })
     }
   }, { scope: container, dependencies: [isIntersecting], revertOnUpdate: true })
   
   return (
-    <section ref={container} className="max-w-7xl m-auto my-[80px]">
+    <section ref={container} className="max-w-7xl m-auto">
       <div className="flex">
         <div className="flex-1 pr-10">
           <h1 className="font-bold text-[70px] leading-[1]">

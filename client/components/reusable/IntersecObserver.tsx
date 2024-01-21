@@ -16,6 +16,7 @@ const IntersecObserver = ({ component }: Props) => {
 
   let obeserverOptions = {
     rootMargin: "0px",
+    threshold: 0.01,
   };
 
   const observer =

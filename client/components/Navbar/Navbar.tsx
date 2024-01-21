@@ -3,6 +3,8 @@ import clsx from "clsx";
 import Link from "next/link";
 import { RiExternalLinkLine } from "react-icons/ri";
 import { usePathname } from 'next/navigation';
+import { LuMoonStar, LuSun } from "react-icons/lu";
+import Switch from "../reusable/Switch";
 
 const Navbar = () => {
   const navRef = React.useRef<HTMLDListElement>(null);
@@ -27,7 +29,7 @@ const Navbar = () => {
 
   const mergedClass = clsx(
     "text-gray-500 z-50 w-full fixed transition-all duration-300 z-[100]",
-    scrollPosition > 0 ? "navbar-shadow bg-white" : ""
+    scrollPosition > 0 ? "shadow-lg shadow-indigo-700/5 bg-white" : ""
   );
 
   const btnClass = (curPath: string) => clsx("navbar-menu-item", pathname === curPath && "menu-active");
@@ -35,20 +37,33 @@ const Navbar = () => {
   return (
     <>
       <nav ref={navRef} className={mergedClass}>
-        <div className="flex py-5 px-4 items-center justify-center w-full max-w-6xl mx-auto">
-          <div className="flex gap-x-8 text-sm">
-            <Link href="/blog">
-              <button className={btnClass("/blog")}>Blog</button>
-            </Link>
-            <Link href="/">
-              <button className={btnClass("/")}>About me</button>
-            </Link>
-            <Link href={"https://github.com/AburizalAN"} target="_blank" className="no-underline">
-              <button className="navbar-menu-item flex items-center gap-1">
-                <span>Github</span>
-                <RiExternalLinkLine />
+        <div className="px-6">
+          <div className="flex py-5 items-center justify-end w-full max-w-7xl mx-auto">
+            <div className="flex gap-x-8 text-sm">
+              <Link href="/blog">
+                <button className={btnClass("/blog")}>Blog</button>
+              </Link>
+              <Link href="/">
+                <button className={btnClass("/")}>About me</button>
+              </Link>
+              <Link href={"https://github.com/AburizalAN"} target="_blank" className="no-underline">
+                <button className="navbar-menu-item flex items-center gap-1">
+                  <span>Github</span>
+                  <RiExternalLinkLine />
+                </button>
+              </Link>
+            </div>
+            <div className="flex items-center ml-auto">
+              <button className="leading-tight px-4 py-2 border-2 border-indigo-500/25 text-indigo-800/70 font-bold rounded-lg">
+                Download Resume
               </button>
-            </Link>
+              <button className="pl-4 ml-4 inline-block border-l-2 border-gray-300" title="Color Mode">
+                <Switch
+                  renderIcon={({ status }: { status: string }) => status == "left" ? <LuSun className="text-xl" /> : <LuMoonStar className="text-xl" />}
+                  content={({ status }: { status: string }) => status = "left" ? "Light Mode" : "Dark Mode"} 
+                />
+              </button>
+            </div>
           </div>
         </div>
       </nav>
